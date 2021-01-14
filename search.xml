@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo -- 如何撰寫和客製化自己的部落格</title>
+    <url>/2021/01/15/hexo-blog-advance/</url>
+    <content><![CDATA[<p>使用以下指令，hexo 就會自動生成 md 檔，接下來直接寫 Markdown 語法就可以完成部落格，就是這麼簡單。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new &lt;your md file name&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h2 id="新增文章"><a href="#新增文章" class="headerlink" title="新增文章"></a>新增文章</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;  //如果 &lt;title&gt; 包含空格的話，請使用引號括起來。 ex: hexo new <span class="string">&quot;my post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>如果沒有設定 [layout] 則會使用 _config.yml 中的 default_layout 設定代替，預設是用 post，也因此可以修改 scaffolds 內的 post.md 來控制生成的 md 檔預設會長什麼樣。<br><img src="https://i.imgur.com/iOHGfPm.png" alt="scaffolds-post.md"></p>
+<h2 id="更換主題"><a href="#更換主題" class="headerlink" title="更換主題"></a>更換主題</h2>]]></content>
+      <categories>
+        <category>研究筆記</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>研究筆記</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo + GitHub Pages 建立部落格</title>
     <url>/2021/01/10/hexo-blog/</url>
     <content><![CDATA[<p>Hexo 只需選取需要的主題、設定相關的_config.yml和使用npm安裝套件，如此在撰寫文章只要專注於Markdown的語法即可。<br>GitHub Pages 本身是使用 GitHub 作為網頁的儲存空間，有以下的限制:</p>
@@ -45,26 +63,8 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-        <tag>GitHub Pages</tag>
         <tag>新手上路</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo -- 如何撰寫和客製化自己的部落格</title>
-    <url>/2021/01/15/hexo-blog-advance/</url>
-    <content><![CDATA[<p>使用以下指令，hexo 就會自動生成 md 檔，接下來直接寫 Markdown 語法就可以完成部落格，就是這麼簡單。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new &lt;your md file name&gt;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-<h2 id="新增文章"><a href="#新增文章" class="headerlink" title="新增文章"></a>新增文章</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;  //如果 &lt;title&gt; 包含空格的話，請使用引號括起來。 ex: hexo new <span class="string">&quot;my post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>如果沒有設定 [layout] 則會使用 _config.yml 中的 default_layout 設定代替，預設是用 post，也因此可以修改 scaffolds 內的 post.md 來控制生成的 md 檔預設會長什麼樣。<br><img src="https://i.imgur.com/iOHGfPm.png" alt="scaffolds-post.md"></p>
-<h2 id="更換主題"><a href="#更換主題" class="headerlink" title="更換主題"></a>更換主題</h2>]]></content>
-      <categories>
-        <category>研究筆記</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>研究筆記</tag>
+        <tag>GitHub Pages</tag>
       </tags>
   </entry>
 </search>
