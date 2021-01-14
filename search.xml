@@ -9,13 +9,38 @@
 
 <h2 id="新增文章"><a href="#新增文章" class="headerlink" title="新增文章"></a>新增文章</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;  //如果 &lt;title&gt; 包含空格的話，請使用引號括起來。 ex: hexo new <span class="string">&quot;my post&quot;</span></span><br></pre></td></tr></table></figure>
 <p>如果沒有設定 [layout] 則會使用 _config.yml 中的 default_layout 設定代替，預設是用 post，也因此可以修改 scaffolds 內的 post.md 來控制生成的 md 檔預設會長什麼樣。<br><img src="https://i.imgur.com/iOHGfPm.png" alt="scaffolds-post.md"></p>
-<h2 id="更換主題"><a href="#更換主題" class="headerlink" title="更換主題"></a>更換主題</h2>]]></content>
+<h2 id="更換主題"><a href="#更換主題" class="headerlink" title="更換主題"></a>更換主題</h2><ol>
+<li><a href="https://hexo.io/themes/">官方主題</a></li>
+<li><a href="https://github.com/theme-next/hexo-theme-next">最夯的 NexT</a></li>
+<li><a href="https://github.com/hexojs/hexo/wiki/Sites">Hexo github 上整理</a></li>
+</ol>
+<p>Hexo 更換主題非常簡單，基本上將喜歡的主題下載到專案中的 themes，並設定 Hexo 專案根目錄的 _config.yml 即可替換。</p>
+<h3 id="主題-–-NexT"><a href="#主題-–-NexT" class="headerlink" title="主題 – NexT"></a>主題 – NexT</h3><p>目前較多人使用的主題，外觀簡約且可調整的細節也很豐富，最重要的是教學、文件和功能都非常的齊全(本文章是使用 NexTv7.8.0)。<br>現階段 NexT 有兩個版本 v6 以後和 v5.1.x 的版本(舊版):<br><a href="https://theme-next.iissnan.com/">舊版官網</a>:<br>    <img src="https://i.imgur.com/pyt0Y1V.png" alt="舊版官網"></p>
+<p><a href="https://github.com/iissnan/hexo-theme-next">舊版GitHub</a>:<br>    <img src="https://i.imgur.com/cUWgA5G.png" alt="舊版GitHub"></p>
+<p><a href="https://github.com/theme-next/hexo-theme-next">新版GitHub</a> (<a href="https://theme-next.js.org/">官網</a>):<br>    <img src="https://i.imgur.com/ISzix6v.png" alt="新版GitHub"></p>
+<h4 id="安裝-NexT"><a href="#安裝-NexT" class="headerlink" title="安裝 NexT"></a>安裝 NexT</h4><ol>
+<li><p>先從 GitHub clone 專案到根目錄的 themes 資料夾:</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure></li>
+<li><p>更改 _config.yml 內 theme 為 next<br> <img src="https://i.imgur.com/QCBIc9P.png" alt="Hexo更換主題NexT"></p>
+</li>
+<li><p>在終端機重新執行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>NexT 預設畫面:<br> <img src="https://i.imgur.com/JkcYNek.png" alt="NexT 預設畫面"></p>
+</li>
+</ol>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a></li>
+<li><a href="https://hsiangfeng.github.io/hexo/20200930/1081826307/">(17) 試著學 Hexo - NexT 主題篇 - NexT</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10207997">Hexo - 前端也能建置部落格！更換主題與發表文章篇</a></li>
+</ol>
+]]></content>
       <categories>
         <category>研究筆記</category>
       </categories>
       <tags>
         <tag>Hexo</tag>
         <tag>研究筆記</tag>
+        <tag>Hexo Theme Next v7.8</tag>
       </tags>
   </entry>
   <entry>
@@ -51,7 +76,10 @@
 </ol>
 <h3 id="部屬至-GitHub"><a href="#部屬至-GitHub" class="headerlink" title="部屬至 GitHub"></a>部屬至 GitHub</h3><p>回到終端機，輸入以下指令(記得要進到專案的根目錄):</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo cl  &#x2F;&#x2F;清除之前建立的靜態檔案，也可以輸入 hexo clean</span><br><span class="line">hexo g  &#x2F;&#x2F;建立靜態檔案，也可以輸入 hexo generate</span><br><span class="line">hexo d  &#x2F;&#x2F;部署至 Github Pages，也可以輸入 hexo deploy</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g -d &#x2F;&#x2F;建立並部屬(懶人寫法)</span><br></pre></td></tr></table></figure>
+<p>建立並部屬(懶人寫法):</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g -d </span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
 <p>預設完成的介面，這樣就完成了:<br><img src="https://i.imgur.com/SiRPxPM.png" alt="Hexo 部屬 GitHub"></p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a></li>
