@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://i.imgur.com/SiRPxPM.png">
 <meta property="og:image" content="https://i.imgur.com/BLDp7fd.png">
 <meta property="article:published_time" content="2021-01-10T10:03:32.000Z">
-<meta property="article:modified_time" content="2021-06-11T09:22:08.713Z">
+<meta property="article:modified_time" content="2021-06-23T16:02:29.486Z">
 <meta property="article:author" content="Frank Chen">
 <meta property="article:tag" content="新手上路">
 <meta property="article:tag" content="研究筆記">
@@ -239,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2021-06-11 17:22:08" itemprop="dateModified" datetime="2021-06-11T17:22:08+08:00">2021-06-11</time>
+                <time title="修改時間：2021-06-24 00:02:29" itemprop="dateModified" datetime="2021-06-24T00:02:29+08:00">2021-06-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -303,8 +303,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
 <p>或</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<p>P.S.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s //開起本地端的網站，方便預覽成果</span><br></pre></td></tr></table></figure>
 <p>預設完成的介面，這樣就完成了:<br><img src="https://i.imgur.com/SiRPxPM.png" alt="Hexo 部屬 GitHub"></p>
-<h3 id="儲存至-GitHub"><a href="#儲存至-GitHub" class="headerlink" title="儲存至 GitHub"></a>儲存至 GitHub</h3><p>為了讓不同的電腦可以隨時撰寫和同步 blog 需要將整個 hexo 專案放置 Github ，也為了方便找尋專案將專案推至同一個 repository 的 develop 分支。<br><img src="https://i.imgur.com/BLDp7fd.png" alt="hexo-blog開發分支"></p>
+<h3 id="儲存至-GitHub"><a href="#儲存至-GitHub" class="headerlink" title="儲存至 GitHub"></a>儲存至 GitHub</h3><p>為了讓不同的電腦可以隨時撰寫和同步 blog 需要將整個 hexo 專案放置 Github ，也為了方便找尋專案將專案推至同一個 repository 的 develop 分支。 <strong>(已更改為 Private 的獨立 repository)</strong><br><img src="https://i.imgur.com/BLDp7fd.png" alt="hexo-blog開發分支"></p>
 <p>新電腦只須執行以下專案即可開始撰寫(<a href="/2021/01/15/hexo-blog-advance/" title="Hexo 客製化">Hexo 客製化</a> , <a href="/2021/01/15/hexo-theme-NexT/" title="NexT 配置">NexT 配置</a>):</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone -b &lt;branchname&gt; &lt;remote-repo-url&gt; . &#x2F;&#x2F;-b 為 --branch 簡寫 , . 代表直接clone到這一個資料夾 ,&lt;branchname&gt; 此處指定 develop</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next &#x2F;&#x2F;將主題下載至 hexo 的 theme，此處使用 Next</span><br></pre></td></tr></table></figure>
 <p>撰寫完成將最新的開發進度再推送至 develop 分支。</p>

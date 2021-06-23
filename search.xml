@@ -126,7 +126,7 @@
 <li><p>在終端機重新執行</p>
 </li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s &#x2F;&#x2F;開起本地端的網站，方便預覽成果</span><br></pre></td></tr></table></figure>
 <p>NexT 預設畫面( <a href="/2021/01/15/hexo-theme-NexT/" title="Hexo Theme -- NexT 進階配置">Hexo Theme -- NexT 進階配置</a> ):<br><img src="https://i.imgur.com/JkcYNek.png" alt="NexT 預設畫面"></p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a></li>
@@ -181,8 +181,10 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
 <p>或</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<p>P.S.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo s //開起本地端的網站，方便預覽成果</span><br></pre></td></tr></table></figure>
 <p>預設完成的介面，這樣就完成了:<br><img src="https://i.imgur.com/SiRPxPM.png" alt="Hexo 部屬 GitHub"></p>
-<h3 id="儲存至-GitHub"><a href="#儲存至-GitHub" class="headerlink" title="儲存至 GitHub"></a>儲存至 GitHub</h3><p>為了讓不同的電腦可以隨時撰寫和同步 blog 需要將整個 hexo 專案放置 Github ，也為了方便找尋專案將專案推至同一個 repository 的 develop 分支。<br><img src="https://i.imgur.com/BLDp7fd.png" alt="hexo-blog開發分支"></p>
+<h3 id="儲存至-GitHub"><a href="#儲存至-GitHub" class="headerlink" title="儲存至 GitHub"></a>儲存至 GitHub</h3><p>為了讓不同的電腦可以隨時撰寫和同步 blog 需要將整個 hexo 專案放置 Github ，也為了方便找尋專案將專案推至同一個 repository 的 develop 分支。 <strong>(已更改為 Private 的獨立 repository)</strong><br><img src="https://i.imgur.com/BLDp7fd.png" alt="hexo-blog開發分支"></p>
 <p>新電腦只須執行以下專案即可開始撰寫(<a href="/2021/01/15/hexo-blog-advance/" title="Hexo 客製化">Hexo 客製化</a> , <a href="/2021/01/15/hexo-theme-NexT/" title="NexT 配置">NexT 配置</a>):</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone -b &lt;branchname&gt; &lt;remote-repo-url&gt; . &#x2F;&#x2F;-b 為 --branch 簡寫 , . 代表直接clone到這一個資料夾 ,&lt;branchname&gt; 此處指定 develop</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next &#x2F;&#x2F;將主題下載至 hexo 的 theme，此處使用 Next</span><br></pre></td></tr></table></figure>
 <p>撰寫完成將最新的開發進度再推送至 develop 分支。</p>
