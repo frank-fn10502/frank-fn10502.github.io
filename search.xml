@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Git -- 簡介、基本指令 &amp; GUI介面</title>
+    <url>/2021/01/26/git-first/</url>
+    <content><![CDATA[<ul>
+<li><p>Git 是一個 <strong>「分散式的版本控制」</strong> 工具。</p>
+<ul>
+<li><p>什麼是 <strong>「版本」</strong> ? 什麼又是 <strong>「版本控制」</strong> ?<br>就是一個 <strong>「版本」</strong>的範例，而 <strong>「版本控制」</strong> 則是指可以隨心所欲的切換專案版本。<br><img src="https://i.imgur.com/rVAnlPq.png" alt="最直覺的版本控制方法"></p>
+</li>
+<li><p>那麼什麼又是 <strong>「分散式的版本控制」</strong> ?<br>就是指這個系統(工具)沒有一個中心點，每一個系統(工具)在無法相連時也可以獨立使用自己的版本控制，並在可以聯網時再進行各版本的互相同步。</p>
+<blockquote>
+<p>分散式版本控制系統（DVCS）用對等網路的作法來處理版本控制，而集中式版本控制系統則是用主從式架構的作法<br>(維基百科)</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>GitHub<br>是一個可以免費放程式碼的網站，本體是一個 Git Server，提供使用者網頁版本的控制服務，一般多人合作時通常也都使用該網頁來同步每一個人的進度。</p>
+</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="Git-基本使用方法-GUI-SourceTree"><a href="#Git-基本使用方法-GUI-SourceTree" class="headerlink" title="Git 基本使用方法 (GUI: SourceTree)"></a>Git 基本使用方法 (GUI: SourceTree)</h2><blockquote>
+<p><a href="https://git-scm.com/">Git 官網</a><br><a href="https://www.sourcetreeapp.com/">SourceTree 官網</a></p>
+</blockquote>
+<p>Git 為分散式的版本控制系統，因此在不聯網的情形下依然可以使用版本控制的功能，以下為基本的指令和 SourceTree 的操作。</p>
+<h3 id="初始-Repository"><a href="#初始-Repository" class="headerlink" title="初始 Repository"></a>初始 Repository</h3><p>在安裝完 Git 後可在任一資料夾位置打開 cmd(命令提示字元) 並輸入以下指令初始化 Git 的 Repository (同時也在這一個資料夾中創建出 Git 的環境):<br>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure><br>在完成初始化後就可以看到一個 .git 的資料夾，所有 Git 紀錄的資料都在這一個資料夾中(也就是說該資夾被刪除 Git 的板控紀錄也會消失)，在 windows 中該資料夾預設是被隱藏的。(圖右半部為 SourcrTree 的初始化方法)</p>
+<p><img src="https://i.imgur.com/cQtfsnK.png" alt="初始 Repository"></p>
+<h3 id="用-Git-紀錄檔案的每一次變動-版本"><a href="#用-Git-紀錄檔案的每一次變動-版本" class="headerlink" title="用 Git 紀錄檔案的每一次變動(版本)"></a>用 Git 紀錄檔案的每一次變動(版本)</h3><p>新增一個 one.txt 的檔案，輸入以下指令來觀看 Git 目前對檔案的管理狀態: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<p>左下為 SourceTree (自動偵測) ，右下為 Cmd 的文字介面。<br><img src="https://i.imgur.com/r6NA71R.png" alt="新增一個檔案"></p>
+<p>此時對於 Git 而言有<strong>偵測</strong>到一個新檔案，但是這些檔案並<strong>未加入</strong> Git 的紀錄中，Git 使用兩段式的方法紀錄一次的更動(版本)，輸入以下指令:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;對於這一個版本的文字描述&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>git add 之後資料夾狀態 (右半為 Source Tree):<br><img src="https://i.imgur.com/N2Ucec4.png" alt="git add 之後資料夾狀態"></p>
+</li>
+<li><p>git commit (右半為 Source Tree):<br><img src="https://i.imgur.com/hvjppjG.png" alt="before commit"></p>
+</li>
+</ul>
+<ul>
+<li>commit 之後的狀態 (右半為 Source Tree):<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git status //查看 Git 對檔案的管理狀態 (對應到 Source Tree 的 File Status)</span><br><span class="line">git <span class="built_in">log</span>    //文字版的樹狀圖 (也就是 Git 紀錄的每一個節點) (對應到 Source Tree 的 History)</span><br></pre></td></tr></table></figure>
+可以看到在 add 並 commit 這兩道指令後 one.txt 這一檔案就正式加入倒 Git 的版本控制當中了。<br><img src="https://i.imgur.com/5qr3uEM.png" alt="after commit"></li>
+</ul>
+<h3 id="Git-版本切換"><a href="#Git-版本切換" class="headerlink" title="Git 版本切換"></a>Git 版本切換</h3><p>在重複兩到三次 add 並 commit 之後可以看到每一個紀錄(版本)慢慢地形成一個路徑或者說一棵樹(如下圖):<br><img src="https://i.imgur.com/hp1v4mS.png" alt="git 紀錄多次之後"></p>
+<p>要讓 Git 切換版本或分支 使用以下指令:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout &lt;指定的 SHA-1&gt; //SHA-1 (Secure Hash Algorithm 1)</span><br><span class="line">                           //也就是下圖紅框的位置</span><br></pre></td></tr></table></figure>
+<p>版本切換(圖右 Source Tree):<br><img src="https://i.imgur.com/yA6THle.png" alt="使用 git checkout"></p>
+<p>版本切換後對檔案產生的影響:<br><img src="https://i.imgur.com/ufZB8GE.png" alt="git 版本切換下檔案影響"></p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%88%86%E6%95%A3%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6">分散式版本控制(wiki)</a></li>
+<li>為你自己學 Git – 五倍紅寶石．高見龍</li>
+</ol>
+]]></content>
+      <categories>
+        <category>新手上路</category>
+      </categories>
+      <tags>
+        <tag>新手上路</tag>
+        <tag>研究筆記</tag>
+        <tag>Git</tag>
+        <tag>SourceTree</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo -- 如何撰寫和客製化自己的部落格</title>
     <url>/2021/01/15/hexo-blog-advance/</url>
     <content><![CDATA[<p>使用以下指令，hexo 就會自動生成 md 檔，接下來直接寫 Markdown 語法就可以完成部落格，就是這麼簡單。</p>
@@ -9,44 +71,83 @@
 
 <h2 id="新增文章"><a href="#新增文章" class="headerlink" title="新增文章"></a>新增文章</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;  //如果 &lt;title&gt; 包含空格的話，請使用引號括起來。 ex: hexo new <span class="string">&quot;my post&quot;</span></span><br></pre></td></tr></table></figure>
 <p>如果沒有設定 [layout] 則會使用 _config.yml 中的 default_layout 設定代替，預設是用 post，也因此可以修改 scaffolds 內的 post.md 來控制生成的 md 檔預設會長什麼樣。<br><img src="https://i.imgur.com/iOHGfPm.png" alt="scaffolds-post.md"></p>
+<h2 id="文章中站內連結"><a href="#文章中站內連結" class="headerlink" title="文章中站內連結"></a>文章中站內連結</h2><p>Hexo 可以使用內建的標籤<a href="https://hexo.io/zh-cn/docs/tag-plugins">插件(Tag Plugins)</a>的 <code>post_link</code> 來達成站內文章的連接。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% post_link filename [title] %&#125;</span><br></pre></td></tr></table></figure>
+<p>範例:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- &#123;% post_link hexo-blog &quot;Hexo + GitHub Pages 建立部落格&quot; %&#125;</span><br><span class="line">- &#123;% post_link hexo-theme-NexT &quot;Hexo Theme -- NexT&quot; %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="/2021/01/10/hexo-blog/" title="Hexo + GitHub Pages 建立部落格">Hexo + GitHub Pages 建立部落格</a></li>
+<li><a href="/2021/01/15/hexo-theme-NexT/" title="Hexo Theme -- NexT">Hexo Theme -- NexT</a>
+
+</li>
+</ul>
+<h2 id="Alternate-Theme-Config"><a href="#Alternate-Theme-Config" class="headerlink" title="Alternate Theme Config"></a>Alternate Theme Config</h2><p>Hexo 主題是一個獨立的專案，同時也有一個獨立的 _config.yml 檔案，我們可以直接修改 這一個 config 檔案來客製化主題，但也因為更動這一檔案，每一次 theme 版本更新時我們都需要小心的比對有甚麼不一樣再 pull 以更新 theme 的版本。</p>
+<p>簡單來說就因為我們想要變更 theme 的設定，造成我們必須花心力去維護自己的設定檔和作者撰寫的 theme 的功能和外觀，很顯然我們有其他的選擇。</p>
+<ol>
+<li><p>將 theme 的 _config.yml 所需要的設定搬到專案跟目錄的 _config.yml:</p>
+<blockquote>
+<p><strong>Supported since Hexo 2.8.2</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># _config.yml</span><br><span class="line">theme: &quot;my-theme&quot;</span><br><span class="line">theme_config:</span><br><span class="line">  bio: &quot;My awesome bio&quot;</span><br><span class="line">  foo:</span><br><span class="line">    bar: &#39;a&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># themes&#x2F;my-theme&#x2F;_config.yml</span><br><span class="line">bio: &quot;Some generic bio&quot;</span><br><span class="line">logo: &quot;a-cool-image.png&quot;</span><br><span class="line">  foo:</span><br><span class="line">    baz: &#39;b&#39;</span><br></pre></td></tr></table></figure>
+<p>theme 的 config 最終會編譯成這樣:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  bio: &quot;My awesome bio&quot;,</span><br><span class="line">  logo: &quot;a-cool-image.png&quot;,</span><br><span class="line">  foo: &#123;</span><br><span class="line">    bar: &quot;a&quot;,</span><br><span class="line">    baz: &quot;b&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>另外在專案跟目錄新增 <code>_config.[theme].yml</code> 這一檔案</p>
+<blockquote>
+<p><strong>Supported since Hexo 5.0.0</strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># _config.yml</span><br><span class="line">theme: &quot;my-theme&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># _config.my-theme.yml</span><br><span class="line">bio: &quot;My awesome bio&quot;</span><br><span class="line">foo:</span><br><span class="line">  bar: &#39;a&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># themes&#x2F;my-theme&#x2F;_config.yml</span><br><span class="line">bio: &quot;Some generic bio&quot;</span><br><span class="line">logo: &quot;a-cool-image.png&quot;</span><br><span class="line">  foo:</span><br><span class="line">    baz: &#39;b&#39;</span><br></pre></td></tr></table></figure>
+<p>theme 的 config 最終結果:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  bio: &quot;My awesome bio&quot;,</span><br><span class="line">  logo: &quot;a-cool-image.png&quot;,</span><br><span class="line">  foo: &#123;</span><br><span class="line">    bar: &quot;a&quot;,</span><br><span class="line">    baz: &quot;b&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Hexo 官網 <code>強烈建議</code> 將 theme 的設定放置於同一個檔案，但是考慮到有人可能有 theme 的設定分開儲存的需要，以下資訊十分重要(權限排序):</p>
+<blockquote>
+<p>主站的 _congig.yml 權力 &gt; _config.[theme].yml &gt; theme 內建的 _config.yml</p>
+</blockquote>
+</blockquote>
+</li>
+</ol>
 <h2 id="更換主題"><a href="#更換主題" class="headerlink" title="更換主題"></a>更換主題</h2><ol>
 <li><a href="https://hexo.io/themes/">官方主題</a></li>
 <li><a href="https://github.com/theme-next/hexo-theme-next">最夯的 NexT</a></li>
 <li><a href="https://github.com/hexojs/hexo/wiki/Sites">Hexo github 上整理</a></li>
 </ol>
 <p>Hexo 更換主題非常簡單，基本上將喜歡的主題下載到專案中的 themes，並設定 Hexo 專案根目錄的 _config.yml 即可替換。</p>
-<h3 id="主題-–-NexT"><a href="#主題-–-NexT" class="headerlink" title="主題 – NexT"></a>主題 – NexT</h3><p>目前較多人使用的主題，外觀簡約且可調整的細節也很豐富，最重要的是教學、文件和功能都非常的齊全(本文章是使用 NexTv7.8.0)。<br>現階段 NexT 有兩個版本 v6 以後和 v5.1.x 的版本(舊版):<br><a href="https://theme-next.iissnan.com/">舊版官網</a>:<br>    <img src="https://i.imgur.com/pyt0Y1V.png" alt="舊版官網"></p>
-<p><a href="https://github.com/iissnan/hexo-theme-next">舊版GitHub</a>:<br>    <img src="https://i.imgur.com/cUWgA5G.png" alt="舊版GitHub"></p>
-<p><a href="https://github.com/theme-next/hexo-theme-next">新版GitHub</a> (<a href="https://theme-next.js.org/">官網</a>):<br>    <img src="https://i.imgur.com/ISzix6v.png" alt="新版GitHub"></p>
-<h4 id="安裝-NexT"><a href="#安裝-NexT" class="headerlink" title="安裝 NexT"></a>安裝 NexT</h4><ol>
+<h3 id="主題-–-NexT"><a href="#主題-–-NexT" class="headerlink" title="主題 – NexT"></a>主題 – NexT</h3><p>目前較多人使用的主題，外觀簡約且可調整的細節也很豐富，最重要的是教學、文件和功能都非常的齊全(本文章是使用 NexTv7.8.0)。<br>現階段 NexT 有兩個版本 v6 以後和 v5.1.x 的版本(舊版):<br><a href="https://theme-next.iissnan.com/">舊版官網</a>:<br><img src="https://i.imgur.com/pyt0Y1V.png" alt="舊版官網"></p>
+<p><a href="https://github.com/iissnan/hexo-theme-next">舊版 GitHub</a>:<br><img src="https://i.imgur.com/cUWgA5G.png" alt="舊版GitHub"></p>
+<p><a href="https://github.com/theme-next/hexo-theme-next">新版 GitHub</a> (<a href="https://theme-next.js.org/">官網</a>):<br><img src="https://i.imgur.com/ISzix6v.png" alt="新版GitHub"></p>
+<h3 id="安裝-NexT"><a href="#安裝-NexT" class="headerlink" title="安裝 NexT"></a>安裝 NexT</h3><ol>
 <li><p>先從 GitHub clone 專案到根目錄的 themes 資料夾:</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure></li>
-<li><p>更改 _config.yml 內 theme 為 next<br> <img src="https://i.imgur.com/QCBIc9P.png" alt="Hexo更換主題NexT"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure></li>
+<li><p>更改 _config.yml 內 theme 為 next<br><img src="https://i.imgur.com/QCBIc9P.png" alt="Hexo更換主題NexT"></p>
 </li>
 <li><p>在終端機重新執行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<p>NexT 預設畫面:<br> <img src="https://i.imgur.com/JkcYNek.png" alt="NexT 預設畫面"></p>
 </li>
 </ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<p>NexT 預設畫面( <a href="/2021/01/15/hexo-theme-NexT/" title="Hexo Theme -- NexT 進階配置">Hexo Theme -- NexT 進階配置</a> ):<br><img src="https://i.imgur.com/JkcYNek.png" alt="NexT 預設畫面"></p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a></li>
 <li><a href="https://hsiangfeng.github.io/hexo/20200930/1081826307/">(17) 試著學 Hexo - NexT 主題篇 - NexT</a></li>
 <li><a href="https://ithelp.ithome.com.tw/articles/10207997">Hexo - 前端也能建置部落格！更換主題與發表文章篇</a></li>
+<li><a href="https://hexo.io/zh-tw/docs/configuration">Hexo 官網</a></li>
 </ol>
 ]]></content>
       <categories>
         <category>研究筆記</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
         <tag>研究筆記</tag>
-        <tag>Hexo Theme Next v7.8</tag>
+        <tag>Hexo</tag>
+        <tag>Hexo Theme NexT v7.8.0</tag>
       </tags>
   </entry>
   <entry>
     <title>Hexo + GitHub Pages 建立部落格</title>
     <url>/2021/01/10/hexo-blog/</url>
-    <content><![CDATA[<p>Hexo 只需選取需要的主題、設定相關的_config.yml和使用npm安裝套件，如此在撰寫文章只要專注於Markdown的語法即可。<br>GitHub Pages 本身是使用 GitHub 作為網頁的儲存空間，有以下的限制:</p>
+    <content><![CDATA[<p>Hexo 只需選取需要的主題、設定相關的_config.yml 和使用 npm 安裝套件，如此在撰寫文章只要專注於 Markdown 的語法即可。<br>GitHub Pages 本身是使用 GitHub 作為網頁的儲存空間，有以下的限制:</p>
 <ul>
 <li>網站大小不能超過 1 GB</li>
 <li>網站每月流量不能超過 100 GB</li>
@@ -56,32 +157,43 @@
 <a id="more"></a>
 
 <h2 id="GitHub-Pages"><a href="#GitHub-Pages" class="headerlink" title="GitHub Pages"></a>GitHub Pages</h2><h3 id="建立-GitHub-Pages"><a href="#建立-GitHub-Pages" class="headerlink" title="建立 GitHub Pages"></a>建立 GitHub Pages</h3><p>建立 GitHub Pages 的空間十分的簡單，只需建立 GitHub 專案，名稱取名為 xxx.github.io( xxx 要填自己的 GitHub 帳號名稱 )，這樣一個靜態的網站就建立完成了，只需將靜態網站的檔案推送到這一個 repository 即可自動部屬。<br><img src="https://i.imgur.com/Va2vyWl.png" alt="創建 GitHub Pages"></p>
-<p>點進剛剛創建的 repository –&gt; 點進 setting 裡面有一項叫做 GitHub Pages ，這邊可以看到自己的網站的網址( 前提是已經上傳相關的檔案，列如index.html檔 )。<br>Source 裡面可以設定哪一個分支做為顯示的分支，預設都是 master，意味著使用 git 推到 master 分支時 GitHub 就會隨著 master 分支的更動更改頁面的顯示。(圖中是本部落格的 repository)<br><img src="https://i.imgur.com/K744Y51.png" alt="GitHub Pages setting"></p>
+<p>點進剛剛創建的 repository –&gt; 點進 setting 裡面有一項叫做 GitHub Pages ，這邊可以看到自己的網站的網址( 前提是已經上傳相關的檔案，列如 index.html 檔 )。<br>Source 裡面可以設定哪一個分支做為顯示的分支，預設都是 master，意味著使用 git 推到 master 分支時 GitHub 就會隨著 master 分支的更動更改頁面的顯示。(圖中是本部落格的 repository)<br><img src="https://i.imgur.com/K744Y51.png" alt="GitHub Pages setting"></p>
 <h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="建立-Hexo-環境"><a href="#建立-Hexo-環境" class="headerlink" title="建立 Hexo 環境"></a>建立 Hexo 環境</h3><ol>
 <li><a href="https://nodejs.org/zh-tw/">Node.js</a></li>
 <li><a href="https://git-scm.com/">Git</a></li>
-<li>安裝 Hexo (終端機 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<li>安裝 Hexo (終端機<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
 <h3 id="建立-Hexo-專案"><a href="#建立-Hexo-專案" class="headerlink" title="建立 Hexo 專案"></a>建立 Hexo 專案</h3><p>進到想要的資料夾中，在終端機中輸入以下的指令以建立專案。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init name  &#x2F;&#x2F;初始化新的 Hexo，會在當前路徑建立一個叫 name 的資料夾，資料夾名稱可以隨意取，例如「myblog」，那麼指令就是 hexo init myblog</span><br><span class="line">cd name  &#x2F;&#x2F;進入您剛剛建立的 name 資料夾當中，cd 是 change directory 的意思</span><br><span class="line">npm install  &#x2F;&#x2F;安裝 npm 所有的 package</span><br><span class="line">npm install hexo-deployer-git --save  &#x2F;&#x2F;安裝 git 部署套件， --save 將其寫入 package.json，以利之後 npm install</span><br></pre></td></tr></table></figure>
 <h3 id="設定-Hexo-專案"><a href="#設定-Hexo-專案" class="headerlink" title="設定 Hexo 專案"></a>設定 Hexo 專案</h3><ol>
-<li><p>Hexo 專案中有一個 _config.yml，打開並修改 6 ~ 12 行:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title: Hexo  &#x2F;&#x2F;輸入部落格標題</span><br><span class="line">subtitle: &#39;&#39;  &#x2F;&#x2F;輸入副標題</span><br><span class="line">description: &#39;&#39;  &#x2F;&#x2F;輸入網站描述 </span><br><span class="line">keywords: &#39;&#39; &#x2F;&#x2F;輸入網站關鍵字(以逗號隔開)，方便 SEO </span><br><span class="line">author: John Doe  &#x2F;&#x2F;輸入姓名或暱稱</span><br><span class="line">language: en &#x2F;&#x2F;輸入您所使用的語言</span><br><span class="line">timezone: &#39;&#39;  &#x2F;&#x2F;留空以使用系統時間</span><br></pre></td></tr></table></figure>
+<li>Hexo 專案中有一個 _config.yml，打開並修改 6 ~ 12 行:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title: Hexo  &#x2F;&#x2F;輸入部落格標題</span><br><span class="line">subtitle: &#39;&#39;  &#x2F;&#x2F;輸入副標題</span><br><span class="line">description: &#39;&#39;  &#x2F;&#x2F;輸入網站描述</span><br><span class="line">keywords: &#39;&#39; &#x2F;&#x2F;輸入網站關鍵字(以逗號隔開)，方便 SEO</span><br><span class="line">author: John Doe  &#x2F;&#x2F;輸入姓名或暱稱</span><br><span class="line">language: en &#x2F;&#x2F;輸入您所使用的語言</span><br><span class="line">timezone: &#39;&#39;  &#x2F;&#x2F;留空以使用系統時間</span><br></pre></td></tr></table></figure>
 <p><img src="https://i.imgur.com/hI6naOH.png" alt="Hexo 專案基礎設定"></p>
-</li>
-<li><p>設定 Hexo 部屬至 GitHub 的資訊，通常這一段在_config.yml檔的最下方，沒有也可以自己加。(請記得要先安裝 hexo-deployer-git)<br><img src="https://i.imgur.com/H7jhMTk.png" alt="Hexo 部屬 GitHub"></p>
-</li>
+<ol start="2">
+<li>設定 Hexo 部屬至 GitHub 的資訊，通常這一段在_config.yml 檔的最下方，沒有也可以自己加。(請記得要先安裝 hexo-deployer-git)<br><img src="https://i.imgur.com/H7jhMTk.png" alt="Hexo 部屬 GitHub"></li>
 </ol>
 <h3 id="部屬至-GitHub"><a href="#部屬至-GitHub" class="headerlink" title="部屬至 GitHub"></a>部屬至 GitHub</h3><p>回到終端機，輸入以下指令(記得要進到專案的根目錄):</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo cl  &#x2F;&#x2F;清除之前建立的靜態檔案，也可以輸入 hexo clean</span><br><span class="line">hexo g  &#x2F;&#x2F;建立靜態檔案，也可以輸入 hexo generate</span><br><span class="line">hexo d  &#x2F;&#x2F;部署至 Github Pages，也可以輸入 hexo deploy</span><br></pre></td></tr></table></figure>
 <p>建立並部屬(懶人寫法):</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g -d </span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
 <p>或</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
 <p>預設完成的介面，這樣就完成了:<br><img src="https://i.imgur.com/SiRPxPM.png" alt="Hexo 部屬 GitHub"></p>
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<h3 id="儲存至-GitHub"><a href="#儲存至-GitHub" class="headerlink" title="儲存至 GitHub"></a>儲存至 GitHub</h3><p>為了讓不同的電腦可以隨時撰寫和同步 blog 需要將整個 hexo 專案放置 Github ，也為了方便找尋專案將專案推至同一個 repository 的 develop 分支。<br><img src="https://i.imgur.com/BLDp7fd.png" alt="hexo-blog開發分支"></p>
+<p>新電腦只須執行以下專案即可開始撰寫(<a href="/2021/01/15/hexo-blog-advance/" title="Hexo 客製化">Hexo 客製化</a> , <a href="/2021/01/15/hexo-theme-NexT/" title="NexT 配置">NexT 配置</a>):</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone -b &lt;branchname&gt; &lt;remote-repo-url&gt; . &#x2F;&#x2F;-b 為 --branch 簡寫 , . 代表直接clone到這一個資料夾 ,&lt;branchname&gt; 此處指定 develop</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next &#x2F;&#x2F;將主題下載至 hexo 的 theme，此處使用 Next</span><br></pre></td></tr></table></figure>
+<p>撰寫完成將最新的開發進度再推送至 develop 分支。</p>
+<ul>
+<li><p>第一次:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remote add origin &lt;remote-repo-url&gt;</span><br><span class="line">git push -u origin develop</span><br></pre></td></tr></table></figure></li>
+<li><p>之後:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2></li>
+</ul>
+<ol>
 <li><a href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a></li>
 <li><a href="https://ed521.github.io/2019/07/hexo-install/">[教學] 使用 GitHub Pages + Hexo 來架設個人部落格</a></li>
 </ol>
@@ -90,9 +202,94 @@
         <category>新手上路</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
         <tag>新手上路</tag>
+        <tag>研究筆記</tag>
+        <tag>Hexo</tag>
         <tag>GitHub Pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo Theme -- NexT 進階配置</title>
+    <url>/2021/01/15/hexo-theme-NexT/</url>
+    <content><![CDATA[<p>本文章使用的 Hexo Theme NexT 版本為 v7.8.0。</p>
+<h2 id="如何查看-NexT-版本"><a href="#如何查看-NexT-版本" class="headerlink" title="如何查看 NexT 版本"></a>如何查看 NexT 版本</h2><p>可以在 themes/next 內的 package.json 查看<br><img src="https://i.imgur.com/Gg4nj8T.png" alt="NexT 版本查詢"></p>
+<a id="more"></a>
+
+<h2 id="修改-NexT-的-config-yml-之前"><a href="#修改-NexT-的-config-yml-之前" class="headerlink" title="修改 NexT 的 _config.yml 之前"></a>修改 NexT 的 _config.yml 之前</h2><p>為了將來 NexT 更新時可以直接 git pull ，NexT 官方並不推薦直接修改 NexT/_config.yml。<br>詳細步驟如下(<a href="https://theme-next.js.org/docs/getting-started/configuration.html">官方文件</a>):</p>
+<ol>
+<li>請先確定 Hexo 版本 &gt; 5.0.0</li>
+<li>在根目錄創建 _config.next.yml 檔案</li>
+<li>將 theme/next/_config.yml 的資料複製到 _config.next.yml</li>
+<li>更改根目錄的 _config.next.yml 的資料 來修改 NexT 的樣式</li>
+</ol>
+<h2 id="修改-NexT-樣式"><a href="#修改-NexT-樣式" class="headerlink" title="修改 NexT 樣式"></a>修改 NexT 樣式</h2><p>以下只需修改 <strong>_config.next.yml</strong> 即可修改 Next 的樣式或功能</p>
+<h3 id="更改主題風格"><a href="#更改主題風格" class="headerlink" title="更改主題風格"></a>更改主題風格</h3><p>有四種:</p>
+<ul>
+<li>Muse - 預設風格</li>
+<li>Mist → A tighter version of Muse with a tidy single-column view.</li>
+<li>Pisces → Double-column Scheme, fresh like your neighbor’s daughter.</li>
+<li>Gemini → Looks like Pisces, but have distinct column blocks with shadow to appear more sensitive to view.</li>
+</ul>
+<p><img src="https://i.imgur.com/efFYrA8.png" alt="Next Scheme"></p>
+<h3 id="更改主站的-Menu"><a href="#更改主站的-Menu" class="headerlink" title="更改主站的 Menu"></a>更改主站的 Menu</h3><p>初始的 Next 只有 home 和 archives，ctrl + f 找到 menu 欄位並打開註解即可。<br><img src="https://i.imgur.com/5GVFVBR.png" alt="Next Main Menu"></p>
+<h4 id="Categories-amp-tags-頁面"><a href="#Categories-amp-tags-頁面" class="headerlink" title="Categories &amp; tags 頁面"></a>Categories &amp; tags 頁面</h4><p>只有打開 menu 的 categories 和 tags 並不會自動產生頁面，步驟如下:</p>
+<ol>
+<li><p>Categories:</p>
+<ol>
+<li><p>新增 catagories 頁面:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure></li>
+<li><p>將 source/categories/inex.md 設定成以下的樣子(date 不用更動):</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2021-01-10 17:09:20</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>tags:</p>
+<ol>
+<li><p>新增 tags 頁面:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure></li>
+<li><p>設定 source/tags/inex.md :</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021-01-10 17:09:50</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>撰寫文章時增加分類(categories) 和標籤(tags):<br><img src="https://i.imgur.com/aUmxpiC.png" alt="設定文章分類和標籤"></p>
+</li>
+<li><p>結果<br><img src="https://i.imgur.com/lO7JCFK.png" alt="tags 和 categories 結果"></p>
+</li>
+</ol>
+<h3 id="回到頂部按鈕"><a href="#回到頂部按鈕" class="headerlink" title="回到頂部按鈕"></a>回到頂部按鈕</h3><p>back2top 的 enable 為 true， scrollpercent 為 true 顯示百分比<br><img src="https://i.imgur.com/s2kf1Ll.png" alt="回到頂部按鈕"></p>
+<h3 id="底部-tag-設定-icon"><a href="#底部-tag-設定-icon" class="headerlink" title="底部 tag 設定 icon"></a>底部 tag 設定 icon</h3><p>tag_icon 設定為 true 設定比較好看的 tag 標籤<br><img src="https://i.imgur.com/zJavV9a.png" alt="底部tag設定icon"></p>
+<h3 id="主要-Menu-顯示數量"><a href="#主要-Menu-顯示數量" class="headerlink" title="主要 Menu 顯示數量"></a>主要 Menu 顯示數量</h3><p>badges 改為 true<br><img src="https://i.imgur.com/inZhsdu.png" alt="Menu顯示數量"></p>
+<h3 id="側邊攔文章目錄預設展開"><a href="#側邊攔文章目錄預設展開" class="headerlink" title="側邊攔文章目錄預設展開"></a>側邊攔文章目錄預設展開</h3><p>toc 的 expand_all 設定為 true<br><img src="https://i.imgur.com/nWotjso.png" alt="側邊攔文章目錄預設展開"></p>
+<h2 id="Next-外掛套件"><a href="#Next-外掛套件" class="headerlink" title="Next 外掛套件"></a>Next 外掛套件</h2><p>以下都須先使用 npm 安裝套件再進行 config 的設定</p>
+<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><ol>
+<li>安裝套件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>設定 local_search<br>設定 local_search: enable 為 true<br><img src="https://i.imgur.com/Er5Yfnk.png" alt="搜尋套件"></li>
+</ol>
+<h3 id="評論功能-–-utterances"><a href="#評論功能-–-utterances" class="headerlink" title="評論功能 – utterances"></a>評論功能 – utterances</h3><p>由於 utterances 是一個 GitHub Apps，比起 gitalk 基於 OAuth Apps 來說，在授權所需要給予的權限相對小，且 utterances 可以將授權限制於單一 repository (圖左 utterances、圖右 gitalk)。<br><img src="https://i.imgur.com/Xl17F0U.png" alt="utterances vs gitalk 授權"></p>
+<ol>
+<li><p>先<a href="https://github.com/apps/utterances">到這裡</a>進行授權和安裝<br><img src="https://i.imgur.com/4TD2LOC.png" alt="utterances 安裝主頁"><br><img src="https://i.imgur.com/HjxQhR2.png" alt="utterances 安裝確認"></p>
+</li>
+<li><p>安裝 npm 套件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install --save theme-next&#x2F;hexo-next-utteranc</span><br></pre></td></tr></table></figure></li>
+<li><p>設定 config (記得是專案跟目錄的 _config.next.yml)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Demo: https:&#x2F;&#x2F;utteranc.es&#x2F;  http:&#x2F;&#x2F;trumandu.github.io&#x2F;about&#x2F;</span><br><span class="line">utteranc:</span><br><span class="line">enable: false</span><br><span class="line">repo: #Github repo such as :TrumanDu&#x2F;comments</span><br><span class="line">pathname: pathname</span><br><span class="line"># theme: github-light,github-dark,github-dark-orange</span><br><span class="line">theme: github-light</span><br><span class="line">cdn: https:&#x2F;&#x2F;utteranc.es&#x2F;client.js</span><br><span class="line"># If you want to modify priority, please config in **hexo**</span><br><span class="line">#priority:</span><br></pre></td></tr></table></figure>
+<p>基本上只要修改 <code>repo</code> 這一項即可 (EX: 我的 repository 為 <code>frank-fn10502/frank-fn10502.github.io</code></p>
+</li>
+</ol>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a href="https://theme-next.js.org/docs/getting-started/">NexT 官網</a></li>
+<li><a href="https://github.com/theme-next/hexo-next-utteranc">utterances GitHub</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>研究筆記</category>
+      </categories>
+      <tags>
+        <tag>研究筆記</tag>
+        <tag>Hexo</tag>
+        <tag>Hexo Theme NexT v7.8.0</tag>
       </tags>
   </entry>
 </search>
