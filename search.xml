@@ -47,6 +47,9 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout &lt;指定的 SHA-1&gt; //SHA-1 (Secure Hash Algorithm 1)</span><br><span class="line">                           //也就是下圖紅框的位置</span><br></pre></td></tr></table></figure>
 <p>版本切換(圖右 Source Tree):<br><img src="https://i.imgur.com/yA6THle.png" alt="使用 git checkout"></p>
 <p>版本切換後對檔案產生的影響:<br><img src="https://i.imgur.com/ufZB8GE.png" alt="git 版本切換下檔案影響"></p>
+<blockquote>
+<p><strong><font color=red> Warning !!!</font></strong><br>如果正在修改檔案請先 add 並 commit ，不然在切換版本後剛剛修改的東西會直接被替換成選擇的版本並且 <strong><font color=red> 無法回復</font></strong> 。</p>
+</blockquote>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a href="https://zh.wikipedia.org/wiki/%E5%88%86%E6%95%A3%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6">分散式版本控制(wiki)</a></li>
 <li>為你自己學 Git – 五倍紅寶石．高見龍</li>
