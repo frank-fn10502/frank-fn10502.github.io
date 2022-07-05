@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Git -- 名詞介紹、流程 &amp; 指令</title>
+    <url>/2021/06/25/git-advance/</url>
+    <content><![CDATA[<h2 id="Git-資料夾結構"><a href="#Git-資料夾結構" class="headerlink" title="Git 資料夾結構"></a>Git 資料夾結構</h2><ul>
+<li><p>Git 的 Working Directory(工作目錄) &amp; Repository(版本庫)<br>在哪一個資料夾中使用 <code>git init</code> 該資料夾就是 Working Directory ，裡面的 .git 資料夾就是 Repository。<br><img src="https://i.imgur.com/XONf1lh.png" alt="Git 的 Working Directory &amp; Repository"></p>
+</li>
+<li><p>Git 的暫存區(又稱索引)(index ,stage ,cache)<br>這是一個存在 .git 資料夾下的一個暫存檔案(名為 index)，在使用 <code>git add .</code> 就是在操作這一個檔案。<br><img src="https://i.imgur.com/fRE3BZI.png" alt="Git 的暫存區域"></p>
+<span id="more"></span></li>
+</ul>
+<h2 id="工作目錄-的檔案"><a href="#工作目錄-的檔案" class="headerlink" title="工作目錄 的檔案"></a>工作目錄 的檔案</h2><h3 id="檔案狀態"><a href="#檔案狀態" class="headerlink" title="檔案狀態"></a>檔案狀態</h3><p>工作目錄 的每一個檔案只有兩個狀態 追蹤(tracked) 和 未追蹤(untracked) 檔案一定處於其中一個狀態，可再細分成:</p>
+<ul>
+<li>tracked (在最後一次的快照(snapshot) 中有這一個檔案)<ul>
+<li>unmodified</li>
+<li>modified</li>
+<li>staged</li>
+</ul>
+</li>
+<li>untracked (在 Working Directory 新增的檔案，該檔案並未存在於最後一次的快照)</li>
+</ul>
+<blockquote>
+<p><strong>快照(snapshot)</strong> 就是 Git 儲存 某一個檔案在某一個時間的內容。<br> <code>補充:</code> 將檔案加到 stage 時其實就已經產生該檔案的 snapshot ，只是在 commit 後才會永久儲存。</p>
+</blockquote>
+<p><code>git status</code> 就是用來查看 工作目錄 檔案處於哪一種狀態的指令:</p>
+<p><img src="https://i.imgur.com/7WIU790.png" alt="git status 查看檔案狀態"></p>
+<h3 id="忽略不需追蹤的檔案"><a href="#忽略不需追蹤的檔案" class="headerlink" title="忽略不需追蹤的檔案"></a>忽略不需追蹤的檔案</h3><h2 id="Git-紀錄版本簡易流程"><a href="#Git-紀錄版本簡易流程" class="headerlink" title="Git 紀錄版本簡易流程"></a>Git 紀錄版本簡易流程</h2><p>前面說過要把一個檔案交給 Git 需要 add 再 commit ，原因是:</p>
+<ol>
+<li>在執行 git add 時 Git 會把每一個檔案的內容各自壓縮成 SHA-1 讓 Git 看得懂我們對檔案做了什麼，同時壓縮後的檔案也被放在 <strong>index(暫存區)</strong> 。</li>
+<li>在 commit 時 Git 會把放在 index 的檔案加到 Repository 完成檔案異動的紀錄(版本)。</li>
+</ol>
+<p><img src="https://i.imgur.com/9m1IzIL.png" alt="圖像化 Git 流程(簡易版)"></p>
+<h2 id="Git-指令"><a href="#Git-指令" class="headerlink" title="Git 指令"></a>Git 指令</h2><p>以下紀錄我使用過的指令</p>
+<h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a><a href="https://git-scm.com/docs/git-reset">git reset</a></h3><blockquote>
+<p>Git 文件:  git-reset - Reset current HEAD to the specified state </p>
+</blockquote>
+<p>該指令可以處理以下幾種狀況:</p>
+<ol>
+<li>剛 commit 想反悔。</li>
+<li>commit 太瑣碎，想整理一下。</li>
+<li>最後 commit 的幾個版本有問題想直接拿掉。</li>
+</ol>
+<p>指令如下:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">//直接指定要回到哪一個版本</span><br><span class="line">git reset &lt;SHA-1&gt; </span><br><span class="line"></span><br><span class="line">//回到相對於某一版本的前面</span><br><span class="line">git reset HEAD^   // cmd 要加雙引號 git reset <span class="string">&quot;HEAD^&quot;</span>，似乎是換行字元的關係?</span><br><span class="line">git reset master^ </span><br><span class="line">git reset &lt;SHA-1&gt;^ </span><br><span class="line">git reset HEAD~3  </span><br></pre></td></tr></table></figure>
+
+<p>在 reset 指令中還有模式可以選擇:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git reset --mixed HEAD^ //預設值</span><br><span class="line">git reset --soft  HEAD^</span><br><span class="line">git reset --hard  HEAD^</span><br></pre></td></tr></table></figure>
+
+<p>SourceTree 操作 git reset:<br><img src="https://i.imgur.com/cXmmdRt.png" alt="SourceTree 操作 git reset"></p>
+<h4 id="mixed"><a href="#mixed" class="headerlink" title=" --mixed "></a><code> --mixed </code></h4><ul>
+<li><p>下兩張圖可以看到新增的 3.txt 和 4.txt 還有修改中的 one.txt: </p>
+<ol>
+<li>其中 3.txt 在 reset 前已經被 stage 了，但 reset 完後沒有在 stage 區域 (證明 index 被清掉了)</li>
+<li>同時 reset 完後 “修改第一個檔案” 節點的 one.txt 和原本就在 unstage 區域的 one.txt 合併變成需要 git add . 的狀態。 (證明 後面幾個版本的檔案變更都回到 “工作區” 且 該變更尚未進到 Git 的 index)<br><img src="https://i.imgur.com/hXZ2EO7.png" alt="get reset mixed cmd"><br><img src="https://i.imgur.com/3RlDaq9.png" alt="get reset mixed SourceTree"></li>
+</ol>
+</li>
+<li><p>總結該模式會將:</p>
+<ol>
+<li>現有 index 的內容清掉 (也就是原本 stage 的檔案變回 unstage的狀態)</li>
+<li>移動 HEAD 到選擇的點</li>
+<li>把在選擇點之後的所有變更內容都變成尚未 stage 的狀態。</li>
+</ol>
+</li>
+</ul>
+<h4 id="soft"><a href="#soft" class="headerlink" title=" --soft "></a><code> --soft </code></h4><ul>
+<li><p>下兩張圖可以看到新增的 3.txt 和 4.txt 還有修改中的 one.txt: </p>
+<ol>
+<li>其中 3.txt 在 reset 前已經被 stage 了，在 reset 完後也沒有變化 stage (證明 index 沒任何更動)</li>
+<li>同時 reset 完後 one.txt 有一部分變成 “Changes to be committed” 狀態 (證明 後面幾個版本的檔案變更都回到 Git 的 index)</li>
+<li>在 unstage 區域也有一個 one.txt 這個是修改到一半沒 add 的部分，正好證明在 mixed 中 one.txt 是包含拆出來的 commit 和 reset 之前未 commit 步部分。<br><img src="https://i.imgur.com/t4HrPaK.png" alt="get reset soft cmd"><br><img src="https://i.imgur.com/Jjl0iy0.png" alt="get reset soft SourceTree"></li>
+</ol>
+</li>
+<li><p>總結該模式會將:<br>  <strong>該模式不會變更 index 和 working directory 的資料。</strong></p>
+<ol>
+<li>移動 HEAD 到選擇的點</li>
+<li>把在選擇點之後的所有變更內容都變成 “Changes to be committed” 狀態，也就是變更都被放在 index。</li>
+</ol>
+</li>
+</ul>
+<h4 id="hard"><a href="#hard" class="headerlink" title=" --hard "></a><code> --hard </code></h4><ul>
+<li>下兩張圖可以看到新增的 3.txt 和 4.txt 還有修改中的 one.txt: <ol>
+<li>其中 3.txt 在 reset 前已經被 stage 了，在 reset 完後直接消失 (證明 index 被清掉了)</li>
+<li>同時 reset 完後 one.txt  也直接消失 (證明 “選擇點” 以後的版本的檔案變更都直接被清掉了)</li>
+<li>4.txt 並未被清掉，因為這是一個新加入的檔案並未被 Git 追蹤 (Untracked files)。</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/b1mbZF1.png" alt="get reset soft cmd"><br><img src="https://i.imgur.com/WK4biWy.png" alt="get reset soft SourceTree"></p>
+<ul>
+<li>總結該模式會將:<ol>
+<li>在 stage 的檔案直接被清掉</li>
+<li>working directory 在”選擇點”之後有被 Git 追蹤的檔案的變更都清掉。</li>
+<li>移動 HEAD 到選擇的點</li>
+</ol>
+</li>
+</ul>
+<p>待續….</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li>&lt;&lt;為你自己學 Git&gt;&gt; 五倍紅寶石．高見龍</li>
+<li><a href="https://ithelp.ithome.com.tw/users/20004901/ironman/525">30 天精通 Git 版本控管</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>研究筆記</category>
+      </categories>
+      <tags>
+        <tag>研究筆記</tag>
+        <tag>Git</tag>
+        <tag>SourceTree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git -- 簡介、基本指令 &amp; GUI介面</title>
+    <url>/2021/01/26/git-first/</url>
+    <content><![CDATA[<ul>
+<li><p>Git 是一個 <strong>「分散式的版本控制」</strong> 工具。</p>
+<ul>
+<li><p>什麼是 <strong>「版本」</strong> ? 什麼又是 <strong>「版本控制」</strong> ?<br>就是一個 <strong>「版本」</strong>的範例，而 <strong>「版本控制」</strong> 則是指可以隨心所欲的切換專案版本。<br><img src="https://i.imgur.com/rVAnlPq.png" alt="最直覺的版本控制方法"></p>
+</li>
+<li><p>那麼什麼又是 <strong>「分散式的版本控制」</strong> ?<br>就是指這個系統(工具)沒有一個中心點，每一個系統(工具)在無法相連時也可以獨立使用自己的版本控制，並在可以聯網時再進行各版本的互相同步。</p>
+<blockquote>
+<p>分散式版本控制系統（DVCS）用對等網路的作法來處理版本控制，而集中式版本控制系統則是用主從式架構的作法<br>(維基百科)</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>GitHub<br>是一個可以免費放程式碼的網站，本體是一個 Git Server，提供使用者網頁版本的控制服務，一般多人合作時通常也都使用該網頁來同步每一個人的進度。</p>
+</li>
+</ul>
+<span id="more"></span>
+<h2 id="Git-基本使用方法-GUI-SourceTree"><a href="#Git-基本使用方法-GUI-SourceTree" class="headerlink" title="Git 基本使用方法 (GUI: SourceTree)"></a>Git 基本使用方法 (GUI: SourceTree)</h2><blockquote>
+<p><a href="https://git-scm.com/">Git 官網</a><br><a href="https://www.sourcetreeapp.com/">SourceTree 官網</a></p>
+</blockquote>
+<p>Git 為分散式的版本控制系統，因此在不聯網的情形下依然可以使用版本控制的功能，以下為基本的指令和 SourceTree 的操作。</p>
+<h3 id="初始-Repository"><a href="#初始-Repository" class="headerlink" title="初始 Repository"></a>初始 Repository</h3><p>在安裝完 Git 後可在任一資料夾位置打開 cmd(命令提示字元) 並輸入以下指令初始化 Git 的 Repository (同時也在這一個資料夾中創建出 Git 的環境):<br>   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure><br>在完成初始化後就可以看到一個 .git 的資料夾，所有 Git 紀錄的資料都在這一個資料夾中(也就是說該資夾被刪除 Git 的板控紀錄也會消失)，在 windows 中該資料夾預設是被隱藏的。(圖右半部為 SourcrTree 的初始化方法)</p>
+<p><img src="https://i.imgur.com/cQtfsnK.png" alt="初始 Repository"></p>
+<h3 id="用-Git-紀錄檔案的每一次變動-版本"><a href="#用-Git-紀錄檔案的每一次變動-版本" class="headerlink" title="用 Git 紀錄檔案的每一次變動(版本)"></a>用 Git 紀錄檔案的每一次變動(版本)</h3><p>新增一個 one.txt 的檔案，輸入以下指令來觀看 Git 目前對檔案的管理狀態: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<p>左下為 SourceTree (自動偵測) ，右下為 Cmd 的文字介面。<br><img src="https://i.imgur.com/r6NA71R.png" alt="新增一個檔案"></p>
+<p>此時對於 Git 而言有<strong>偵測</strong>到一個新檔案，但是這些檔案並<strong>未加入</strong> Git 的紀錄中，Git 使用兩段式的方法紀錄一次的更動(版本)，輸入以下指令:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;對於這一個版本的文字描述&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>git add 之後資料夾狀態 (右半為 Source Tree):<br><img src="https://i.imgur.com/N2Ucec4.png" alt="git add 之後資料夾狀態"></p>
+</li>
+<li><p>git commit (右半為 Source Tree):<br><img src="https://i.imgur.com/hvjppjG.png" alt="before commit"></p>
+</li>
+<li><p>commit 之後的狀態 (右半為 Source Tree):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git status //查看 Git 對檔案的管理狀態 (對應到 Source Tree 的 File Status)</span><br><span class="line">git <span class="built_in">log</span>    //文字版的樹狀圖 (也就是 Git 紀錄的每一個節點) (對應到 Source Tree 的 History)</span><br></pre></td></tr></table></figure>
+<p>可以看到在 add 並 commit 這兩道指令後 one.txt 這一檔案就正式加入倒 Git 的版本控制當中了。<br><img src="https://i.imgur.com/5qr3uEM.png" alt="after commit"></p>
+</li>
+</ul>
+<h3 id="Git-版本切換"><a href="#Git-版本切換" class="headerlink" title="Git 版本切換"></a>Git 版本切換</h3><p>在重複兩到三次 add 並 commit 之後可以看到每一個紀錄(版本)慢慢地形成一個路徑或者說一棵樹(如下圖):<br><img src="https://i.imgur.com/hp1v4mS.png" alt="git 紀錄多次之後"></p>
+<p>要讓 Git 切換版本或分支 使用以下指令:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git checkout &lt;指定的 SHA-1&gt; //SHA-1 (Secure Hash Algorithm 1)</span><br><span class="line">                           //也就是下圖紅框的位置</span><br></pre></td></tr></table></figure>
+<p>版本切換(圖右 Source Tree):<br><img src="https://i.imgur.com/yA6THle.png" alt="使用 git checkout"></p>
+<p>版本切換後對檔案產生的影響:<br><img src="https://i.imgur.com/ufZB8GE.png" alt="git 版本切換下檔案影響"></p>
+<blockquote>
+<p><strong><font color=red> Warning !!!</font></strong><br>如果正在修改檔案請先 add 並 commit ，不然在切換版本後剛剛修改的東西會直接被替換成選擇的版本並且 <strong><font color=red> 無法回復</font></strong> 。</p>
+</blockquote>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a href="https://zh.wikipedia.org/wiki/%E5%88%86%E6%95%A3%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6">分散式版本控制(wiki)</a></li>
+<li>&lt;&lt;為你自己學 Git&gt;&gt; 五倍紅寶石．高見龍</li>
+</ol>
+]]></content>
+      <categories>
+        <category>新手上路</category>
+      </categories>
+      <tags>
+        <tag>研究筆記</tag>
+        <tag>新手上路</tag>
+        <tag>Git</tag>
+        <tag>SourceTree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo -- 如何撰寫和客製化自己的部落格</title>
+    <url>/2021/01/15/hexo-blog-advance/</url>
+    <content><![CDATA[<p>使用以下指令，hexo 就會自動生成 md 檔，接下來直接寫 Markdown 語法就可以完成部落格，就是這麼簡單。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new &lt;your md file name&gt;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="新增文章"><a href="#新增文章" class="headerlink" title="新增文章"></a>新增文章</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;  //如果 &lt;title&gt; 包含空格的話，請使用引號括起來。 ex: hexo new <span class="string">&quot;my post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果沒有設定 [layout] 則會使用 _config.yml 中的 default_layout 設定代替，預設是用 post，也因此可以修改 scaffolds 內的 post.md 來控制生成的 md 檔預設會長什麼樣。<br><img src="https://i.imgur.com/iOHGfPm.png" alt="scaffolds-post.md"></p>
+<h2 id="文章中站內連結"><a href="#文章中站內連結" class="headerlink" title="文章中站內連結"></a>文章中站內連結</h2><p>Hexo 可以使用內建的標籤<a href="https://hexo.io/zh-cn/docs/tag-plugins">插件(Tag Plugins)</a>的 <code>post_link</code> 來達成站內文章的連接。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% post_link filename [title] %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>範例:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- &#123;% post_link hexo-blog &quot;Hexo + GitHub Pages 建立部落格&quot; %&#125;</span><br><span class="line">- &#123;% post_link hexo-theme-NexT &quot;Hexo Theme -- NexT&quot; %&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="/2021/01/10/hexo-blog/" title="Hexo + GitHub Pages 建立部落格">Hexo + GitHub Pages 建立部落格</a></li>
+<li><a href="/2021/01/15/hexo-theme-NexT/" title="Hexo Theme -- NexT">Hexo Theme -- NexT</a></li>
+</ul>
+<h2 id="Alternate-Theme-Config"><a href="#Alternate-Theme-Config" class="headerlink" title="Alternate Theme Config"></a>Alternate Theme Config</h2><p>Hexo 主題是一個獨立的專案，同時也有一個獨立的 _config.yml 檔案，我們可以直接修改 這一個 config 檔案來客製化主題，但也因為更動這一檔案，每一次 theme 版本更新時我們都需要小心的比對有甚麼不一樣再 pull 以更新 theme 的版本。</p>
+<p>簡單來說就因為我們想要變更 theme 的設定，造成我們必須花心力去維護自己的設定檔和作者撰寫的 theme 的功能和外觀，很顯然我們有其他的選擇。</p>
+<ol>
+<li><p>將 theme 的 _config.yml 所需要的設定搬到專案跟目錄的 _config.yml:</p>
+<blockquote>
+<p><strong>Supported since Hexo 2.8.2</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># _config.yml</span><br><span class="line">theme: &quot;my-theme&quot;</span><br><span class="line">theme_config:</span><br><span class="line">  bio: &quot;My awesome bio&quot;</span><br><span class="line">  foo:</span><br><span class="line">    bar: &#x27;a&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># themes/my-theme/_config.yml</span><br><span class="line">bio: &quot;Some generic bio&quot;</span><br><span class="line">logo: &quot;a-cool-image.png&quot;</span><br><span class="line">  foo:</span><br><span class="line">    baz: &#x27;b&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>theme 的 config 最終會編譯成這樣:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  bio: &quot;My awesome bio&quot;,</span><br><span class="line">  logo: &quot;a-cool-image.png&quot;,</span><br><span class="line">  foo: &#123;</span><br><span class="line">    bar: &quot;a&quot;,</span><br><span class="line">    baz: &quot;b&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>另外在專案跟目錄新增 <code>_config.[theme].yml</code> 這一檔案</p>
+<blockquote>
+<p><strong>Supported since Hexo 5.0.0</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># _config.yml</span><br><span class="line">theme: &quot;my-theme&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># _config.my-theme.yml</span><br><span class="line">bio: &quot;My awesome bio&quot;</span><br><span class="line">foo:</span><br><span class="line">  bar: &#x27;a&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># themes/my-theme/_config.yml</span><br><span class="line">bio: &quot;Some generic bio&quot;</span><br><span class="line">logo: &quot;a-cool-image.png&quot;</span><br><span class="line">  foo:</span><br><span class="line">    baz: &#x27;b&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>theme 的 config 最終結果:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  bio: &quot;My awesome bio&quot;,</span><br><span class="line">  logo: &quot;a-cool-image.png&quot;,</span><br><span class="line">  foo: &#123;</span><br><span class="line">    bar: &quot;a&quot;,</span><br><span class="line">    baz: &quot;b&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>Hexo 官網 <code>強烈建議</code> 將 theme 的設定放置於同一個檔案，但是考慮到有人可能有 theme 的設定分開儲存的需要，以下資訊十分重要(權限排序):</p>
+<blockquote>
+<p>主站的 _congig.yml 權力 &gt; _config.[theme].yml &gt; theme 內建的 _config.yml</p>
+</blockquote>
+</blockquote>
+<h2 id="更換主題"><a href="#更換主題" class="headerlink" title="更換主題"></a>更換主題</h2><ol>
+<li><a href="https://hexo.io/themes/">官方主題</a></li>
+<li><a href="https://github.com/theme-next/hexo-theme-next">最夯的 NexT</a></li>
+<li><a href="https://github.com/hexojs/hexo/wiki/Sites">Hexo github 上整理</a></li>
+</ol>
+<p>Hexo 更換主題非常簡單，基本上將喜歡的主題下載到專案中的 themes，並設定 Hexo 專案根目錄的 _config.yml 即可替換。</p>
+<h3 id="主題-–-NexT"><a href="#主題-–-NexT" class="headerlink" title="主題 – NexT"></a>主題 – NexT</h3><p>目前較多人使用的主題，外觀簡約且可調整的細節也很豐富，最重要的是教學、文件和功能都非常的齊全(本文章是使用 NexTv7.8.0)。<br>現階段 NexT 有兩個版本 v6 以後和 v5.1.x 的版本(舊版):<br><a href="https://theme-next.iissnan.com/">舊版官網</a>:<br><img src="https://i.imgur.com/pyt0Y1V.png" alt="舊版官網"></p>
+<p><a href="https://github.com/iissnan/hexo-theme-next">舊版 GitHub</a>:<br><img src="https://i.imgur.com/cUWgA5G.png" alt="舊版GitHub"></p>
+<p><a href="https://github.com/theme-next/hexo-theme-next">新版 GitHub</a> (<a href="https://theme-next.js.org/">官網</a>):<br><img src="https://i.imgur.com/ISzix6v.png" alt="新版GitHub"></p>
+<h3 id="安裝-NexT"><a href="#安裝-NexT" class="headerlink" title="安裝 NexT"></a>安裝 NexT</h3><ol>
+<li><p>先從 GitHub clone 專案到根目錄的 themes 資料夾:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></li>
+<li><p>更改 _config.yml 內 theme 為 next<br><img src="https://i.imgur.com/QCBIc9P.png" alt="Hexo更換主題NexT"></p>
+</li>
+<li><p>在終端機重新執行</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s //開起本地端的網站，方便預覽成果</span><br></pre></td></tr></table></figure>
+
+<p>NexT 預設畫面( <a href="/2021/01/15/hexo-theme-NexT/" title="Hexo Theme -- NexT 進階配置">Hexo Theme -- NexT 進階配置</a> ):<br><img src="https://i.imgur.com/JkcYNek.png" alt="NexT 預設畫面"></p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a></li>
+<li><a href="https://hsiangfeng.github.io/hexo/20200930/1081826307/">(17) 試著學 Hexo - NexT 主題篇 - NexT</a></li>
+<li><a href="https://ithelp.ithome.com.tw/articles/10207997">Hexo - 前端也能建置部落格！更換主題與發表文章篇</a></li>
+<li><a href="https://hexo.io/zh-tw/docs/configuration">Hexo 官網</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>研究筆記</category>
+      </categories>
+      <tags>
+        <tag>研究筆記</tag>
+        <tag>Hexo</tag>
+        <tag>Hexo Theme NexT v7.8.0</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo + GitHub Pages 建立部落格</title>
+    <url>/2021/01/10/hexo-blog/</url>
+    <content><![CDATA[<p>Hexo 只需選取需要的主題、設定相關的_config.yml 和使用 npm 安裝套件，如此在撰寫文章只要專注於 Markdown 的語法即可。<br>GitHub Pages 本身是使用 GitHub 作為網頁的儲存空間，有以下的限制:</p>
+<ul>
+<li>網站大小不能超過 1 GB</li>
+<li>網站每月流量不能超過 100 GB</li>
+<li>一小時內的網站更新不得超過 10 次</li>
+<li>只能架設<strong>「靜態網站」</strong></li>
+</ul>
+<span id="more"></span>
+
+<h2 id="GitHub-Pages"><a href="#GitHub-Pages" class="headerlink" title="GitHub Pages"></a>GitHub Pages</h2><h3 id="建立-GitHub-Pages"><a href="#建立-GitHub-Pages" class="headerlink" title="建立 GitHub Pages"></a>建立 GitHub Pages</h3><p>建立 GitHub Pages 的空間十分的簡單，只需建立 GitHub 專案，名稱取名為 xxx.github.io( xxx 要填自己的 GitHub 帳號名稱 )，這樣一個靜態的網站就建立完成了，只需將靜態網站的檔案推送到這一個 repository 即可自動部屬。<br><img src="https://i.imgur.com/Va2vyWl.png" alt="創建 GitHub Pages"></p>
+<p>點進剛剛創建的 repository –&gt; 點進 setting 裡面有一項叫做 GitHub Pages ，這邊可以看到自己的網站的網址( 前提是已經上傳相關的檔案，列如 index.html 檔 )。<br>Source 裡面可以設定哪一個分支做為顯示的分支，預設都是 master，意味著使用 git 推到 master 分支時 GitHub 就會隨著 master 分支的更動更改頁面的顯示。(圖中是本部落格的 repository)<br><img src="https://i.imgur.com/K744Y51.png" alt="GitHub Pages setting"></p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="建立-Hexo-環境"><a href="#建立-Hexo-環境" class="headerlink" title="建立 Hexo 環境"></a>建立 Hexo 環境</h3><ol>
+<li><a href="https://nodejs.org/zh-tw/">Node.js</a></li>
+<li><a href="https://git-scm.com/">Git</a></li>
+<li>安裝 Hexo (終端機<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="建立-Hexo-專案"><a href="#建立-Hexo-專案" class="headerlink" title="建立 Hexo 專案"></a>建立 Hexo 專案</h3><p>進到想要的資料夾中，在終端機中輸入以下的指令以建立專案。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init name  //初始化新的 Hexo，會在當前路徑建立一個叫 name 的資料夾，資料夾名稱可以隨意取，例如「myblog」，那麼指令就是 hexo init myblog</span><br><span class="line">cd name  //進入您剛剛建立的 name 資料夾當中，cd 是 change directory 的意思</span><br><span class="line">npm install  //安裝 npm 所有的 package</span><br><span class="line">npm install hexo-deployer-git --save  //安裝 git 部署套件， --save 將其寫入 package.json，以利之後 npm install</span><br></pre></td></tr></table></figure>
+
+<h3 id="設定-Hexo-專案"><a href="#設定-Hexo-專案" class="headerlink" title="設定 Hexo 專案"></a>設定 Hexo 專案</h3><ol>
+<li>Hexo 專案中有一個 _config.yml，打開並修改 6 ~ 12 行:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">title: Hexo  //輸入部落格標題</span><br><span class="line">subtitle: &#x27;&#x27;  //輸入副標題</span><br><span class="line">description: &#x27;&#x27;  //輸入網站描述</span><br><span class="line">keywords: &#x27;&#x27; //輸入網站關鍵字(以逗號隔開)，方便 SEO</span><br><span class="line">author: John Doe  //輸入姓名或暱稱</span><br><span class="line">language: en //輸入您所使用的語言</span><br><span class="line">timezone: &#x27;&#x27;  //留空以使用系統時間</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/hI6naOH.png" alt="Hexo 專案基礎設定"></p>
+<ol start="2">
+<li>設定 Hexo 部屬至 GitHub 的資訊，通常這一段在_config.yml 檔的最下方，沒有也可以自己加。(請記得要先安裝 hexo-deployer-git)<br><img src="https://i.imgur.com/H7jhMTk.png" alt="Hexo 部屬 GitHub"></li>
+</ol>
+<h3 id="部屬至-GitHub"><a href="#部屬至-GitHub" class="headerlink" title="部屬至 GitHub"></a>部屬至 GitHub</h3><p>回到終端機，輸入以下指令(記得要進到專案的根目錄):</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo cl  //清除之前建立的靜態檔案，也可以輸入 hexo clean</span><br><span class="line">hexo g  //建立靜態檔案，也可以輸入 hexo generate</span><br><span class="line">hexo d  //部署至 Github Pages，也可以輸入 hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>建立並部屬(懶人寫法):</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+
+<p>P.S.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo s //開起本地端的網站，方便預覽成果</span><br></pre></td></tr></table></figure>
+
+<p>預設完成的介面，這樣就完成了:<br><img src="https://i.imgur.com/SiRPxPM.png" alt="Hexo 部屬 GitHub"></p>
+<h3 id="儲存至-GitHub"><a href="#儲存至-GitHub" class="headerlink" title="儲存至 GitHub"></a>儲存至 GitHub</h3><p>為了讓不同的電腦可以隨時撰寫和同步 blog 需要將整個 hexo 專案放置 Github ，也為了方便找尋專案將專案推至同一個 repository 的 develop 分支。 <strong>(已更改為獨立的 Private repository)</strong><br><img src="https://i.imgur.com/BLDp7fd.png" alt="hexo-blog開發分支"></p>
+<p>新電腦只須執行以下專案即可開始撰寫(<a href="/2021/01/15/hexo-blog-advance/" title="Hexo 客製化">Hexo 客製化</a> , <a href="/2021/01/15/hexo-theme-NexT/" title="NexT 配置">NexT 配置</a>):</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone -b &lt;branchname&gt; &lt;remote-repo-url&gt; . //-b 為 --branch 簡寫 , . 代表直接clone到這一個資料夾 ,&lt;branchname&gt; 此處指定 develop</span><br><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes/next //將主題下載至 hexo 的 theme，此處使用 Next</span><br></pre></td></tr></table></figure>
+
+<p>撰寫完成將最新的開發進度再推送至 develop 分支。</p>
+<ul>
+<li><p>第一次:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git remote add origin &lt;remote-repo-url&gt;</span><br><span class="line">git push -u origin develop</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>之後:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a></li>
+<li><a href="https://ed521.github.io/2019/07/hexo-install/">[教學] 使用 GitHub Pages + Hexo 來架設個人部落格</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>新手上路</category>
+      </categories>
+      <tags>
+        <tag>研究筆記</tag>
+        <tag>新手上路</tag>
+        <tag>Hexo</tag>
+        <tag>GitHub Pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo -- Docker -- vscode</title>
+    <url>/2022/03/08/hexo-docker-vscode/</url>
+    <content><![CDATA[<p>在 <a href="/2022/03/07/windows-docker-vscode/" title="windows -- Docker -- vscode">windows -- Docker -- vscode</a> 中有提到使用 docker &amp; vscode 的開發流程，因此本篇文章會將 hexo blog 也轉換成 container 的形式，方便本機的環境管理和專案的可攜帶性。</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><ol>
+<li>專案從 github 拉下來: <code>git clone ....</code></li>
+<li>vscode 彈出可以開啟 container，點選 reopen in container</li>
+<li>nodejs 和 hexo 的開發環境被建立起來了，可以開始寫 blog 了。</li>
+</ol>
+<p><img src="https://i.imgur.com/9B1b34W.png"></p>
+<p>3 步驟建立好開發環境，不用裝 nodejs、不用裝 hexo-cli、不用下 npm install，只要將專案 pull 下來並透過 vscode 開啟就可以直接開發。</p>
+<span id="more"></span>
+
+<h2 id="加入-devcontainer"><a href="#加入-devcontainer" class="headerlink" title="加入 .devcontainer"></a>加入 .devcontainer</h2><p>有兩種辦法:</p>
+<ol>
+<li>用 vscode 的 control panel –&gt; <code>add development con....</code> 先選擇最接近的模板(ex: hexo 就是選擇 node)，然後再用模板修改成需要的 dockerfile 和 devcontainer.json。</li>
+<li>用現有的 .devcontainer，其實和第一點差不多，但用自己設定的 .devcontainer 比較好再做客製化。<br>以下是我的 Dockerfile &amp; devcontainer.json</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Dockerfile</span></span><br><span class="line"><span class="comment">#到 dockerhub 查詢需要的 image</span></span><br><span class="line"><span class="keyword">FROM</span> node </span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> USERNAME=<span class="string">&quot;frank&quot;</span></span><br><span class="line"><span class="keyword">ARG</span> USER_UID=<span class="number">2000</span></span><br><span class="line"><span class="keyword">ARG</span> USER_GID=$USER_UID</span><br><span class="line"></span><br><span class="line"><span class="comment">#新增使用者</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> groupadd --gid <span class="variable">$USER_GID</span> <span class="variable">$USERNAME</span> \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; useradd --uid <span class="variable">$USER_UID</span> --gid <span class="variable">$USER_GID</span> -m <span class="variable">$USERNAME</span> \</span></span><br><span class="line"><span class="language-bash">    <span class="comment">#</span></span></span><br><span class="line">    <span class="comment"># [Optional] Add sudo support. Omit if you don&#x27;t need to install software after connecting.</span></span><br><span class="line">    &amp;&amp; apt update \</span><br><span class="line">    &amp;&amp; apt install -y sudo \</span><br><span class="line">    &amp;&amp; echo $USERNAME ALL=\(root\) NOPASSWD:ALL &gt; /etc/sudoers.d/$USERNAME \</span><br><span class="line">    &amp;&amp; chmod <span class="number">0440</span> /etc/sudoers.d/$USERNAME</span><br><span class="line"></span><br><span class="line"><span class="comment"># 設定時區</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends tzdata</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> TZ=Asia/Taipei \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; <span class="built_in">ln</span> -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone \</span></span><br><span class="line"><span class="language-bash">    &amp;&amp; dpkg-reconfigure -f noninteractive tzdata </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安裝需要的 package</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt install -y \</span></span><br><span class="line"><span class="language-bash">    git </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用 npm 安裝 hexo</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm install -g hexo-cli</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">USER</span> $USERNAME</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="comment">// devcontainer.json</span></span><br><span class="line"><span class="comment">// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:</span></span><br><span class="line"><span class="comment">// https://github.com/microsoft/vscode-dev-containers/tree/v0.224.2/containers/javascript-node</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;myBlog&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;dockerfile&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Dockerfile&quot;</span></span><br><span class="line">	<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="comment">// Set *default* container specific settings.json values on container create.</span></span><br><span class="line">	<span class="attr">&quot;settings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="comment">// Add the IDs of extensions you want installed when the container is created.</span></span><br><span class="line">	<span class="attr">&quot;extensions&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;containerUser&quot;</span><span class="punctuation">:</span> <span class="string">&quot;frank&quot;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//可以參考 https://code.visualstudio.com/docs/remote/devcontainerjson-reference#_lifecycle-scripts</span></span><br><span class="line">	<span class="attr">&quot;postCreateCommand&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npm install &amp;&amp; git clone https://github.com/theme-next/hexo-theme-next themes/next || true&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>這樣就完成了，只需要加入這兩個檔案 vscode 就可以用 container 的方式開啟專案了 ヽ(●´∀&#96;●)ﾉ 。</p>
+<h2 id="讓-hexo-server-指令可以監看變動"><a href="#讓-hexo-server-指令可以監看變動" class="headerlink" title="讓 hexo server 指令可以監看變動"></a>讓 hexo server 指令可以監看變動</h2><p>上一節設定完 .devcontainer 之後可以正常使用了，但是會出現兩個問題</p>
+<ol>
+<li>hexo 指令執行緩慢</li>
+<li><code>hexo server</code> 無法時時刷新更改的 blog 內容。</li>
+</ol>
+<h3 id="解決方法-1"><a href="#解決方法-1" class="headerlink" title="解決方法 1"></a>解決方法 1</h3><p>經過查詢找到一篇有相似的問題 <a href="https://github.com/hexojs/hexo/issues/4571">Hexo Server does not update the content after page refresh</a><br>看到兩種解法:</p>
+<ol>
+<li>在 windows 也安裝 nodejs</li>
+<li>將 wsl2 切換回 wsl1</li>
+</ol>
+<p>以上解法應該可以解決問題 2</p>
+<h3 id="解決方法-2"><a href="#解決方法-2" class="headerlink" title="解決方法 2"></a>解決方法 2</h3><p>我認為更好的解法: <a href="https://code.visualstudio.com/remote/advancedcontainers/improve-performance">vscode: Improve disk performance</a></p>
+<p>在 vscode 官網中就是使用 nodejs 來演示使用預設的 bind 模式對硬碟效能的影響，而這正好可以解決問題 1 &amp; 2 ，官網提到四種方法:</p>
+<ol>
+<li>將檔案放到 wsl2 開發</li>
+<li>使用 remote-container 的 <code>Clone Repository in Container Volume...</code></li>
+<li>使用 .devcontainer 的 mounts 將需要用到硬碟效能的資料夾放到 volume 中 (ex: node_modules, build, ….)。</li>
+<li>使用 .devcontainer 開啟空白的 volume 再用 git clone 來開發。</li>
+</ol>
+<p>最終我選擇直接將 repository 放到 wsl2 中然後開 container 進行開發，目前完美解決問題 1 &amp; 2。</p>
+]]></content>
+      <categories>
+        <category>實作範例</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>vscode</tag>
+        <tag>Hexo</tag>
+        <tag>實作範例</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo Theme -- NexT 進階配置</title>
+    <url>/2021/01/15/hexo-theme-NexT/</url>
+    <content><![CDATA[<p>本文章使用的 Hexo Theme NexT 版本為 v7.8.0。</p>
+<h2 id="如何查看-NexT-版本"><a href="#如何查看-NexT-版本" class="headerlink" title="如何查看 NexT 版本"></a>如何查看 NexT 版本</h2><p>可以在 themes&#x2F;next 內的 package.json 查看<br><img src="https://i.imgur.com/Gg4nj8T.png" alt="NexT 版本查詢"></p>
+<span id="more"></span>
+
+<h2 id="修改-NexT-的-config-yml-之前"><a href="#修改-NexT-的-config-yml-之前" class="headerlink" title="修改 NexT 的 _config.yml 之前"></a>修改 NexT 的 _config.yml 之前</h2><p>為了將來 NexT 更新時可以直接 git pull ，NexT 官方並不推薦直接修改 NexT&#x2F;_config.yml。<br>詳細步驟如下(<a href="https://theme-next.js.org/docs/getting-started/configuration.html">官方文件</a>):</p>
+<ol>
+<li>請先確定 Hexo 版本 &gt; 5.0.0</li>
+<li>在根目錄創建 _config.next.yml 檔案</li>
+<li>將 theme&#x2F;next&#x2F;_config.yml 的資料複製到 _config.next.yml</li>
+<li>更改根目錄的 _config.next.yml 的資料 來修改 NexT 的樣式</li>
+</ol>
+<h2 id="修改-NexT-樣式"><a href="#修改-NexT-樣式" class="headerlink" title="修改 NexT 樣式"></a>修改 NexT 樣式</h2><p>以下只需修改 <strong>_config.next.yml</strong> 即可修改 Next 的樣式或功能</p>
+<h3 id="更改主題風格"><a href="#更改主題風格" class="headerlink" title="更改主題風格"></a>更改主題風格</h3><p>有四種:</p>
+<ul>
+<li>Muse - 預設風格</li>
+<li>Mist → A tighter version of Muse with a tidy single-column view.</li>
+<li>Pisces → Double-column Scheme, fresh like your neighbor’s daughter.</li>
+<li>Gemini → Looks like Pisces, but have distinct column blocks with shadow to appear more sensitive to view.</li>
+</ul>
+<p><img src="https://i.imgur.com/efFYrA8.png" alt="Next Scheme"></p>
+<h3 id="更改主站的-Menu"><a href="#更改主站的-Menu" class="headerlink" title="更改主站的 Menu"></a>更改主站的 Menu</h3><p>初始的 Next 只有 home 和 archives，ctrl + f 找到 menu 欄位並打開註解即可。<br><img src="https://i.imgur.com/5GVFVBR.png" alt="Next Main Menu"></p>
+<h4 id="Categories-amp-tags-頁面"><a href="#Categories-amp-tags-頁面" class="headerlink" title="Categories &amp; tags 頁面"></a>Categories &amp; tags 頁面</h4><p>只有打開 menu 的 categories 和 tags 並不會自動產生頁面，步驟如下:</p>
+<ol>
+<li><p>Categories:</p>
+<ol>
+<li><p>新增 catagories 頁面:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>將 source&#x2F;categories&#x2F;inex.md 設定成以下的樣子(date 不用更動):</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2021-01-10 17:09:20</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>tags:</p>
+<ol>
+<li><p>新增 tags 頁面:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>設定 source&#x2F;tags&#x2F;inex.md :</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021-01-10 17:09:50</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>撰寫文章時增加分類(categories) 和標籤(tags):<br><img src="https://i.imgur.com/aUmxpiC.png" alt="設定文章分類和標籤"></p>
+</li>
+<li><p>結果<br><img src="https://i.imgur.com/lO7JCFK.png" alt="tags 和 categories 結果"></p>
+</li>
+</ol>
+<h3 id="回到頂部按鈕"><a href="#回到頂部按鈕" class="headerlink" title="回到頂部按鈕"></a>回到頂部按鈕</h3><p>back2top 的 enable 為 true， scrollpercent 為 true 顯示百分比<br><img src="https://i.imgur.com/s2kf1Ll.png" alt="回到頂部按鈕"></p>
+<h3 id="底部-tag-設定-icon"><a href="#底部-tag-設定-icon" class="headerlink" title="底部 tag 設定 icon"></a>底部 tag 設定 icon</h3><p>tag_icon 設定為 true 設定比較好看的 tag 標籤<br><img src="https://i.imgur.com/zJavV9a.png" alt="底部tag設定icon"></p>
+<h3 id="主要-Menu-顯示數量"><a href="#主要-Menu-顯示數量" class="headerlink" title="主要 Menu 顯示數量"></a>主要 Menu 顯示數量</h3><p>badges 改為 true<br><img src="https://i.imgur.com/inZhsdu.png" alt="Menu顯示數量"></p>
+<h3 id="側邊攔文章目錄預設展開"><a href="#側邊攔文章目錄預設展開" class="headerlink" title="側邊攔文章目錄預設展開"></a>側邊攔文章目錄預設展開</h3><p>toc 的 expand_all 設定為 true<br><img src="https://i.imgur.com/nWotjso.png" alt="側邊攔文章目錄預設展開"></p>
+<h2 id="Next-外掛套件"><a href="#Next-外掛套件" class="headerlink" title="Next 外掛套件"></a>Next 外掛套件</h2><p>以下都須先使用 npm 安裝套件再進行 config 的設定</p>
+<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><ol>
+<li>安裝套件</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>設定 local_search<br>設定 local_search: enable 為 true<br><img src="https://i.imgur.com/Er5Yfnk.png" alt="搜尋套件"></li>
+</ol>
+<h3 id="評論功能-–-utterances"><a href="#評論功能-–-utterances" class="headerlink" title="評論功能 – utterances"></a>評論功能 – utterances</h3><p>由於 utterances 是一個 GitHub Apps，比起 gitalk 基於 OAuth Apps 來說，在授權所需要給予的權限相對小，且 utterances 可以將授權限制於單一 repository (圖左 utterances、圖右 gitalk)。<br><img src="https://i.imgur.com/Xl17F0U.png" alt="utterances vs gitalk 授權"></p>
+<ol>
+<li><p>先<a href="https://github.com/apps/utterances">到這裡</a>進行授權和安裝<br><img src="https://i.imgur.com/4TD2LOC.png" alt="utterances 安裝主頁"><br><img src="https://i.imgur.com/HjxQhR2.png" alt="utterances 安裝確認"></p>
+</li>
+<li><p>安裝 npm 套件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install --save theme-next/hexo-next-utteranc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>設定 config (記得是專案跟目錄的 _config.next.yml)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Demo: https://utteranc.es/  http://trumandu.github.io/about/</span><br><span class="line">utteranc:</span><br><span class="line">enable: false</span><br><span class="line">repo: #Github repo such as :TrumanDu/comments</span><br><span class="line">pathname: pathname</span><br><span class="line"># theme: github-light,github-dark,github-dark-orange</span><br><span class="line">theme: github-light</span><br><span class="line">cdn: https://utteranc.es/client.js</span><br><span class="line"># If you want to modify priority, please config in **hexo**</span><br><span class="line">#priority:</span><br></pre></td></tr></table></figure>
+<p>基本上只要修改 <code>repo</code> 這一項即可 (EX: 我的 repository 為 <code>frank-fn10502/frank-fn10502.github.io</code></p>
+</li>
+</ol>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a href="https://theme-next.js.org/docs/getting-started/">NexT 官網</a></li>
+<li><a href="https://github.com/theme-next/hexo-next-utteranc">utterances GitHub</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>研究筆記</category>
+      </categories>
+      <tags>
+        <tag>研究筆記</tag>
+        <tag>Hexo</tag>
+        <tag>Hexo Theme NexT v7.8.0</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vim -- vscode -- setting</title>
+    <url>/2022/06/22/vim-vscode/</url>
+    <content><![CDATA[<p><img src="https://i.imgur.com/a0vqoKa.png" alt="vs vim"></p>
+<p>vim 是一個古老的”文字編輯器”，之所以想到 vim 主要是因為想要提升開發的速度，而最好的方法之一就是讓手盡量不要離開鍵盤，vim 正是一套只使用鍵盤就可開始開發的工具。</p>
+<p>但有鑑於直接使用 vim 開發會需要放棄正在使用的 vscode 的各種方便功能，因此本篇文章會著重在將 vim 融入到 vscode 的開發中 &amp; 快捷鍵的設定。</p>
+<span id="more"></span>
+
+<h2 id="extension-安裝"><a href="#extension-安裝" class="headerlink" title="extension 安裝"></a>extension 安裝</h2><ul>
+<li><p>本篇的主角<br>  <img src="https://i.imgur.com/7tqmNEn.png" alt="vscodeVim"></p>
+</li>
+<li><p>顯示以游標為中心的相對行數，方便使用 vim 指令<br>  <img src="https://i.imgur.com/iWqi2ff.png" alt="relative line number"></p>
+</li>
+</ul>
+<h2 id="extension-設定"><a href="#extension-設定" class="headerlink" title="extension 設定"></a>extension 設定</h2><p>以下的設定都放置於 vscode 的 settings.json</p>
+<h3 id="vim-easy-motion-mode"><a href="#vim-easy-motion-mode" class="headerlink" title="vim easy motion mode"></a>vim easy motion mode</h3><ul>
+<li>效果:<br>使用快捷鍵(下面會設定) 選擇想要的字母(此例選擇 e)，可以看到紅色的部分可以按下英文字母來快速跳轉位置。<br><img src="https://i.imgur.com/FMKzga4.png" alt="vim motion mode"></li>
+<li>設定:<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="comment">// easymotion 插件</span></span><br><span class="line"><span class="attr">&quot;vim.easymotion&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="移動不會自動展開摺疊區域"><a href="#移動不會自動展開摺疊區域" class="headerlink" title="移動不會自動展開摺疊區域"></a>移動不會自動展開摺疊區域</h3><p>預設使用 hjkl 來移動時，經過已摺疊的程式碼區域會自動展開，採用以下設定可避免此事。</p>
+<ul>
+<li>設定:<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用 hjkl 移動到縮排區域不會自動展開</span></span><br><span class="line"><span class="attr">&quot;vim.foldfix&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="讓-vscode-掌握需要的快捷鍵"><a href="#讓-vscode-掌握需要的快捷鍵" class="headerlink" title="讓 vscode 掌握需要的快捷鍵"></a>讓 vscode 掌握需要的快捷鍵</h3><p>目前的規劃是讓 vscodevim 操作編輯區塊，但仍然保留大部分 vscode 的操作習冠，使用下面的設定可以讓 vscodevim 忽略這些快捷鍵。</p>
+<ul>
+<li>設定:<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 不想讓 vscodevim 攔截的快捷鍵</span></span><br><span class="line"><span class="comment">// C 是 ctrl</span></span><br><span class="line"><span class="attr">&quot;vim.handleKeys&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line"><span class="attr">&quot;&lt;C-f&gt;&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span class="comment">// vsocde 搜索</span></span><br><span class="line"><span class="attr">&quot;&lt;C-b&gt;&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span class="comment">// primary sideBar</span></span><br><span class="line"><span class="attr">&quot;&lt;C-g&gt;&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span class="comment">// 底下設定需要使用，g 是 goto 的意思，原先 ctrl+g 的功能由 vscodevim 的 &#x27;:&#x27; 取代</span></span><br><span class="line"><span class="attr">&quot;&lt;C-n&gt;&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span class="comment">// 新建檔案</span></span><br><span class="line"><span class="attr">&quot;&lt;C-k&gt;&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span class="comment">// 保留 vscode ctrl+k + xxx 的功能</span></span><br><span class="line"><span class="attr">&quot;&lt;C-w&gt;&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span class="comment">// vscode 關閉檔案</span></span><br><span class="line"><span class="attr">&quot;&lt;C-h&gt;&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span class="comment">// vscode 取代</span></span><br><span class="line"><span class="attr">&quot;&lt;C-j&gt;&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span> <span class="comment">// vscode toggle bottom panel</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="vim-剪貼簿"><a href="#vim-剪貼簿" class="headerlink" title="vim + 剪貼簿"></a>vim + 剪貼簿</h3><p>讓 vscodevim 可用 <code>y</code> &amp; <code>p</code>，複製到剪貼簿 &amp; 貼上剪貼簿的內容</p>
+<ul>
+<li>設定:<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;vim.useSystemClipboard&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="vscodevim-normalMode-快捷鍵設定"><a href="#vscodevim-normalMode-快捷鍵設定" class="headerlink" title="vscodevim normalMode 快捷鍵設定"></a>vscodevim normalMode 快捷鍵設定</h3><p>由於大部分的快捷鍵組合都被 vim 給用完了，為了避免快捷鍵打架，因此 vim 有設定 leader 的功能，先按下 leader 再加上組合鍵從而避免掉大部分的衝突。</p>
+<ul>
+<li>設定:<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 特殊組合鍵的開頭</span></span><br><span class="line"><span class="attr">&quot;vim.leader&quot;</span><span class="punctuation">:</span> <span class="string">&quot;,&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;vim.normalModeKeyBindingsNonRecursive&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="comment">// 使用 vim 內建搜索之後是否 高亮選取</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;&lt;leader&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;&lt;space&gt;&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;commands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;:set hlsearch!&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// vim 組合鍵 綁定 vscode 的 code format</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;&lt;leader&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;f&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;commands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;editor.action.formatDocument&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// vim 組合鍵 綁定 vscode 的 alt+ctrl+leftarrow 功能</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;&lt;leader&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;h&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;commands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;workbench.action.moveEditorToPreviousGroup&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// vim 組合鍵 綁定 vscode 的 alt+ctrl+rightarrow 功能</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;&lt;leader&gt;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;l&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;commands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;workbench.action.moveEditorToNextGroup&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// vim 組合鍵 easymotion </span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;after&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;leader&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;leader&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;s&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot; &quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// vim 組合鍵 綁定 vscode 的 peek definition</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;leader&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;g&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;h&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;commands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;editor.action.peekDefinition&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// vim 組合鍵 綁定 vscode 的 peek reference</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;leader&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;g&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;r&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;commands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;editor.action.goToReferences&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">]</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="vscode-快捷鍵設定"><a href="#vscode-快捷鍵設定" class="headerlink" title="vscode 快捷鍵設定"></a>vscode 快捷鍵設定</h2><ul>
+<li>以下設定都放置於 vscode 的 keybindings.json</li>
+<li>更改 or 新增 vscode 快捷鍵，用以配合 vim 的指法。</li>
+</ul>
+<h3 id="intellisense-amp-menu-上下選擇"><a href="#intellisense-amp-menu-上下選擇" class="headerlink" title="intellisense &amp; menu 上下選擇"></a>intellisense &amp; menu 上下選擇</h3><figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;alt+j&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;selectNextSuggestion&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;suggestWidgetMultipleSuggestions &amp;&amp; suggestWidgetVisible &amp;&amp; textInputFocus&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;alt+k&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;selectPrevSuggestion&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;suggestWidgetMultipleSuggestions &amp;&amp; suggestWidgetVisible &amp;&amp; textInputFocus&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;alt+j&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.action.quickOpenSelectNext&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;alt+k&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.action.quickOpenSelectPrevious&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="file-explorer-檔案操作"><a href="#file-explorer-檔案操作" class="headerlink" title="file explorer 檔案操作"></a>file explorer 檔案操作</h3><figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;d&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;deleteFile&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;explorerViewletVisible &amp;&amp; filesExplorerFocus &amp;&amp; !explorerResourceReadonly &amp;&amp; !inputFocus&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;i&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;explorer.newFile&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot; explorerViewletVisible &amp;&amp; filesExplorerFocus &amp;&amp; !explorerResourceIsRoot &amp;&amp; !explorerResourceReadonly &amp;&amp; !inputFocus &quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 新建目录</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;o&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;explorer.newFolder&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot; explorerViewletVisible &amp;&amp; filesExplorerFocus &amp;&amp; !explorerResourceIsRoot &amp;&amp; !explorerResourceReadonly &amp;&amp; !inputFocus &quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 刷新资源管理器</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;r&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.files.action.refreshFilesExplorer&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot; explorerViewletVisible &amp;&amp; filesExplorerFocus &amp;&amp; !explorerResourceIsRoot &amp;&amp; !explorerResourceReadonly &amp;&amp; !inputFocus &quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 重命名文件或目录</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;a&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;renameFile&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot; explorerViewletVisible &amp;&amp; filesExplorerFocus &amp;&amp; !explorerResourceIsRoot &amp;&amp; !explorerResourceReadonly &amp;&amp; !inputFocus &quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 删除文件或目录</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;x&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;filesExplorer.cut&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;explorerViewletVisible &amp;&amp; filesExplorerFocus &amp;&amp; !explorerResourceIsRoot &amp;&amp; !explorerResourceReadonly &amp;&amp; !inputFocus&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 复制文件或目录</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;y&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;filesExplorer.copy&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;explorerViewletVisible &amp;&amp; filesExplorerFocus &amp;&amp; !explorerResourceIsRoot &amp;&amp; !inputFocus&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 粘贴文件或目录</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;p&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;filesExplorer.paste&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;explorerViewletVisible &amp;&amp; filesExplorerFocus &amp;&amp; !explorerResourceReadonly &amp;&amp; !inputFocus&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 摺疊全部的資料夾，方便使用 hjkl 瀏覽</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;z shift+m&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.files.action.collapseExplorerFolders&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;explorerViewletVisible &amp;&amp; filesExplorerFocus &amp;&amp; !explorerResourceReadonly &amp;&amp; !inputFocus&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="peek-windows-focus-左右切換"><a href="#peek-windows-focus-左右切換" class="headerlink" title="peek windows focus 左右切換"></a>peek windows focus 左右切換</h3><ul>
+<li><p>效果</p>
+<ul>
+<li><p>peek definitions (<code>alt + F12</code>)<br>  <img src="https://i.imgur.com/6dA4jxG.png"><br>  <code>peek definitions</code> 彈出視窗的focus 預設在右半邊</p>
+<p>  <img src="https://i.imgur.com/GgE6DZn.png"><br>  按下組合鍵可以切換 左&#x2F;右的focus</p>
+</li>
+<li><p>peek references (<code>shift + F12</code>) 也適用於該組合鍵<br>  <img src="https://i.imgur.com/wpNs1xi.png"><br>  如果 focus 在右半邊可使用 hjkl 來移動</p>
+</li>
+</ul>
+</li>
+<li><p>設定</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;alt+g&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;togglePeekWidgetFocus&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;inReferenceSearchEditor || referenceSearchVisible&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="sideBar-功能跳轉"><a href="#sideBar-功能跳轉" class="headerlink" title="sideBar 功能跳轉"></a>sideBar 功能跳轉</h3><figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="comment">// secondary sidebar toggle</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+alt+b&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.action.toggleAuxiliaryBar&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 显示文件资源管理器</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g e&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.files.action.focusFilesExplorer&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 显示TODO Tree</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g o&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;todo-tree-view.focus&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">//global search</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g f&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.action.findInFiles&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 显示debug</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g d&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.view.debug&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;viewContainer.workbench.view.debug.enabled&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span>   </span><br><span class="line"><span class="comment">// 显示版本控制</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g g&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.view.scm&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.scm.active&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 打开最近记录</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g h&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.action.openRecent&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h2><ol>
+<li><a href="https://github.com/HenryTSZ/hello-world/issues/53">vscode + vim 設定 1</a></li>
+<li><a href="https://www.blog.lasai.com.tw/2020/07/05/vscode-vim-mode/">vscode + vim 設定 2</a></li>
+<li><a href="https://www.youtube.com/watch?v=g4dXZ0RQWdw">vscode with neovim youtube video</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>開發流程</category>
+      </categories>
+      <tags>
+        <tag>vscode</tag>
+        <tag>vim</tag>
+        <tag>開發流程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows -- Docker -- vscode</title>
+    <url>/2022/03/07/windows-docker-vscode/</url>
+    <content><![CDATA[<p>目前使用 wsl2 的 docker 加上 vscode 的開發流程有一段時間了，因此寫下這篇紀錄環境的安裝，目前使用過的語言和框架:</p>
+<ul>
+<li>python、tensorflow-gpu</li>
+<li>c&#x2F;c++、java</li>
+</ul>
+<h2 id="為什麼想使用-docker-來開發"><a href="#為什麼想使用-docker-來開發" class="headerlink" title="為什麼想使用 docker 來開發?"></a>為什麼想使用 docker 來開發?</h2><p>Docker 是一種容器(container)化的技術，將該技術用作 <strong>開發</strong> 有許多的好處:</p>
+<ol>
+<li>用各種語言開發時不用將所有的環境都安裝在 pc 上，減少環境設定的衝突 (ex: py3.6, py3.8, nodejs, ….)。</li>
+<li>多台電腦 (or 換新電腦) 開發時不用每一台都設定一次環境，從 repo 拉下來就可直接參與開發。</li>
+<li>方便管理環境，並環境一但變動所有人都可拿到最新的可運行的環境(延伸第 2 點)。</li>
+</ol>
+<blockquote>
+<p>p.s. 再加上使用 vscode 產生 container 只需點按幾下就可產生各種環境和所需的各種 extension，方遍、快速、好管理。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="環境設定-–-windows"><a href="#環境設定-–-windows" class="headerlink" title="環境設定 –  windows"></a>環境設定 –  windows</h2><p>由於 docker 這一技術是在 linux 系統上出現的，因此最適合的方法就是將電腦重灌成 linux 系統，但這樣就失去 windows 系統的許多方便功能，office系列、steam的遊戲(這是無可比擬的優點 d(&#96;･∀･)b)、…，因此本次環境設置是基於 wsl2 來設定的，wsl2 除了少數的機制和現代 linux distribution 有些許不太相同外 (目前有碰到的是 init &amp; systemd，其他還有待查證) 都可當成 linux 系統來操作使用。</p>
+<blockquote>
+<p>wsl2: Windows Subsystem for Linux version 2</p>
+</blockquote>
+<h3 id="安裝-wsl2"><a href="#安裝-wsl2" class="headerlink" title="安裝 wsl2"></a>安裝 wsl2</h3><ol>
+<li>打開 cmd 或 PowerShell 下指令 <code>wsl --install</code></li>
+<li>安裝 linux distribution<ul>
+<li><code>wsl --list --online</code> 查看有什麼版本可以安裝  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">以下是可安裝之有效發佈的清單。</span><br><span class="line">使用 <span class="string">&#x27;wsl --install -d &lt;Distro&gt;&#x27;</span> 安裝。</span><br><span class="line"></span><br><span class="line">NAME            FRIENDLY NAME</span><br><span class="line">Ubuntu          Ubuntu</span><br><span class="line">Debian          Debian GNU/Linux</span><br><span class="line">kali-linux      Kali Linux Rolling</span><br><span class="line">openSUSE-42     openSUSE Leap 42</span><br><span class="line">SLES-12         SUSE Linux Enterprise Server v12</span><br><span class="line">Ubuntu-16.04    Ubuntu 16.04 LTS</span><br><span class="line">Ubuntu-18.04    Ubuntu 18.04 LTS</span><br><span class="line">Ubuntu-20.04    Ubuntu 20.04 LTS</span><br></pre></td></tr></table></figure></li>
+<li><code>wsl --install -d &lt;DistroName&gt;</code> 安裝所需的版本，我是選擇 Ubuntu-20.04，這便看你偏好的是什麼版本。</li>
+</ul>
+</li>
+</ol>
+<p>完成上面兩道指令 wsl2 就安裝完成了，但我有碰到一個問題，在後面會提供找到的解法。</p>
+<h3 id="安裝-windows-版本的-docker"><a href="#安裝-windows-版本的-docker" class="headerlink" title="安裝 windows 版本的 docker"></a>安裝 windows 版本的 docker</h3><p>下載 <a href="https://docs.docker.com/desktop/windows/wsl/">docker desktop</a>，點兩下安裝。</p>
+<h3 id="讓-WSL-可以使用-CUDA"><a href="#讓-WSL-可以使用-CUDA" class="headerlink" title="讓 WSL 可以使用 CUDA"></a>讓 WSL 可以使用 CUDA</h3><p><del>為了讓 WSL 可以使用電腦的 NVIDIA GPU 訓練 model， 需要做一些設定….</del></p>
+<p>在 win10 21H2 或 win11 之後就不用這麼麻煩了，之前還需要加入 windows 的開發者計畫才有這功能…，所以我的電腦才需要重灌 (◢▆▅▄▃崩╰(〒皿〒)╯潰▃▄▅▇◣)，現在只需要裝 nvidia 最新的 driver 即可在 wsl 和 docker 使用 gpu 訓練 model。</p>
+<p>驗證 gpu 是否可以運作 <code>docker run --rm -it --gpus=all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark</code>:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">C:\Users\frank&gt;docker run --<span class="built_in">rm</span> -it --gpus=all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark</span><br><span class="line">Run <span class="string">&quot;nbody -benchmark [-numbodies=&lt;numBodies&gt;]&quot;</span> to measure performance.</span><br><span class="line">        -fullscreen       (run n-body simulation <span class="keyword">in</span> fullscreen mode)</span><br><span class="line">        -fp64             (use double precision floating point values <span class="keyword">for</span> simulation)</span><br><span class="line">        -hostmem          (stores simulation data <span class="keyword">in</span> host memory)</span><br><span class="line">        -benchmark        (run benchmark to measure performance)</span><br><span class="line">        -numbodies=&lt;N&gt;    (number of bodies (&gt;= 1) to run <span class="keyword">in</span> simulation)</span><br><span class="line">        -device=&lt;d&gt;       (<span class="built_in">where</span> d=0,1,2.... <span class="keyword">for</span> the CUDA device to use)</span><br><span class="line">        -numdevices=&lt;i&gt;   (<span class="built_in">where</span> i=(number of CUDA devices &gt; 0) to use <span class="keyword">for</span> simulation)</span><br><span class="line">        -compare          (compares simulation results running once on the default GPU and once on the CPU)</span><br><span class="line">        -cpu              (run n-body simulation on the CPU)</span><br><span class="line">        -tipsy=&lt;file.bin&gt; (load a tipsy model file <span class="keyword">for</span> simulation)</span><br><span class="line"></span><br><span class="line">NOTE: The CUDA Samples are not meant <span class="keyword">for</span> performance measurements. Results may vary when GPU Boost is enabled.</span><br><span class="line"></span><br><span class="line">&gt; Windowed mode</span><br><span class="line">&gt; Simulation data stored <span class="keyword">in</span> video memory</span><br><span class="line">&gt; Single precision floating point simulation</span><br><span class="line">&gt; 1 Devices used <span class="keyword">for</span> simulation</span><br><span class="line">GPU Device 0: <span class="string">&quot;Turing&quot;</span> with compute capability 7.5</span><br><span class="line"></span><br><span class="line">&gt; Compute 7.5 CUDA device: [NVIDIA GeForce GTX 1660 Ti with Max-Q Design]</span><br><span class="line">24576 bodies, total time <span class="keyword">for</span> 10 iterations: 48.718 ms</span><br><span class="line">= 123.974 billion interactions per second</span><br><span class="line">= 2479.476 single-precision GFLOP/s at 20 flops per interaction</span><br></pre></td></tr></table></figure>
+
+<h3 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h3><h4 id="error-0x800701bc"><a href="#error-0x800701bc" class="headerlink" title="error: 0x800701bc"></a>error: 0x800701bc</h4><p>如果在 <code>docker run ....</code> 這道指令出現 <code>WslRegisterDistribution failed with error: 0x800701bc</code> 的錯誤的話就代表需要升級 wsl2 ????(查詢到的資訊，不太確定)，下載 <a href="https://docs.microsoft.com/en-us/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package">update package</a> 並點兩下安裝，重啟後就可以了。</p>
+<h4 id="error-0x80370102"><a href="#error-0x80370102" class="headerlink" title="error: 0x80370102"></a>error: 0x80370102</h4><p>需要到 bios 檢查是否有開啟”虛擬化”，我是使用 <code>amd 的 cpu &amp; asus 主機板</code> 因此在 <code>bios &gt; advanced &gt; svm mode</code> 選擇 enabled 即可開啟虛擬化。</p>
+<h2 id="vscode-操作-docker"><a href="#vscode-操作-docker" class="headerlink" title="vscode 操作 docker"></a>vscode 操作 docker</h2><p>環境設定完成後最重要的就是用 vscode 簡單的操作 docker ，快速建立需要的環境並馬上開發。</p>
+<ol>
+<li>下載 vscode … 官網-&gt;download-&gt; 點兩下安裝</li>
+<li>vscode extension 安裝<ol>
+<li>remote 三套件(Remote - SSH、Remote - Containers、Remote - WSL) <ul>
+<li>主要是 Remote - Containers 幫我們創建 container ，但另外兩套也都十分有用就順便都裝一裝。</li>
+</ul>
+</li>
+<li>Docker 套件: 從 vscode 管理 docker 環境和撰寫 dockerfile。</li>
+</ol>
+</li>
+<li>用 vscode 的操作面板生成 dockerfile 和 vscode 的環境設定 <ol>
+<li>按下 <code>F1</code> 或 <code>ctrl + shift + p</code> 打開 vscode 操作面板，輸入 remote-container ，找到 add development …<br> <img src="https://i.imgur.com/qrlLhco.png" alt="vscode remote-container add development config"></li>
+<li>選擇需要的環境設定(這邊我選 c++ 當範例)<br> <img src="https://i.imgur.com/WFvh4Jn.png" alt="remote-container c++ env"></li>
+<li>一路選下去就會生成必要的 cfg 檔案<br> <img src="https://i.imgur.com/4XhsCq3.png" alt="vscode docker cfg files"></li>
+<li>按下 <code>F1</code> 或 <code>ctrl + shift + p</code> 打開 vscode 操作面板，輸入 remote-container ，找到 rebuild and reopen… ，等待環境建立，可能需要一陣子。<br> <img src="https://i.imgur.com/qrlLhco.png" alt="vscode remote-container add development config"></li>
+<li>成功後 vscode 右下角會出現這一個標誌和環境的名稱<br> <img src="https://i.imgur.com/U4oK0wv.png" alt="success build container"></li>
+<li>寫一些 code 驗證是否有所需的編譯器和環境<ul>
+<li><code>F5</code> 來 debug 看看，選擇一些設定:<br> <img src="https://i.imgur.com/GfyPOC0.png" alt="select env"><br> 選擇編譯器<br> <img src="https://i.imgur.com/qBXbkFd.png" alt="select compiler"><br> 執行結果<br> <img src="https://i.imgur.com/cadZq55.png" alt="cpp run result"></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<p>更重要的是當我們關掉 vscode 可以到當初選擇放資料的地方，可以看到我們寫的東西都還存在本機端，因為 vscode 預設是用 bind 的方法將 windows 的資料夾綁到 docker 的 container 裡面，因此我們在 container 中修改的東西都還是會保存在主機上，不會隨著 container 消失而消失。<br><img src="https://i.imgur.com/oFszBVn.png" alt="all develop files"></p>
+<blockquote>
+<p><code>.devcontainer</code> 資料夾就是放 vscode 建立 container 的各種檔案，dockerfiles、devcontainer.json(vscode 的設定)，有意思的是這兩個檔案都是文字檔，因此都可套用版本追蹤，推上 git server 之後只要下載下來並用 vscode 開啟環境和 code 都一併重現在其他電腦上。</p>
+</blockquote>
+<h2 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h2><ol>
+<li><a href="https://docs.microsoft.com/zh-tw/windows/wsl/install#install-your-linux-distribution-of-choice">安裝 wsl</a> </li>
+<li><a href="https://blog.csdn.net/qq_18625805/article/details/109732122">wsl2 問題</a></li>
+<li><a href="https://docs.docker.com/desktop/windows/wsl/">docker for windows</a></li>
+<li><a href="https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers#develop-in-remote-containers-using-vs-code">microsoft 官網 – 安裝 docker</a></li>
+<li><a href="https://docs.microsoft.com/zh-tw/windows/ai/directml/gpu-cuda-in-wsl">Enable NVIDIA CUDA on WSL</a></li>
+<li><a href="https://developer.nvidia.com/cuda/wsl">nvidia – CUDA on WSL</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>研究筆記</category>
+      </categories>
+      <tags>
+        <tag>研究筆記</tag>
+        <tag>新手上路</tag>
+        <tag>docker</tag>
+        <tag>vscode</tag>
+      </tags>
+  </entry>
+</search>

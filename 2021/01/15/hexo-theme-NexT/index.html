@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"frank-fn10502.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文章使用的 Hexo Theme NexT 版本為 v7.8.0。 如何查看 NexT 版本可以在 themes&#x2F;next 內的 package.json 查看">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo Theme -- NexT 進階配置">
+<meta property="og:url" content="https://frank-fn10502.github.io/2021/01/15/hexo-theme-NexT/index.html">
+<meta property="og:site_name" content="Frank&#39;s Doc">
+<meta property="og:description" content="本文章使用的 Hexo Theme NexT 版本為 v7.8.0。 如何查看 NexT 版本可以在 themes&#x2F;next 內的 package.json 查看">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Gg4nj8T.png">
+<meta property="og:image" content="https://i.imgur.com/efFYrA8.png">
+<meta property="og:image" content="https://i.imgur.com/5GVFVBR.png">
+<meta property="og:image" content="https://i.imgur.com/aUmxpiC.png">
+<meta property="og:image" content="https://i.imgur.com/lO7JCFK.png">
+<meta property="og:image" content="https://i.imgur.com/s2kf1Ll.png">
+<meta property="og:image" content="https://i.imgur.com/zJavV9a.png">
+<meta property="og:image" content="https://i.imgur.com/inZhsdu.png">
+<meta property="og:image" content="https://i.imgur.com/nWotjso.png">
+<meta property="og:image" content="https://i.imgur.com/Er5Yfnk.png">
+<meta property="og:image" content="https://i.imgur.com/Xl17F0U.png">
+<meta property="og:image" content="https://i.imgur.com/4TD2LOC.png">
+<meta property="og:image" content="https://i.imgur.com/HjxQhR2.png">
+<meta property="article:published_time" content="2021-01-14T22:55:13.000Z">
+<meta property="article:modified_time" content="2022-07-03T05:34:49.038Z">
+<meta property="article:author" content="Frank Chen">
+<meta property="article:tag" content="研究筆記">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Hexo Theme NexT v7.8.0">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/Gg4nj8T.png">
+
+<link rel="canonical" href="https://frank-fn10502.github.io/2021/01/15/hexo-theme-NexT/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Hexo Theme -- NexT 進階配置 | Frank's Doc</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RBW2FTS6KN"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RBW2FTS6KN');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Frank's Doc</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">技術研究筆記</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">8</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類<span class="badge">4</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://frank-fn10502.github.io/2021/01/15/hexo-theme-NexT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Doc">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo Theme -- NexT 進階配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-01-15 06:55:13" itemprop="dateCreated datePublished" datetime="2021-01-15T06:55:13+08:00">2021-01-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-07-03 13:34:49" itemprop="dateModified" datetime="2022-07-03T13:34:49+08:00">2022-07-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">研究筆記</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文章使用的 Hexo Theme NexT 版本為 v7.8.0。</p>
+<h2 id="如何查看-NexT-版本"><a href="#如何查看-NexT-版本" class="headerlink" title="如何查看 NexT 版本"></a>如何查看 NexT 版本</h2><p>可以在 themes&#x2F;next 內的 package.json 查看<br><img src="https://i.imgur.com/Gg4nj8T.png" alt="NexT 版本查詢"></p>
+<span id="more"></span>
+
+<h2 id="修改-NexT-的-config-yml-之前"><a href="#修改-NexT-的-config-yml-之前" class="headerlink" title="修改 NexT 的 _config.yml 之前"></a>修改 NexT 的 _config.yml 之前</h2><p>為了將來 NexT 更新時可以直接 git pull ，NexT 官方並不推薦直接修改 NexT&#x2F;_config.yml。<br>詳細步驟如下(<a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/configuration.html">官方文件</a>):</p>
+<ol>
+<li>請先確定 Hexo 版本 &gt; 5.0.0</li>
+<li>在根目錄創建 _config.next.yml 檔案</li>
+<li>將 theme&#x2F;next&#x2F;_config.yml 的資料複製到 _config.next.yml</li>
+<li>更改根目錄的 _config.next.yml 的資料 來修改 NexT 的樣式</li>
+</ol>
+<h2 id="修改-NexT-樣式"><a href="#修改-NexT-樣式" class="headerlink" title="修改 NexT 樣式"></a>修改 NexT 樣式</h2><p>以下只需修改 <strong>_config.next.yml</strong> 即可修改 Next 的樣式或功能</p>
+<h3 id="更改主題風格"><a href="#更改主題風格" class="headerlink" title="更改主題風格"></a>更改主題風格</h3><p>有四種:</p>
+<ul>
+<li>Muse - 預設風格</li>
+<li>Mist → A tighter version of Muse with a tidy single-column view.</li>
+<li>Pisces → Double-column Scheme, fresh like your neighbor’s daughter.</li>
+<li>Gemini → Looks like Pisces, but have distinct column blocks with shadow to appear more sensitive to view.</li>
+</ul>
+<p><img src="https://i.imgur.com/efFYrA8.png" alt="Next Scheme"></p>
+<h3 id="更改主站的-Menu"><a href="#更改主站的-Menu" class="headerlink" title="更改主站的 Menu"></a>更改主站的 Menu</h3><p>初始的 Next 只有 home 和 archives，ctrl + f 找到 menu 欄位並打開註解即可。<br><img src="https://i.imgur.com/5GVFVBR.png" alt="Next Main Menu"></p>
+<h4 id="Categories-amp-tags-頁面"><a href="#Categories-amp-tags-頁面" class="headerlink" title="Categories &amp; tags 頁面"></a>Categories &amp; tags 頁面</h4><p>只有打開 menu 的 categories 和 tags 並不會自動產生頁面，步驟如下:</p>
+<ol>
+<li><p>Categories:</p>
+<ol>
+<li><p>新增 catagories 頁面:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>將 source&#x2F;categories&#x2F;inex.md 設定成以下的樣子(date 不用更動):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2021-01-10 17:09:20</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>tags:</p>
+<ol>
+<li><p>新增 tags 頁面:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>設定 source&#x2F;tags&#x2F;inex.md :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2021-01-10 17:09:50</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>撰寫文章時增加分類(categories) 和標籤(tags):<br><img src="https://i.imgur.com/aUmxpiC.png" alt="設定文章分類和標籤"></p>
+</li>
+<li><p>結果<br><img src="https://i.imgur.com/lO7JCFK.png" alt="tags 和 categories 結果"></p>
+</li>
+</ol>
+<h3 id="回到頂部按鈕"><a href="#回到頂部按鈕" class="headerlink" title="回到頂部按鈕"></a>回到頂部按鈕</h3><p>back2top 的 enable 為 true， scrollpercent 為 true 顯示百分比<br><img src="https://i.imgur.com/s2kf1Ll.png" alt="回到頂部按鈕"></p>
+<h3 id="底部-tag-設定-icon"><a href="#底部-tag-設定-icon" class="headerlink" title="底部 tag 設定 icon"></a>底部 tag 設定 icon</h3><p>tag_icon 設定為 true 設定比較好看的 tag 標籤<br><img src="https://i.imgur.com/zJavV9a.png" alt="底部tag設定icon"></p>
+<h3 id="主要-Menu-顯示數量"><a href="#主要-Menu-顯示數量" class="headerlink" title="主要 Menu 顯示數量"></a>主要 Menu 顯示數量</h3><p>badges 改為 true<br><img src="https://i.imgur.com/inZhsdu.png" alt="Menu顯示數量"></p>
+<h3 id="側邊攔文章目錄預設展開"><a href="#側邊攔文章目錄預設展開" class="headerlink" title="側邊攔文章目錄預設展開"></a>側邊攔文章目錄預設展開</h3><p>toc 的 expand_all 設定為 true<br><img src="https://i.imgur.com/nWotjso.png" alt="側邊攔文章目錄預設展開"></p>
+<h2 id="Next-外掛套件"><a href="#Next-外掛套件" class="headerlink" title="Next 外掛套件"></a>Next 外掛套件</h2><p>以下都須先使用 npm 安裝套件再進行 config 的設定</p>
+<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h3><ol>
+<li>安裝套件</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>設定 local_search<br>設定 local_search: enable 為 true<br><img src="https://i.imgur.com/Er5Yfnk.png" alt="搜尋套件"></li>
+</ol>
+<h3 id="評論功能-–-utterances"><a href="#評論功能-–-utterances" class="headerlink" title="評論功能 – utterances"></a>評論功能 – utterances</h3><p>由於 utterances 是一個 GitHub Apps，比起 gitalk 基於 OAuth Apps 來說，在授權所需要給予的權限相對小，且 utterances 可以將授權限制於單一 repository (圖左 utterances、圖右 gitalk)。<br><img src="https://i.imgur.com/Xl17F0U.png" alt="utterances vs gitalk 授權"></p>
+<ol>
+<li><p>先<a target="_blank" rel="noopener" href="https://github.com/apps/utterances">到這裡</a>進行授權和安裝<br><img src="https://i.imgur.com/4TD2LOC.png" alt="utterances 安裝主頁"><br><img src="https://i.imgur.com/HjxQhR2.png" alt="utterances 安裝確認"></p>
+</li>
+<li><p>安裝 npm 套件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save theme-next/hexo-next-utteranc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>設定 config (記得是專案跟目錄的 _config.next.yml)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># Demo: https://utteranc.es/  http://trumandu.github.io/about/</span><br><span class="line">utteranc:</span><br><span class="line">enable: false</span><br><span class="line">repo: #Github repo such as :TrumanDu/comments</span><br><span class="line">pathname: pathname</span><br><span class="line"># theme: github-light,github-dark,github-dark-orange</span><br><span class="line">theme: github-light</span><br><span class="line">cdn: https://utteranc.es/client.js</span><br><span class="line"># If you want to modify priority, please config in **hexo**</span><br><span class="line">#priority:</span><br></pre></td></tr></table></figure>
+<p>基本上只要修改 <code>repo</code> 這一項即可 (EX: 我的 repository 為 <code>frank-fn10502/frank-fn10502.github.io</code></p>
+</li>
+</ol>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/getting-started/">NexT 官網</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-next-utteranc">utterances GitHub</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/" rel="tag"><i class="fa fa-tag"></i> 研究筆記</a>
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/Hexo-Theme-NexT-v7-8-0/" rel="tag"><i class="fa fa-tag"></i> Hexo Theme NexT v7.8.0</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/15/hexo-blog-advance/" rel="prev" title="Hexo -- 如何撰寫和客製化自己的部落格">
+      <i class="fa fa-chevron-left"></i> Hexo -- 如何撰寫和客製化自己的部落格
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/26/git-first/" rel="next" title="Git -- 簡介、基本指令 & GUI介面">
+      Git -- 簡介、基本指令 & GUI介面 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  
+  <div class="comments">
+  <script src="https://utteranc.es/client.js" repo="frank-fn10502/frank-fn10502.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script>
+  </div>
+  
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B-NexT-%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">如何查看 NexT 版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-NexT-%E7%9A%84-config-yml-%E4%B9%8B%E5%89%8D"><span class="nav-number">2.</span> <span class="nav-text">修改 NexT 的 _config.yml 之前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-NexT-%E6%A8%A3%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">修改 NexT 樣式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E4%B8%BB%E9%A1%8C%E9%A2%A8%E6%A0%BC"><span class="nav-number">3.1.</span> <span class="nav-text">更改主題風格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E4%B8%BB%E7%AB%99%E7%9A%84-Menu"><span class="nav-number">3.2.</span> <span class="nav-text">更改主站的 Menu</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Categories-amp-tags-%E9%A0%81%E9%9D%A2"><span class="nav-number">3.2.1.</span> <span class="nav-text">Categories &amp; tags 頁面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%88%B0%E9%A0%82%E9%83%A8%E6%8C%89%E9%88%95"><span class="nav-number">3.3.</span> <span class="nav-text">回到頂部按鈕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%95%E9%83%A8-tag-%E8%A8%AD%E5%AE%9A-icon"><span class="nav-number">3.4.</span> <span class="nav-text">底部 tag 設定 icon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81-Menu-%E9%A1%AF%E7%A4%BA%E6%95%B8%E9%87%8F"><span class="nav-number">3.5.</span> <span class="nav-text">主要 Menu 顯示數量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%B4%E9%82%8A%E6%94%94%E6%96%87%E7%AB%A0%E7%9B%AE%E9%8C%84%E9%A0%90%E8%A8%AD%E5%B1%95%E9%96%8B"><span class="nav-number">3.6.</span> <span class="nav-text">側邊攔文章目錄預設展開</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Next-%E5%A4%96%E6%8E%9B%E5%A5%97%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">Next 外掛套件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD"><span class="nav-number">4.1.</span> <span class="nav-text">搜索功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A9%95%E8%AB%96%E5%8A%9F%E8%83%BD-%E2%80%93-utterances"><span class="nav-number">4.2.</span> <span class="nav-text">評論功能 – utterances</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Frank Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/frank-fn10502" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;frank-fn10502" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Frank Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
