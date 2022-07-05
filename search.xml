@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Git -- 名詞介紹、流程 &amp; 指令</title>
-    <url>/2021/06/25/git-advance/</url>
+    <url>/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/git-advance/</url>
     <content><![CDATA[<h2 id="Git-資料夾結構"><a href="#Git-資料夾結構" class="headerlink" title="Git 資料夾結構"></a>Git 資料夾結構</h2><ul>
 <li><p>Git 的 Working Directory(工作目錄) &amp; Repository(版本庫)<br>在哪一個資料夾中使用 <code>git init</code> 該資料夾就是 Working Directory ，裡面的 .git 資料夾就是 Repository。<br><img src="https://i.imgur.com/XONf1lh.png" alt="Git 的 Working Directory &amp; Repository"></p>
 </li>
@@ -104,14 +104,13 @@
         <category>研究筆記</category>
       </categories>
       <tags>
-        <tag>研究筆記</tag>
         <tag>Git</tag>
         <tag>SourceTree</tag>
       </tags>
   </entry>
   <entry>
     <title>Git -- 簡介、基本指令 &amp; GUI介面</title>
-    <url>/2021/01/26/git-first/</url>
+    <url>/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/git-first/</url>
     <content><![CDATA[<ul>
 <li><p>Git 是一個 <strong>「分散式的版本控制」</strong> 工具。</p>
 <ul>
@@ -164,10 +163,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>新手上路</category>
+        <category>研究筆記</category>
       </categories>
       <tags>
-        <tag>研究筆記</tag>
         <tag>新手上路</tag>
         <tag>Git</tag>
         <tag>SourceTree</tag>
@@ -175,7 +173,7 @@
   </entry>
   <entry>
     <title>Hexo -- 如何撰寫和客製化自己的部落格</title>
-    <url>/2021/01/15/hexo-blog-advance/</url>
+    <url>/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-blog-advance/</url>
     <content><![CDATA[<p>使用以下指令，hexo 就會自動生成 md 檔，接下來直接寫 Markdown 語法就可以完成部落格，就是這麼簡單。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new &lt;your md file name&gt;</span><br></pre></td></tr></table></figure>
 
@@ -191,8 +189,8 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- &#123;% post_link hexo-blog &quot;Hexo + GitHub Pages 建立部落格&quot; %&#125;</span><br><span class="line">- &#123;% post_link hexo-theme-NexT &quot;Hexo Theme -- NexT&quot; %&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><a href="/2021/01/10/hexo-blog/" title="Hexo + GitHub Pages 建立部落格">Hexo + GitHub Pages 建立部落格</a></li>
-<li><a href="/2021/01/15/hexo-theme-NexT/" title="Hexo Theme -- NexT">Hexo Theme -- NexT</a></li>
+<li><a href="/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-blog/" title="Hexo + GitHub Pages 建立部落格">Hexo + GitHub Pages 建立部落格</a></li>
+<li><a href="/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-theme-NexT/" title="Hexo Theme -- NexT">Hexo Theme -- NexT</a></li>
 </ul>
 <h2 id="Alternate-Theme-Config"><a href="#Alternate-Theme-Config" class="headerlink" title="Alternate Theme Config"></a>Alternate Theme Config</h2><p>Hexo 主題是一個獨立的專案，同時也有一個獨立的 _config.yml 檔案，我們可以直接修改 這一個 config 檔案來客製化主題，但也因為更動這一檔案，每一次 theme 版本更新時我們都需要小心的比對有甚麼不一樣再 pull 以更新 theme 的版本。</p>
 <p>簡單來說就因為我們想要變更 theme 的設定，造成我們必須花心力去維護自己的設定檔和作者撰寫的 theme 的功能和外觀，很顯然我們有其他的選擇。</p>
@@ -246,7 +244,7 @@
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s //開起本地端的網站，方便預覽成果</span><br></pre></td></tr></table></figure>
 
-<p>NexT 預設畫面( <a href="/2021/01/15/hexo-theme-NexT/" title="Hexo Theme -- NexT 進階配置">Hexo Theme -- NexT 進階配置</a> ):<br><img src="https://i.imgur.com/JkcYNek.png" alt="NexT 預設畫面"></p>
+<p>NexT 預設畫面( <a href="/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-theme-NexT/" title="Hexo Theme -- NexT 進階配置">Hexo Theme -- NexT 進階配置</a> ):<br><img src="https://i.imgur.com/JkcYNek.png" alt="NexT 預設畫面"></p>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
 <li><a href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a></li>
 <li><a href="https://hsiangfeng.github.io/hexo/20200930/1081826307/">(17) 試著學 Hexo - NexT 主題篇 - NexT</a></li>
@@ -258,14 +256,13 @@
         <category>研究筆記</category>
       </categories>
       <tags>
-        <tag>研究筆記</tag>
         <tag>Hexo</tag>
         <tag>Hexo Theme NexT v7.8.0</tag>
       </tags>
   </entry>
   <entry>
     <title>Hexo + GitHub Pages 建立部落格</title>
-    <url>/2021/01/10/hexo-blog/</url>
+    <url>/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-blog/</url>
     <content><![CDATA[<p>Hexo 只需選取需要的主題、設定相關的_config.yml 和使用 npm 安裝套件，如此在撰寫文章只要專注於 Markdown 的語法即可。<br>GitHub Pages 本身是使用 GitHub 作為網頁的儲存空間，有以下的限制:</p>
 <ul>
 <li>網站大小不能超過 1 GB</li>
@@ -308,7 +305,7 @@
 
 <p>預設完成的介面，這樣就完成了:<br><img src="https://i.imgur.com/SiRPxPM.png" alt="Hexo 部屬 GitHub"></p>
 <h3 id="儲存至-GitHub"><a href="#儲存至-GitHub" class="headerlink" title="儲存至 GitHub"></a>儲存至 GitHub</h3><p>為了讓不同的電腦可以隨時撰寫和同步 blog 需要將整個 hexo 專案放置 Github ，也為了方便找尋專案將專案推至同一個 repository 的 develop 分支。 <strong>(已更改為獨立的 Private repository)</strong><br><img src="https://i.imgur.com/BLDp7fd.png" alt="hexo-blog開發分支"></p>
-<p>新電腦只須執行以下專案即可開始撰寫(<a href="/2021/01/15/hexo-blog-advance/" title="Hexo 客製化">Hexo 客製化</a> , <a href="/2021/01/15/hexo-theme-NexT/" title="NexT 配置">NexT 配置</a>):</p>
+<p>新電腦只須執行以下專案即可開始撰寫(<a href="/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-blog-advance/" title="Hexo 客製化">Hexo 客製化</a> , <a href="/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-theme-NexT/" title="NexT 配置">NexT 配置</a>):</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone -b &lt;branchname&gt; &lt;remote-repo-url&gt; . //-b 為 --branch 簡寫 , . 代表直接clone到這一個資料夾 ,&lt;branchname&gt; 此處指定 develop</span><br><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes/next //將主題下載至 hexo 的 theme，此處使用 Next</span><br></pre></td></tr></table></figure>
 
 <p>撰寫完成將最新的開發進度再推送至 develop 分支。</p>
@@ -325,10 +322,9 @@
 </ol>
 ]]></content>
       <categories>
-        <category>新手上路</category>
+        <category>研究筆記</category>
       </categories>
       <tags>
-        <tag>研究筆記</tag>
         <tag>新手上路</tag>
         <tag>Hexo</tag>
         <tag>GitHub Pages</tag>
@@ -336,8 +332,8 @@
   </entry>
   <entry>
     <title>Hexo -- Docker -- vscode</title>
-    <url>/2022/03/08/hexo-docker-vscode/</url>
-    <content><![CDATA[<p>在 <a href="/2022/03/07/windows-docker-vscode/" title="windows -- Docker -- vscode">windows -- Docker -- vscode</a> 中有提到使用 docker &amp; vscode 的開發流程，因此本篇文章會將 hexo blog 也轉換成 container 的形式，方便本機的環境管理和專案的可攜帶性。</p>
+    <url>/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-docker-vscode/</url>
+    <content><![CDATA[<p>在 <a href="/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/windows-docker-vscode/" title="windows -- Docker -- vscode">windows -- Docker -- vscode</a> 中有提到使用 docker &amp; vscode 的開發流程，因此本篇文章會將 hexo blog 也轉換成 container 的形式，方便本機的環境管理和專案的可攜帶性。</p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><ol>
 <li>專案從 github 拉下來: <code>git clone ....</code></li>
 <li>vscode 彈出可以開啟 container，點選 reopen in container</li>
@@ -379,18 +375,17 @@
 <p>最終我選擇直接將 repository 放到 wsl2 中然後開 container 進行開發，目前完美解決問題 1 &amp; 2。</p>
 ]]></content>
       <categories>
-        <category>實作範例</category>
+        <category>研究筆記</category>
       </categories>
       <tags>
         <tag>docker</tag>
         <tag>vscode</tag>
         <tag>Hexo</tag>
-        <tag>實作範例</tag>
       </tags>
   </entry>
   <entry>
     <title>Hexo Theme -- NexT 進階配置</title>
-    <url>/2021/01/15/hexo-theme-NexT/</url>
+    <url>/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-theme-NexT/</url>
     <content><![CDATA[<p>本文章使用的 Hexo Theme NexT 版本為 v7.8.0。</p>
 <h2 id="如何查看-NexT-版本"><a href="#如何查看-NexT-版本" class="headerlink" title="如何查看 NexT 版本"></a>如何查看 NexT 版本</h2><p>可以在 themes&#x2F;next 內的 package.json 查看<br><img src="https://i.imgur.com/Gg4nj8T.png" alt="NexT 版本查詢"></p>
 <span id="more"></span>
@@ -471,14 +466,13 @@
         <category>研究筆記</category>
       </categories>
       <tags>
-        <tag>研究筆記</tag>
         <tag>Hexo</tag>
         <tag>Hexo Theme NexT v7.8.0</tag>
       </tags>
   </entry>
   <entry>
     <title>vim -- vscode -- setting</title>
-    <url>/2022/06/22/vim-vscode/</url>
+    <url>/%E9%96%8B%E7%99%BC%E6%B5%81%E7%A8%8B/vim-vscode/</url>
     <content><![CDATA[<p><img src="https://i.imgur.com/a0vqoKa.png" alt="vs vim"></p>
 <p>vim 是一個古老的”文字編輯器”，之所以想到 vim 主要是因為想要提升開發的速度，而最好的方法之一就是讓手盡量不要離開鍵盤，vim 正是一套只使用鍵盤就可開始開發的工具。</p>
 <p>但有鑑於直接使用 vim 開發會需要放棄正在使用的 vscode 的各種方便功能，因此本篇文章會著重在將 vim 融入到 vscode 的開發中 &amp; 快捷鍵的設定。</p>
@@ -546,12 +540,11 @@
       <tags>
         <tag>vscode</tag>
         <tag>vim</tag>
-        <tag>開發流程</tag>
       </tags>
   </entry>
   <entry>
     <title>windows -- Docker -- vscode</title>
-    <url>/2022/03/07/windows-docker-vscode/</url>
+    <url>/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/windows-docker-vscode/</url>
     <content><![CDATA[<p>目前使用 wsl2 的 docker 加上 vscode 的開發流程有一段時間了，因此寫下這篇紀錄環境的安裝，目前使用過的語言和框架:</p>
 <ul>
 <li>python、tensorflow-gpu</li>
@@ -630,7 +623,6 @@
         <category>研究筆記</category>
       </categories>
       <tags>
-        <tag>研究筆記</tag>
         <tag>新手上路</tag>
         <tag>docker</tag>
         <tag>vscode</tag>

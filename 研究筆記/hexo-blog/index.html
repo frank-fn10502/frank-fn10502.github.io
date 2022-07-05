@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"frank-fn10502.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Hexo 只需選取需要的主題、設定相關的_config.yml 和使用 npm 安裝套件，如此在撰寫文章只要專注於 Markdown 的語法即可。GitHub Pages 本身是使用 GitHub 作為網頁的儲存空間，有以下的限制:  網站大小不能超過 1 GB 網站每月流量不能超過 100 GB 一小時內的網站更新不得超過 10 次 只能架設「靜態網站」">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo + GitHub Pages 建立部落格">
+<meta property="og:url" content="https://frank-fn10502.github.io/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-blog/index.html">
+<meta property="og:site_name" content="Frank&#39;s Doc">
+<meta property="og:description" content="Hexo 只需選取需要的主題、設定相關的_config.yml 和使用 npm 安裝套件，如此在撰寫文章只要專注於 Markdown 的語法即可。GitHub Pages 本身是使用 GitHub 作為網頁的儲存空間，有以下的限制:  網站大小不能超過 1 GB 網站每月流量不能超過 100 GB 一小時內的網站更新不得超過 10 次 只能架設「靜態網站」">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Va2vyWl.png">
+<meta property="og:image" content="https://i.imgur.com/K744Y51.png">
+<meta property="og:image" content="https://i.imgur.com/hI6naOH.png">
+<meta property="og:image" content="https://i.imgur.com/H7jhMTk.png">
+<meta property="og:image" content="https://i.imgur.com/SiRPxPM.png">
+<meta property="og:image" content="https://i.imgur.com/BLDp7fd.png">
+<meta property="article:published_time" content="2021-01-10T10:03:32.000Z">
+<meta property="article:modified_time" content="2022-07-05T10:59:56.398Z">
+<meta property="article:author" content="Frank Chen">
+<meta property="article:tag" content="新手上路">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="GitHub Pages">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/Va2vyWl.png">
+
+<link rel="canonical" href="https://frank-fn10502.github.io/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-blog/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Hexo + GitHub Pages 建立部落格 | Frank's Doc</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RBW2FTS6KN"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RBW2FTS6KN');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Frank's Doc</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">技術研究筆記</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">8</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤<span class="badge">9</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類<span class="badge">2</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://frank-fn10502.github.io/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Doc">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo + GitHub Pages 建立部落格
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-01-10 18:03:32" itemprop="dateCreated datePublished" datetime="2021-01-10T18:03:32+08:00">2021-01-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-07-05 18:59:56" itemprop="dateModified" datetime="2022-07-05T18:59:56+08:00">2022-07-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">研究筆記</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Hexo 只需選取需要的主題、設定相關的_config.yml 和使用 npm 安裝套件，如此在撰寫文章只要專注於 Markdown 的語法即可。<br>GitHub Pages 本身是使用 GitHub 作為網頁的儲存空間，有以下的限制:</p>
+<ul>
+<li>網站大小不能超過 1 GB</li>
+<li>網站每月流量不能超過 100 GB</li>
+<li>一小時內的網站更新不得超過 10 次</li>
+<li>只能架設<strong>「靜態網站」</strong></li>
+</ul>
+<span id="more"></span>
+
+<h2 id="GitHub-Pages"><a href="#GitHub-Pages" class="headerlink" title="GitHub Pages"></a>GitHub Pages</h2><h3 id="建立-GitHub-Pages"><a href="#建立-GitHub-Pages" class="headerlink" title="建立 GitHub Pages"></a>建立 GitHub Pages</h3><p>建立 GitHub Pages 的空間十分的簡單，只需建立 GitHub 專案，名稱取名為 xxx.github.io( xxx 要填自己的 GitHub 帳號名稱 )，這樣一個靜態的網站就建立完成了，只需將靜態網站的檔案推送到這一個 repository 即可自動部屬。<br><img src="https://i.imgur.com/Va2vyWl.png" alt="創建 GitHub Pages"></p>
+<p>點進剛剛創建的 repository –&gt; 點進 setting 裡面有一項叫做 GitHub Pages ，這邊可以看到自己的網站的網址( 前提是已經上傳相關的檔案，列如 index.html 檔 )。<br>Source 裡面可以設定哪一個分支做為顯示的分支，預設都是 master，意味著使用 git 推到 master 分支時 GitHub 就會隨著 master 分支的更動更改頁面的顯示。(圖中是本部落格的 repository)<br><img src="https://i.imgur.com/K744Y51.png" alt="GitHub Pages setting"></p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="建立-Hexo-環境"><a href="#建立-Hexo-環境" class="headerlink" title="建立 Hexo 環境"></a>建立 Hexo 環境</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://nodejs.org/zh-tw/">Node.js</a></li>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a></li>
+<li>安裝 Hexo (終端機<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="建立-Hexo-專案"><a href="#建立-Hexo-專案" class="headerlink" title="建立 Hexo 專案"></a>建立 Hexo 專案</h3><p>進到想要的資料夾中，在終端機中輸入以下的指令以建立專案。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo init name  //初始化新的 Hexo，會在當前路徑建立一個叫 name 的資料夾，資料夾名稱可以隨意取，例如「myblog」，那麼指令就是 hexo init myblog</span><br><span class="line">cd name  //進入您剛剛建立的 name 資料夾當中，cd 是 change directory 的意思</span><br><span class="line">npm install  //安裝 npm 所有的 package</span><br><span class="line">npm install hexo-deployer-git --save  //安裝 git 部署套件， --save 將其寫入 package.json，以利之後 npm install</span><br></pre></td></tr></table></figure>
+
+<h3 id="設定-Hexo-專案"><a href="#設定-Hexo-專案" class="headerlink" title="設定 Hexo 專案"></a>設定 Hexo 專案</h3><ol>
+<li>Hexo 專案中有一個 _config.yml，打開並修改 6 ~ 12 行:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: Hexo  //輸入部落格標題</span><br><span class="line">subtitle: &#x27;&#x27;  //輸入副標題</span><br><span class="line">description: &#x27;&#x27;  //輸入網站描述</span><br><span class="line">keywords: &#x27;&#x27; //輸入網站關鍵字(以逗號隔開)，方便 SEO</span><br><span class="line">author: John Doe  //輸入姓名或暱稱</span><br><span class="line">language: en //輸入您所使用的語言</span><br><span class="line">timezone: &#x27;&#x27;  //留空以使用系統時間</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/hI6naOH.png" alt="Hexo 專案基礎設定"></p>
+<ol start="2">
+<li>設定 Hexo 部屬至 GitHub 的資訊，通常這一段在_config.yml 檔的最下方，沒有也可以自己加。(請記得要先安裝 hexo-deployer-git)<br><img src="https://i.imgur.com/H7jhMTk.png" alt="Hexo 部屬 GitHub"></li>
+</ol>
+<h3 id="部屬至-GitHub"><a href="#部屬至-GitHub" class="headerlink" title="部屬至 GitHub"></a>部屬至 GitHub</h3><p>回到終端機，輸入以下指令(記得要進到專案的根目錄):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo cl  //清除之前建立的靜態檔案，也可以輸入 hexo clean</span><br><span class="line">hexo g  //建立靜態檔案，也可以輸入 hexo generate</span><br><span class="line">hexo d  //部署至 Github Pages，也可以輸入 hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>建立並部屬(懶人寫法):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo cl &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+
+<p>P.S.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s //開起本地端的網站，方便預覽成果</span><br></pre></td></tr></table></figure>
+
+<p>預設完成的介面，這樣就完成了:<br><img src="https://i.imgur.com/SiRPxPM.png" alt="Hexo 部屬 GitHub"></p>
+<h3 id="儲存至-GitHub"><a href="#儲存至-GitHub" class="headerlink" title="儲存至 GitHub"></a>儲存至 GitHub</h3><p>為了讓不同的電腦可以隨時撰寫和同步 blog 需要將整個 hexo 專案放置 Github ，也為了方便找尋專案將專案推至同一個 repository 的 develop 分支。 <strong>(已更改為獨立的 Private repository)</strong><br><img src="https://i.imgur.com/BLDp7fd.png" alt="hexo-blog開發分支"></p>
+<p>新電腦只須執行以下專案即可開始撰寫(<a href="/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-blog-advance/" title="Hexo 客製化">Hexo 客製化</a> , <a href="/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-theme-NexT/" title="NexT 配置">NexT 配置</a>):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone -b &lt;branchname&gt; &lt;remote-repo-url&gt; . //-b 為 --branch 簡寫 , . 代表直接clone到這一個資料夾 ,&lt;branchname&gt; 此處指定 develop</span><br><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes/next //將主題下載至 hexo 的 theme，此處使用 Next</span><br></pre></td></tr></table></figure>
+
+<p>撰寫完成將最新的開發進度再推送至 develop 分支。</p>
+<ul>
+<li><p>第一次:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin &lt;remote-repo-url&gt;</span><br><span class="line">git push -u origin develop</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>之後:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a></li>
+<li><a target="_blank" rel="noopener" href="https://ed521.github.io/2019/07/hexo-install/">[教學] 使用 GitHub Pages + Hexo 來架設個人部落格</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%96%B0%E6%89%8B%E4%B8%8A%E8%B7%AF/" rel="tag"><i class="fa fa-tag"></i> 新手上路</a>
+              <a href="/tags/Hexo/" rel="tag"><i class="fa fa-tag"></i> Hexo</a>
+              <a href="/tags/GitHub-Pages/" rel="tag"><i class="fa fa-tag"></i> GitHub Pages</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/hexo-blog-advance/" rel="next" title="Hexo -- 如何撰寫和客製化自己的部落格">
+      Hexo -- 如何撰寫和客製化自己的部落格 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  
+  <div class="comments">
+  <script src="https://utteranc.es/client.js" repo="frank-fn10502/frank-fn10502.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script>
+  </div>
+  
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub-Pages"><span class="nav-number">1.</span> <span class="nav-text">GitHub Pages</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-GitHub-Pages"><span class="nav-number">1.1.</span> <span class="nav-text">建立 GitHub Pages</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo"><span class="nav-number">2.</span> <span class="nav-text">Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-Hexo-%E7%92%B0%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">建立 Hexo 環境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-Hexo-%E5%B0%88%E6%A1%88"><span class="nav-number">2.2.</span> <span class="nav-text">建立 Hexo 專案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-Hexo-%E5%B0%88%E6%A1%88"><span class="nav-number">2.3.</span> <span class="nav-text">設定 Hexo 專案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E5%B1%AC%E8%87%B3-GitHub"><span class="nav-number">2.4.</span> <span class="nav-text">部屬至 GitHub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%84%B2%E5%AD%98%E8%87%B3-GitHub"><span class="nav-number">2.5.</span> <span class="nav-text">儲存至 GitHub</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Frank Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/frank-fn10502" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;frank-fn10502" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Frank Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
