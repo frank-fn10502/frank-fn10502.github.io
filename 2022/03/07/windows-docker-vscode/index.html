@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"frank-fn10502.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="目前使用 wsl2 的 docker 加上 vscode 的開發流程有一段時間了，因此寫下這篇紀錄環境的安裝，目前使用過的語言和框架:  python、tensorflow-gpu c&#x2F;c++、java  為什麼想使用 docker 來開發?Docker 是一種容器(container)化的技術，將該技術用作 開發 有許多的好處:  用各種語言開發時不用將所有的環境都安裝在 pc 上，減">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows -- Docker -- vscode">
+<meta property="og:url" content="https://frank-fn10502.github.io/2022/03/07/windows-docker-vscode/index.html">
+<meta property="og:site_name" content="Frank&#39;s Doc">
+<meta property="og:description" content="目前使用 wsl2 的 docker 加上 vscode 的開發流程有一段時間了，因此寫下這篇紀錄環境的安裝，目前使用過的語言和框架:  python、tensorflow-gpu c&#x2F;c++、java  為什麼想使用 docker 來開發?Docker 是一種容器(container)化的技術，將該技術用作 開發 有許多的好處:  用各種語言開發時不用將所有的環境都安裝在 pc 上，減">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/qrlLhco.png">
+<meta property="og:image" content="https://i.imgur.com/WFvh4Jn.png">
+<meta property="og:image" content="https://i.imgur.com/4XhsCq3.png">
+<meta property="og:image" content="https://i.imgur.com/qrlLhco.png">
+<meta property="og:image" content="https://i.imgur.com/U4oK0wv.png">
+<meta property="og:image" content="https://i.imgur.com/GfyPOC0.png">
+<meta property="og:image" content="https://i.imgur.com/qBXbkFd.png">
+<meta property="og:image" content="https://i.imgur.com/cadZq55.png">
+<meta property="og:image" content="https://i.imgur.com/oFszBVn.png">
+<meta property="article:published_time" content="2022-03-07T15:06:32.000Z">
+<meta property="article:modified_time" content="2022-07-11T02:59:07.671Z">
+<meta property="article:author" content="Frank Chen">
+<meta property="article:tag" content="研究筆記">
+<meta property="article:tag" content="新手上路">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="vscode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/qrlLhco.png">
+
+<link rel="canonical" href="https://frank-fn10502.github.io/2022/03/07/windows-docker-vscode/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>windows -- Docker -- vscode | Frank's Doc</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RBW2FTS6KN"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RBW2FTS6KN');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Frank's Doc</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">技術研究筆記</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">8</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類<span class="badge">4</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://frank-fn10502.github.io/2022/03/07/windows-docker-vscode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Doc">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          windows -- Docker -- vscode
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-03-07 15:06:32" itemprop="dateCreated datePublished" datetime="2022-03-07T15:06:32+00:00">2022-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-07-11 02:59:07" itemprop="dateModified" datetime="2022-07-11T02:59:07+00:00">2022-07-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">研究筆記</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>目前使用 wsl2 的 docker 加上 vscode 的開發流程有一段時間了，因此寫下這篇紀錄環境的安裝，目前使用過的語言和框架:</p>
+<ul>
+<li>python、tensorflow-gpu</li>
+<li>c&#x2F;c++、java</li>
+</ul>
+<h2 id="為什麼想使用-docker-來開發"><a href="#為什麼想使用-docker-來開發" class="headerlink" title="為什麼想使用 docker 來開發?"></a>為什麼想使用 docker 來開發?</h2><p>Docker 是一種容器(container)化的技術，將該技術用作 <strong>開發</strong> 有許多的好處:</p>
+<ol>
+<li>用各種語言開發時不用將所有的環境都安裝在 pc 上，減少環境設定的衝突 (ex: py3.6, py3.8, nodejs, ….)。</li>
+<li>多台電腦 (or 換新電腦) 開發時不用每一台都設定一次環境，從 repo 拉下來就可直接參與開發。</li>
+<li>方便管理環境，並環境一但變動所有人都可拿到最新的可運行的環境(延伸第 2 點)。</li>
+</ol>
+<blockquote>
+<p>p.s. 再加上使用 vscode 產生 container 只需點按幾下就可產生各種環境和所需的各種 extension，方遍、快速、好管理。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="環境設定-–-windows"><a href="#環境設定-–-windows" class="headerlink" title="環境設定 –  windows"></a>環境設定 –  windows</h2><p>由於 docker 這一技術是在 linux 系統上出現的，因此最適合的方法就是將電腦重灌成 linux 系統，但這樣就失去 windows 系統的許多方便功能，office系列、steam的遊戲(這是無可比擬的優點 d(&#96;･∀･)b)、…，因此本次環境設置是基於 wsl2 來設定的，wsl2 除了少數的機制和現代 linux distribution 有些許不太相同外 (目前有碰到的是 init &amp; systemd，其他還有待查證) 都可當成 linux 系統來操作使用。</p>
+<blockquote>
+<p>wsl2: Windows Subsystem for Linux version 2</p>
+</blockquote>
+<h3 id="安裝-wsl2"><a href="#安裝-wsl2" class="headerlink" title="安裝 wsl2"></a>安裝 wsl2</h3><ol>
+<li>打開 cmd 或 PowerShell 下指令 <code>wsl --install</code></li>
+<li>安裝 linux distribution<ul>
+<li><code>wsl --list --online</code> 查看有什麼版本可以安裝  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">以下是可安裝之有效發佈的清單。</span><br><span class="line">使用 <span class="string">&#x27;wsl --install -d &lt;Distro&gt;&#x27;</span> 安裝。</span><br><span class="line"></span><br><span class="line">NAME            FRIENDLY NAME</span><br><span class="line">Ubuntu          Ubuntu</span><br><span class="line">Debian          Debian GNU/Linux</span><br><span class="line">kali-linux      Kali Linux Rolling</span><br><span class="line">openSUSE-42     openSUSE Leap 42</span><br><span class="line">SLES-12         SUSE Linux Enterprise Server v12</span><br><span class="line">Ubuntu-16.04    Ubuntu 16.04 LTS</span><br><span class="line">Ubuntu-18.04    Ubuntu 18.04 LTS</span><br><span class="line">Ubuntu-20.04    Ubuntu 20.04 LTS</span><br></pre></td></tr></table></figure></li>
+<li><code>wsl --install -d &lt;DistroName&gt;</code> 安裝所需的版本，我是選擇 Ubuntu-20.04，這便看你偏好的是什麼版本。</li>
+</ul>
+</li>
+</ol>
+<p>完成上面兩道指令 wsl2 就安裝完成了，但我有碰到一個問題，在後面會提供找到的解法。</p>
+<h3 id="安裝-windows-版本的-docker"><a href="#安裝-windows-版本的-docker" class="headerlink" title="安裝 windows 版本的 docker"></a>安裝 windows 版本的 docker</h3><p>下載 <a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/windows/wsl/">docker desktop</a>，點兩下安裝。</p>
+<h3 id="讓-WSL-可以使用-CUDA"><a href="#讓-WSL-可以使用-CUDA" class="headerlink" title="讓 WSL 可以使用 CUDA"></a>讓 WSL 可以使用 CUDA</h3><p><del>為了讓 WSL 可以使用電腦的 NVIDIA GPU 訓練 model， 需要做一些設定….</del></p>
+<p>在 win10 21H2 或 win11 之後就不用這麼麻煩了，之前還需要加入 windows 的開發者計畫才有這功能…，所以我的電腦才需要重灌 (◢▆▅▄▃崩╰(〒皿〒)╯潰▃▄▅▇◣)，現在只需要裝 nvidia 最新的 driver 即可在 wsl 和 docker 使用 gpu 訓練 model。</p>
+<p>驗證 gpu 是否可以運作 <code>docker run --rm -it --gpus=all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\frank&gt;docker run --<span class="built_in">rm</span> -it --gpus=all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark</span><br><span class="line">Run <span class="string">&quot;nbody -benchmark [-numbodies=&lt;numBodies&gt;]&quot;</span> to measure performance.</span><br><span class="line">        -fullscreen       (run n-body simulation <span class="keyword">in</span> fullscreen mode)</span><br><span class="line">        -fp64             (use double precision floating point values <span class="keyword">for</span> simulation)</span><br><span class="line">        -hostmem          (stores simulation data <span class="keyword">in</span> host memory)</span><br><span class="line">        -benchmark        (run benchmark to measure performance)</span><br><span class="line">        -numbodies=&lt;N&gt;    (number of bodies (&gt;= 1) to run <span class="keyword">in</span> simulation)</span><br><span class="line">        -device=&lt;d&gt;       (<span class="built_in">where</span> d=0,1,2.... <span class="keyword">for</span> the CUDA device to use)</span><br><span class="line">        -numdevices=&lt;i&gt;   (<span class="built_in">where</span> i=(number of CUDA devices &gt; 0) to use <span class="keyword">for</span> simulation)</span><br><span class="line">        -compare          (compares simulation results running once on the default GPU and once on the CPU)</span><br><span class="line">        -cpu              (run n-body simulation on the CPU)</span><br><span class="line">        -tipsy=&lt;file.bin&gt; (load a tipsy model file <span class="keyword">for</span> simulation)</span><br><span class="line"></span><br><span class="line">NOTE: The CUDA Samples are not meant <span class="keyword">for</span> performance measurements. Results may vary when GPU Boost is enabled.</span><br><span class="line"></span><br><span class="line">&gt; Windowed mode</span><br><span class="line">&gt; Simulation data stored <span class="keyword">in</span> video memory</span><br><span class="line">&gt; Single precision floating point simulation</span><br><span class="line">&gt; 1 Devices used <span class="keyword">for</span> simulation</span><br><span class="line">GPU Device 0: <span class="string">&quot;Turing&quot;</span> with compute capability 7.5</span><br><span class="line"></span><br><span class="line">&gt; Compute 7.5 CUDA device: [NVIDIA GeForce GTX 1660 Ti with Max-Q Design]</span><br><span class="line">24576 bodies, total time <span class="keyword">for</span> 10 iterations: 48.718 ms</span><br><span class="line">= 123.974 billion interactions per second</span><br><span class="line">= 2479.476 single-precision GFLOP/s at 20 flops per interaction</span><br></pre></td></tr></table></figure>
+
+<h3 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h3><h4 id="error-0x800701bc"><a href="#error-0x800701bc" class="headerlink" title="error: 0x800701bc"></a>error: 0x800701bc</h4><p>如果在 <code>docker run ....</code> 這道指令出現 <code>WslRegisterDistribution failed with error: 0x800701bc</code> 的錯誤的話就代表需要升級 wsl2 ????(查詢到的資訊，不太確定)，下載 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package">update package</a> 並點兩下安裝，重啟後就可以了。</p>
+<h4 id="error-0x80370102"><a href="#error-0x80370102" class="headerlink" title="error: 0x80370102"></a>error: 0x80370102</h4><p>需要到 bios 檢查是否有開啟”虛擬化”，我是使用 <code>amd 的 cpu &amp; asus 主機板</code> 因此在 <code>bios &gt; advanced &gt; svm mode</code> 選擇 enabled 即可開啟虛擬化。</p>
+<h2 id="vscode-操作-docker"><a href="#vscode-操作-docker" class="headerlink" title="vscode 操作 docker"></a>vscode 操作 docker</h2><p>環境設定完成後最重要的就是用 vscode 簡單的操作 docker ，快速建立需要的環境並馬上開發。</p>
+<ol>
+<li>下載 vscode … 官網-&gt;download-&gt; 點兩下安裝</li>
+<li>vscode extension 安裝<ol>
+<li>remote 三套件(Remote - SSH、Remote - Containers、Remote - WSL) <ul>
+<li>主要是 Remote - Containers 幫我們創建 container ，但另外兩套也都十分有用就順便都裝一裝。</li>
+</ul>
+</li>
+<li>Docker 套件: 從 vscode 管理 docker 環境和撰寫 dockerfile。</li>
+</ol>
+</li>
+<li>用 vscode 的操作面板生成 dockerfile 和 vscode 的環境設定 <ol>
+<li>按下 <code>F1</code> 或 <code>ctrl + shift + p</code> 打開 vscode 操作面板，輸入 remote-container ，找到 add development …<br> <img src="https://i.imgur.com/qrlLhco.png" alt="vscode remote-container add development config"></li>
+<li>選擇需要的環境設定(這邊我選 c++ 當範例)<br> <img src="https://i.imgur.com/WFvh4Jn.png" alt="remote-container c++ env"></li>
+<li>一路選下去就會生成必要的 cfg 檔案<br> <img src="https://i.imgur.com/4XhsCq3.png" alt="vscode docker cfg files"></li>
+<li>按下 <code>F1</code> 或 <code>ctrl + shift + p</code> 打開 vscode 操作面板，輸入 remote-container ，找到 rebuild and reopen… ，等待環境建立，可能需要一陣子。<br> <img src="https://i.imgur.com/qrlLhco.png" alt="vscode remote-container add development config"></li>
+<li>成功後 vscode 右下角會出現這一個標誌和環境的名稱<br> <img src="https://i.imgur.com/U4oK0wv.png" alt="success build container"></li>
+<li>寫一些 code 驗證是否有所需的編譯器和環境<ul>
+<li><code>F5</code> 來 debug 看看，選擇一些設定:<br> <img src="https://i.imgur.com/GfyPOC0.png" alt="select env"><br> 選擇編譯器<br> <img src="https://i.imgur.com/qBXbkFd.png" alt="select compiler"><br> 執行結果<br> <img src="https://i.imgur.com/cadZq55.png" alt="cpp run result"></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<p>更重要的是當我們關掉 vscode 可以到當初選擇放資料的地方，可以看到我們寫的東西都還存在本機端，因為 vscode 預設是用 bind 的方法將 windows 的資料夾綁到 docker 的 container 裡面，因此我們在 container 中修改的東西都還是會保存在主機上，不會隨著 container 消失而消失。<br><img src="https://i.imgur.com/oFszBVn.png" alt="all develop files"></p>
+<blockquote>
+<p><code>.devcontainer</code> 資料夾就是放 vscode 建立 container 的各種檔案，dockerfiles、devcontainer.json(vscode 的設定)，有意思的是這兩個檔案都是文字檔，因此都可套用版本追蹤，推上 git server 之後只要下載下來並用 vscode 開啟環境和 code 都一併重現在其他電腦上。</p>
+</blockquote>
+<h2 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-tw/windows/wsl/install#install-your-linux-distribution-of-choice">安裝 wsl</a> </li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_18625805/article/details/109732122">wsl2 問題</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/windows/wsl/">docker for windows</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers#develop-in-remote-containers-using-vs-code">microsoft 官網 – 安裝 docker</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-tw/windows/ai/directml/gpu-cuda-in-wsl">Enable NVIDIA CUDA on WSL</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda/wsl">nvidia – CUDA on WSL</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/" rel="tag"><i class="fa fa-tag"></i> 研究筆記</a>
+              <a href="/tags/%E6%96%B0%E6%89%8B%E4%B8%8A%E8%B7%AF/" rel="tag"><i class="fa fa-tag"></i> 新手上路</a>
+              <a href="/tags/docker/" rel="tag"><i class="fa fa-tag"></i> docker</a>
+              <a href="/tags/vscode/" rel="tag"><i class="fa fa-tag"></i> vscode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/25/git-advance/" rel="prev" title="Git -- 名詞介紹、流程 & 指令">
+      <i class="fa fa-chevron-left"></i> Git -- 名詞介紹、流程 & 指令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/08/hexo-docker-vscode/" rel="next" title="Hexo -- Docker -- vscode">
+      Hexo -- Docker -- vscode <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  
+  <div class="comments">
+  <script src="https://utteranc.es/client.js" repo="frank-fn10502/frank-fn10502.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script>
+  </div>
+  
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E6%83%B3%E4%BD%BF%E7%94%A8-docker-%E4%BE%86%E9%96%8B%E7%99%BC"><span class="nav-number">1.</span> <span class="nav-text">為什麼想使用 docker 來開發?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%92%B0%E5%A2%83%E8%A8%AD%E5%AE%9A-%E2%80%93-windows"><span class="nav-number">2.</span> <span class="nav-text">環境設定 –  windows</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-wsl2"><span class="nav-number">2.1.</span> <span class="nav-text">安裝 wsl2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-windows-%E7%89%88%E6%9C%AC%E7%9A%84-docker"><span class="nav-number">2.2.</span> <span class="nav-text">安裝 windows 版本的 docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%93-WSL-%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-CUDA"><span class="nav-number">2.3.</span> <span class="nav-text">讓 WSL 可以使用 CUDA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C"><span class="nav-number">2.4.</span> <span class="nav-text">問題</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#error-0x800701bc"><span class="nav-number">2.4.1.</span> <span class="nav-text">error: 0x800701bc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#error-0x80370102"><span class="nav-number">2.4.2.</span> <span class="nav-text">error: 0x80370102</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode-%E6%93%8D%E4%BD%9C-docker"><span class="nav-number">3.</span> <span class="nav-text">vscode 操作 docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">參考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Frank Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/frank-fn10502" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;frank-fn10502" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Frank Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

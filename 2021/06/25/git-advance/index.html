@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"frank-fn10502.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Git 資料夾結構 Git 的 Working Directory(工作目錄) &amp; Repository(版本庫)在哪一個資料夾中使用 git init 該資料夾就是 Working Directory ，裡面的 .git 資料夾就是 Repository。  Git 的暫存區(又稱索引)(index ,stage ,cache)這是一個存在 .git 資料夾下的一個暫存檔案(名為 ind">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git -- 名詞介紹、流程 &amp; 指令">
+<meta property="og:url" content="https://frank-fn10502.github.io/2021/06/25/git-advance/index.html">
+<meta property="og:site_name" content="Frank&#39;s Doc">
+<meta property="og:description" content="Git 資料夾結構 Git 的 Working Directory(工作目錄) &amp; Repository(版本庫)在哪一個資料夾中使用 git init 該資料夾就是 Working Directory ，裡面的 .git 資料夾就是 Repository。  Git 的暫存區(又稱索引)(index ,stage ,cache)這是一個存在 .git 資料夾下的一個暫存檔案(名為 ind">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/XONf1lh.png">
+<meta property="og:image" content="https://i.imgur.com/fRE3BZI.png">
+<meta property="og:image" content="https://i.imgur.com/7WIU790.png">
+<meta property="og:image" content="https://i.imgur.com/9m1IzIL.png">
+<meta property="og:image" content="https://i.imgur.com/cXmmdRt.png">
+<meta property="og:image" content="https://i.imgur.com/hXZ2EO7.png">
+<meta property="og:image" content="https://i.imgur.com/3RlDaq9.png">
+<meta property="og:image" content="https://i.imgur.com/t4HrPaK.png">
+<meta property="og:image" content="https://i.imgur.com/Jjl0iy0.png">
+<meta property="og:image" content="https://i.imgur.com/b1mbZF1.png">
+<meta property="og:image" content="https://i.imgur.com/WK4biWy.png">
+<meta property="article:published_time" content="2021-06-25T17:13:21.000Z">
+<meta property="article:modified_time" content="2022-07-11T02:59:07.671Z">
+<meta property="article:author" content="Frank Chen">
+<meta property="article:tag" content="研究筆記">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="SourceTree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/XONf1lh.png">
+
+<link rel="canonical" href="https://frank-fn10502.github.io/2021/06/25/git-advance/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Git -- 名詞介紹、流程 & 指令 | Frank's Doc</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RBW2FTS6KN"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RBW2FTS6KN');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Frank's Doc</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">技術研究筆記</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">8</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類<span class="badge">4</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://frank-fn10502.github.io/2021/06/25/git-advance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Frank Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Frank's Doc">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git -- 名詞介紹、流程 & 指令
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-06-25 17:13:21" itemprop="dateCreated datePublished" datetime="2021-06-25T17:13:21+00:00">2021-06-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-07-11 02:59:07" itemprop="dateModified" datetime="2022-07-11T02:59:07+00:00">2022-07-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">研究筆記</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Git-資料夾結構"><a href="#Git-資料夾結構" class="headerlink" title="Git 資料夾結構"></a>Git 資料夾結構</h2><ul>
+<li><p>Git 的 Working Directory(工作目錄) &amp; Repository(版本庫)<br>在哪一個資料夾中使用 <code>git init</code> 該資料夾就是 Working Directory ，裡面的 .git 資料夾就是 Repository。<br><img src="https://i.imgur.com/XONf1lh.png" alt="Git 的 Working Directory &amp; Repository"></p>
+</li>
+<li><p>Git 的暫存區(又稱索引)(index ,stage ,cache)<br>這是一個存在 .git 資料夾下的一個暫存檔案(名為 index)，在使用 <code>git add .</code> 就是在操作這一個檔案。<br><img src="https://i.imgur.com/fRE3BZI.png" alt="Git 的暫存區域"></p>
+<span id="more"></span></li>
+</ul>
+<h2 id="工作目錄-的檔案"><a href="#工作目錄-的檔案" class="headerlink" title="工作目錄 的檔案"></a>工作目錄 的檔案</h2><h3 id="檔案狀態"><a href="#檔案狀態" class="headerlink" title="檔案狀態"></a>檔案狀態</h3><p>工作目錄 的每一個檔案只有兩個狀態 追蹤(tracked) 和 未追蹤(untracked) 檔案一定處於其中一個狀態，可再細分成:</p>
+<ul>
+<li>tracked (在最後一次的快照(snapshot) 中有這一個檔案)<ul>
+<li>unmodified</li>
+<li>modified</li>
+<li>staged</li>
+</ul>
+</li>
+<li>untracked (在 Working Directory 新增的檔案，該檔案並未存在於最後一次的快照)</li>
+</ul>
+<blockquote>
+<p><strong>快照(snapshot)</strong> 就是 Git 儲存 某一個檔案在某一個時間的內容。<br> <code>補充:</code> 將檔案加到 stage 時其實就已經產生該檔案的 snapshot ，只是在 commit 後才會永久儲存。</p>
+</blockquote>
+<p><code>git status</code> 就是用來查看 工作目錄 檔案處於哪一種狀態的指令:</p>
+<p><img src="https://i.imgur.com/7WIU790.png" alt="git status 查看檔案狀態"></p>
+<h3 id="忽略不需追蹤的檔案"><a href="#忽略不需追蹤的檔案" class="headerlink" title="忽略不需追蹤的檔案"></a>忽略不需追蹤的檔案</h3><h2 id="Git-紀錄版本簡易流程"><a href="#Git-紀錄版本簡易流程" class="headerlink" title="Git 紀錄版本簡易流程"></a>Git 紀錄版本簡易流程</h2><p>前面說過要把一個檔案交給 Git 需要 add 再 commit ，原因是:</p>
+<ol>
+<li>在執行 git add 時 Git 會把每一個檔案的內容各自壓縮成 SHA-1 讓 Git 看得懂我們對檔案做了什麼，同時壓縮後的檔案也被放在 <strong>index(暫存區)</strong> 。</li>
+<li>在 commit 時 Git 會把放在 index 的檔案加到 Repository 完成檔案異動的紀錄(版本)。</li>
+</ol>
+<p><img src="https://i.imgur.com/9m1IzIL.png" alt="圖像化 Git 流程(簡易版)"></p>
+<h2 id="Git-指令"><a href="#Git-指令" class="headerlink" title="Git 指令"></a>Git 指令</h2><p>以下紀錄我使用過的指令</p>
+<h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a><a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-reset">git reset</a></h3><blockquote>
+<p>Git 文件:  git-reset - Reset current HEAD to the specified state </p>
+</blockquote>
+<p>該指令可以處理以下幾種狀況:</p>
+<ol>
+<li>剛 commit 想反悔。</li>
+<li>commit 太瑣碎，想整理一下。</li>
+<li>最後 commit 的幾個版本有問題想直接拿掉。</li>
+</ol>
+<p>指令如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//直接指定要回到哪一個版本</span><br><span class="line">git reset &lt;SHA-1&gt; </span><br><span class="line"></span><br><span class="line">//回到相對於某一版本的前面</span><br><span class="line">git reset HEAD^   // cmd 要加雙引號 git reset <span class="string">&quot;HEAD^&quot;</span>，似乎是換行字元的關係?</span><br><span class="line">git reset master^ </span><br><span class="line">git reset &lt;SHA-1&gt;^ </span><br><span class="line">git reset HEAD~3  </span><br></pre></td></tr></table></figure>
+
+<p>在 reset 指令中還有模式可以選擇:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git reset --mixed HEAD^ //預設值</span><br><span class="line">git reset --soft  HEAD^</span><br><span class="line">git reset --hard  HEAD^</span><br></pre></td></tr></table></figure>
+
+<p>SourceTree 操作 git reset:<br><img src="https://i.imgur.com/cXmmdRt.png" alt="SourceTree 操作 git reset"></p>
+<h4 id="mixed"><a href="#mixed" class="headerlink" title=" --mixed "></a><code> --mixed </code></h4><ul>
+<li><p>下兩張圖可以看到新增的 3.txt 和 4.txt 還有修改中的 one.txt: </p>
+<ol>
+<li>其中 3.txt 在 reset 前已經被 stage 了，但 reset 完後沒有在 stage 區域 (證明 index 被清掉了)</li>
+<li>同時 reset 完後 “修改第一個檔案” 節點的 one.txt 和原本就在 unstage 區域的 one.txt 合併變成需要 git add . 的狀態。 (證明 後面幾個版本的檔案變更都回到 “工作區” 且 該變更尚未進到 Git 的 index)<br><img src="https://i.imgur.com/hXZ2EO7.png" alt="get reset mixed cmd"><br><img src="https://i.imgur.com/3RlDaq9.png" alt="get reset mixed SourceTree"></li>
+</ol>
+</li>
+<li><p>總結該模式會將:</p>
+<ol>
+<li>現有 index 的內容清掉 (也就是原本 stage 的檔案變回 unstage的狀態)</li>
+<li>移動 HEAD 到選擇的點</li>
+<li>把在選擇點之後的所有變更內容都變成尚未 stage 的狀態。</li>
+</ol>
+</li>
+</ul>
+<h4 id="soft"><a href="#soft" class="headerlink" title=" --soft "></a><code> --soft </code></h4><ul>
+<li><p>下兩張圖可以看到新增的 3.txt 和 4.txt 還有修改中的 one.txt: </p>
+<ol>
+<li>其中 3.txt 在 reset 前已經被 stage 了，在 reset 完後也沒有變化 stage (證明 index 沒任何更動)</li>
+<li>同時 reset 完後 one.txt 有一部分變成 “Changes to be committed” 狀態 (證明 後面幾個版本的檔案變更都回到 Git 的 index)</li>
+<li>在 unstage 區域也有一個 one.txt 這個是修改到一半沒 add 的部分，正好證明在 mixed 中 one.txt 是包含拆出來的 commit 和 reset 之前未 commit 步部分。<br><img src="https://i.imgur.com/t4HrPaK.png" alt="get reset soft cmd"><br><img src="https://i.imgur.com/Jjl0iy0.png" alt="get reset soft SourceTree"></li>
+</ol>
+</li>
+<li><p>總結該模式會將:<br>  <strong>該模式不會變更 index 和 working directory 的資料。</strong></p>
+<ol>
+<li>移動 HEAD 到選擇的點</li>
+<li>把在選擇點之後的所有變更內容都變成 “Changes to be committed” 狀態，也就是變更都被放在 index。</li>
+</ol>
+</li>
+</ul>
+<h4 id="hard"><a href="#hard" class="headerlink" title=" --hard "></a><code> --hard </code></h4><ul>
+<li>下兩張圖可以看到新增的 3.txt 和 4.txt 還有修改中的 one.txt: <ol>
+<li>其中 3.txt 在 reset 前已經被 stage 了，在 reset 完後直接消失 (證明 index 被清掉了)</li>
+<li>同時 reset 完後 one.txt  也直接消失 (證明 “選擇點” 以後的版本的檔案變更都直接被清掉了)</li>
+<li>4.txt 並未被清掉，因為這是一個新加入的檔案並未被 Git 追蹤 (Untracked files)。</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/b1mbZF1.png" alt="get reset soft cmd"><br><img src="https://i.imgur.com/WK4biWy.png" alt="get reset soft SourceTree"></p>
+<ul>
+<li>總結該模式會將:<ol>
+<li>在 stage 的檔案直接被清掉</li>
+<li>working directory 在”選擇點”之後有被 Git 追蹤的檔案的變更都清掉。</li>
+<li>移動 HEAD 到選擇的點</li>
+</ol>
+</li>
+</ul>
+<p>待續….</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ol>
+<li>&lt;&lt;為你自己學 Git&gt;&gt; 五倍紅寶石．高見龍</li>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/users/20004901/ironman/525">30 天精通 Git 版本控管</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E7%A0%94%E7%A9%B6%E7%AD%86%E8%A8%98/" rel="tag"><i class="fa fa-tag"></i> 研究筆記</a>
+              <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+              <a href="/tags/SourceTree/" rel="tag"><i class="fa fa-tag"></i> SourceTree</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/26/git-first/" rel="prev" title="Git -- 簡介、基本指令 & GUI介面">
+      <i class="fa fa-chevron-left"></i> Git -- 簡介、基本指令 & GUI介面
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/07/windows-docker-vscode/" rel="next" title="windows -- Docker -- vscode">
+      windows -- Docker -- vscode <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  
+  <div class="comments">
+  <script src="https://utteranc.es/client.js" repo="frank-fn10502/frank-fn10502.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script>
+  </div>
+  
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-%E8%B3%87%E6%96%99%E5%A4%BE%E7%B5%90%E6%A7%8B"><span class="nav-number">1.</span> <span class="nav-text">Git 資料夾結構</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E7%9B%AE%E9%8C%84-%E7%9A%84%E6%AA%94%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">工作目錄 的檔案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AA%94%E6%A1%88%E7%8B%80%E6%85%8B"><span class="nav-number">2.1.</span> <span class="nav-text">檔案狀態</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E4%B8%8D%E9%9C%80%E8%BF%BD%E8%B9%A4%E7%9A%84%E6%AA%94%E6%A1%88"><span class="nav-number">2.2.</span> <span class="nav-text">忽略不需追蹤的檔案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-%E7%B4%80%E9%8C%84%E7%89%88%E6%9C%AC%E7%B0%A1%E6%98%93%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">Git 紀錄版本簡易流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-%E6%8C%87%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">Git 指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git-reset"><span class="nav-number">4.1.</span> <span class="nav-text">git reset</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mixed"><span class="nav-number">4.1.1.</span> <span class="nav-text"> --mixed </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#soft"><span class="nav-number">4.1.2.</span> <span class="nav-text"> --soft </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hard"><span class="nav-number">4.1.3.</span> <span class="nav-text"> --hard </span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Frank Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/frank-fn10502" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;frank-fn10502" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Frank Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
