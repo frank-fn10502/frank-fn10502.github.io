@@ -22,8 +22,8 @@
 
   <meta name="description" content="vim 是一個古老的”文字編輯器”，其特點就是只使用鍵盤就可以寫 code ，這種手不離鍵盤的開發方式可以大幅加快開發速度。 但直接使用 vim 開發會相當於放棄 vscode 的各種方便功能，因此本篇文章採用 vscodevim 這一 extension 讓 vscode 可以支援 vim 的各種指法，目標是在開發時盡可能不要用到滑鼠，以下是我的設定。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim -- vscode -- setting">
-<meta property="og:url" content="https://frank-fn10502.github.io/2022/06/22/vim-vscode-setting/index.html">
+<meta property="og:title" content="vim -- vscode">
+<meta property="og:url" content="https://frank-fn10502.github.io/2022/06/22/vim-vscode/index.html">
 <meta property="og:site_name" content="Frank&#39;s Doc">
 <meta property="og:description" content="vim 是一個古老的”文字編輯器”，其特點就是只使用鍵盤就可以寫 code ，這種手不離鍵盤的開發方式可以大幅加快開發速度。 但直接使用 vim 開發會相當於放棄 vscode 的各種方便功能，因此本篇文章採用 vscodevim 這一 extension 讓 vscode 可以支援 vim 的各種指法，目標是在開發時盡可能不要用到滑鼠，以下是我的設定。">
 <meta property="og:locale" content="zh_TW">
@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://i.imgur.com/GgE6DZn.png">
 <meta property="og:image" content="https://i.imgur.com/wpNs1xi.png">
 <meta property="article:published_time" content="2022-06-22T18:40:59.000Z">
-<meta property="article:modified_time" content="2022-07-12T04:55:03.524Z">
+<meta property="article:modified_time" content="2022-07-12T06:07:18.915Z">
 <meta property="article:author" content="Frank Chen">
 <meta property="article:tag" content="vscode">
 <meta property="article:tag" content="vim">
@@ -43,7 +43,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/a0vqoKa.png">
 
-<link rel="canonical" href="https://frank-fn10502.github.io/2022/06/22/vim-vscode-setting/">
+<link rel="canonical" href="https://frank-fn10502.github.io/2022/06/22/vim-vscode/">
 
 
 <script id="page-configurations">
@@ -56,7 +56,7 @@
   };
 </script>
 
-  <title>vim -- vscode -- setting | Frank's Doc</title>
+  <title>vim -- vscode | Frank's Doc</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RBW2FTS6KN"></script>
     <script>
@@ -209,7 +209,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://frank-fn10502.github.io/2022/06/22/vim-vscode-setting/">
+    <link itemprop="mainEntityOfPage" href="https://frank-fn10502.github.io/2022/06/22/vim-vscode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -222,7 +222,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          vim -- vscode -- setting
+          vim -- vscode
         </h1>
 
         <div class="post-meta">
@@ -239,7 +239,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2022-07-12 04:55:03" itemprop="dateModified" datetime="2022-07-12T04:55:03+00:00">2022-07-12</time>
+                <time title="修改時間：2022-07-12 06:07:18" itemprop="dateModified" datetime="2022-07-12T06:07:18+00:00">2022-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -324,6 +324,20 @@
 </ul>
 <h3 id="sideBar-功能跳轉"><a href="#sideBar-功能跳轉" class="headerlink" title="sideBar 功能跳轉"></a>sideBar 功能跳轉</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// secondary sidebar toggle</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+alt+b&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.action.toggleAuxiliaryBar&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 显示文件资源管理器</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g e&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.files.action.focusFilesExplorer&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 显示TODO Tree</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g o&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;todo-tree-view.focus&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">//global search</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g f&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.action.findInFiles&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 显示debug</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g d&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.view.debug&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;viewContainer.workbench.view.debug.enabled&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span>   </span><br><span class="line"><span class="comment">// 显示版本控制</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g g&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.view.scm&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.scm.active&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="comment">// 打开最近记录</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+g h&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;workbench.action.openRecent&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="常用快捷"><a href="#常用快捷" class="headerlink" title="常用快捷"></a>常用快捷</h2><p>以下紀錄開發時用到的快捷鍵，包含 vim 的指法。</p>
+<h3 id="切換編輯區域"><a href="#切換編輯區域" class="headerlink" title="切換編輯區域"></a>切換編輯區域</h3><p>在編輯檔案時我最多將檔案分割成左右兩邊，鍵盤切換用 <code>ctrl + number(1 or 2)</code>。</p>
+<h3 id="編輯區域快速定位"><a href="#編輯區域快速定位" class="headerlink" title="編輯區域快速定位"></a>編輯區域快速定位</h3><ul>
+<li>區塊(function)跳轉: <code>ctrl + p</code> 輸入 <code>@</code> 就可以用 <code>alt + j or k</code> 跳轉到想要的區塊。</li>
+<li>上&#x2F;下滾動: 在 <code>normal</code> 模式中用 <code>ctrl + u or d</code> 可以上下移動半頁，可以提供比 <code>j or k</code> 更快的瀏覽編輯區。 (其他 vim 的翻頁功能被上面的設定攔截無法使用)</li>
+<li>跳到特定行數: 在 <code>normal</code> 模式中輸入 <code>:</code> 並輸入行數 or <code>先輸入行數</code> + <code>gg or G</code>。</li>
+<li>讓游標所在行 置中: 在 <code>normal</code> 模式輸入 <code>zz</code>。(<code>zt or zb</code> 分別為 <code>置頂 or 置底</code>)</li>
+<li>程式碼摺疊<ul>
+<li><code>ctrl k + ctrl number</code> 選擇想要折疊的深度。</li>
+<li><code>ctrl k + ctrk j</code> or <code>z + shift m</code> 全部展開。</li>
+<li><code>z + o</code> 只展開游標所在區域(一層)。</li>
+</ul>
+</li>
+</ul>
 <h2 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://github.com/HenryTSZ/hello-world/issues/53">vscode + vim 設定 1</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.blog.lasai.com.tw/2020/07/05/vscode-vim-mode/">vscode + vim 設定 2</a></li>
@@ -419,7 +433,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#extension-%E5%AE%89%E8%A3%9D"><span class="nav-number">1.</span> <span class="nav-text">extension 安裝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extension-%E8%A8%AD%E5%AE%9A"><span class="nav-number">2.</span> <span class="nav-text">extension 設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-easy-motion-mode"><span class="nav-number">2.1.</span> <span class="nav-text">vim easy motion mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8B%95%E4%B8%8D%E6%9C%83%E8%87%AA%E5%8B%95%E5%B1%95%E9%96%8B%E6%91%BA%E7%96%8A%E5%8D%80%E5%9F%9F"><span class="nav-number">2.2.</span> <span class="nav-text">移動不會自動展開摺疊區域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%93-vscode-%E6%8E%8C%E6%8F%A1%E9%9C%80%E8%A6%81%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%8D%B5"><span class="nav-number">2.3.</span> <span class="nav-text">讓 vscode 掌握需要的快捷鍵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-%E5%89%AA%E8%B2%BC%E7%B0%BF"><span class="nav-number">2.4.</span> <span class="nav-text">vim + 剪貼簿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vscodevim-normalMode-%E5%BF%AB%E6%8D%B7%E9%8D%B5%E8%A8%AD%E5%AE%9A"><span class="nav-number">2.5.</span> <span class="nav-text">vscodevim normalMode 快捷鍵設定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode-%E5%BF%AB%E6%8D%B7%E9%8D%B5%E8%A8%AD%E5%AE%9A"><span class="nav-number">3.</span> <span class="nav-text">vscode 快捷鍵設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#intellisense-amp-menu-%E4%B8%8A%E4%B8%8B%E9%81%B8%E6%93%87"><span class="nav-number">3.1.</span> <span class="nav-text">intellisense &amp; menu 上下選擇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file-explorer-%E6%AA%94%E6%A1%88%E6%93%8D%E4%BD%9C"><span class="nav-number">3.2.</span> <span class="nav-text">file explorer 檔案操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#peek-windows-focus-%E5%B7%A6%E5%8F%B3%E5%88%87%E6%8F%9B"><span class="nav-number">3.3.</span> <span class="nav-text">peek windows focus 左右切換</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sideBar-%E5%8A%9F%E8%83%BD%E8%B7%B3%E8%BD%89"><span class="nav-number">3.4.</span> <span class="nav-text">sideBar 功能跳轉</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">參考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#extension-%E5%AE%89%E8%A3%9D"><span class="nav-number">1.</span> <span class="nav-text">extension 安裝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extension-%E8%A8%AD%E5%AE%9A"><span class="nav-number">2.</span> <span class="nav-text">extension 設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-easy-motion-mode"><span class="nav-number">2.1.</span> <span class="nav-text">vim easy motion mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8B%95%E4%B8%8D%E6%9C%83%E8%87%AA%E5%8B%95%E5%B1%95%E9%96%8B%E6%91%BA%E7%96%8A%E5%8D%80%E5%9F%9F"><span class="nav-number">2.2.</span> <span class="nav-text">移動不會自動展開摺疊區域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%93-vscode-%E6%8E%8C%E6%8F%A1%E9%9C%80%E8%A6%81%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%8D%B5"><span class="nav-number">2.3.</span> <span class="nav-text">讓 vscode 掌握需要的快捷鍵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-%E5%89%AA%E8%B2%BC%E7%B0%BF"><span class="nav-number">2.4.</span> <span class="nav-text">vim + 剪貼簿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vscodevim-normalMode-%E5%BF%AB%E6%8D%B7%E9%8D%B5%E8%A8%AD%E5%AE%9A"><span class="nav-number">2.5.</span> <span class="nav-text">vscodevim normalMode 快捷鍵設定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vscode-%E5%BF%AB%E6%8D%B7%E9%8D%B5%E8%A8%AD%E5%AE%9A"><span class="nav-number">3.</span> <span class="nav-text">vscode 快捷鍵設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#intellisense-amp-menu-%E4%B8%8A%E4%B8%8B%E9%81%B8%E6%93%87"><span class="nav-number">3.1.</span> <span class="nav-text">intellisense &amp; menu 上下選擇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file-explorer-%E6%AA%94%E6%A1%88%E6%93%8D%E4%BD%9C"><span class="nav-number">3.2.</span> <span class="nav-text">file explorer 檔案操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#peek-windows-focus-%E5%B7%A6%E5%8F%B3%E5%88%87%E6%8F%9B"><span class="nav-number">3.3.</span> <span class="nav-text">peek windows focus 左右切換</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sideBar-%E5%8A%9F%E8%83%BD%E8%B7%B3%E8%BD%89"><span class="nav-number">3.4.</span> <span class="nav-text">sideBar 功能跳轉</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7"><span class="nav-number">4.</span> <span class="nav-text">常用快捷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8F%9B%E7%B7%A8%E8%BC%AF%E5%8D%80%E5%9F%9F"><span class="nav-number">4.1.</span> <span class="nav-text">切換編輯區域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B7%A8%E8%BC%AF%E5%8D%80%E5%9F%9F%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8D"><span class="nav-number">4.2.</span> <span class="nav-text">編輯區域快速定位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">參考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
