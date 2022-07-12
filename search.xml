@@ -460,8 +460,8 @@
     <title>vim -- vscode -- setting</title>
     <url>/2022/06/22/vim-vscode-setting/</url>
     <content><![CDATA[<p><img src="https://i.imgur.com/a0vqoKa.png" alt="vs vim"></p>
-<p>vim 是一個古老的”文字編輯器”，之所以想到 vim 主要是因為想要提升開發的速度，而最好的方法之一就是讓手盡量不要離開鍵盤，vim 正是一套只使用鍵盤就可開始開發的工具。</p>
-<p>但有鑑於直接使用 vim 開發會需要放棄正在使用的 vscode 的各種方便功能，因此本篇文章會著重在將 vim 融入到 vscode 的開發中 &amp; 快捷鍵的設定。</p>
+<p>vim 是一個古老的”文字編輯器”，其特點就是只使用鍵盤就可以寫 code ，這種手不離鍵盤的開發方式可以大幅加快開發速度。</p>
+<p>但直接使用 vim 開發會相當於放棄 vscode 的各種方便功能，因此本篇文章採用 vscodevim 這一 extension 讓 vscode 可以支援 vim 的各種指法，目標是在開發時盡可能不要用到滑鼠，以下是我的設定。</p>
 <span id="more"></span>
 
 <h2 id="extension-安裝"><a href="#extension-安裝" class="headerlink" title="extension 安裝"></a>extension 安裝</h2><ul>
