@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://i.imgur.com/9B1b34W.png">
 <meta property="article:published_time" content="2022-03-08T16:24:46.000Z">
-<meta property="article:modified_time" content="2022-07-26T07:17:58.378Z">
+<meta property="article:modified_time" content="2022-07-26T08:08:18.964Z">
 <meta property="article:author" content="Frank Chen">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="開發流程">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2022-07-26 07:17:58" itemprop="dateModified" datetime="2022-07-26T07:17:58+00:00">2022-07-26</time>
+                <time title="修改時間：2022-07-26 08:08:18" itemprop="dateModified" datetime="2022-07-26T08:08:18+00:00">2022-07-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -284,6 +284,16 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// devcontainer.json</span></span><br><span class="line"><span class="comment">// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:</span></span><br><span class="line"><span class="comment">// https://github.com/microsoft/vscode-dev-containers/tree/v0.224.2/containers/javascript-node</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;myBlog&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;dockerfile&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Dockerfile&quot;</span></span><br><span class="line">	<span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="comment">// Set *default* container specific settings.json values on container create.</span></span><br><span class="line">	<span class="attr">&quot;settings&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="comment">// Add the IDs of extensions you want installed when the container is created.</span></span><br><span class="line">	<span class="attr">&quot;extensions&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;containerUser&quot;</span><span class="punctuation">:</span> <span class="string">&quot;frank&quot;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//可以參考 https://code.visualstudio.com/docs/remote/devcontainerjson-reference#_lifecycle-scripts</span></span><br><span class="line">	<span class="attr">&quot;postCreateCommand&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npm install &amp;&amp; git clone https://github.com/theme-next/hexo-theme-next themes/next || true&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>這樣就完成了，只需要加入這兩個檔案 vscode 就可以用 container 的方式開啟專案了 ヽ(●´∀&#96;●)ﾉ 。</p>
+<h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>使用 docker 寫 blog 有一段時間了，有碰到一些問題，以下做個紀錄</p>
+<h3 id="使用-hexo-s-指令不會即時更新"><a href="#使用-hexo-s-指令不會即時更新" class="headerlink" title="使用 hexo s 指令不會即時更新"></a>使用 hexo s 指令不會即時更新</h3><p>我的解法是將專案放到 wsl2 中執行，準確的說是放在<code>基於 wsl2 的 ubuntu20.0</code>中，原因是:</p>
+<ul>
+<li>單純使用上述的方法會發現 hexo 相關的指令執行速度都很緩慢。</li>
+<li><code>hexo s</code> 的 server 不會同步更新更改的部分</li>
+</ul>
+<p>因此讓我想到官方文件中有提到上述的 devcontainer 會使用 mount 將 windows 本地的資料接到 container 中，這時因為 linux &amp; windows 的檔案結構差異會導致 I&#x2F;O 效能十分糟糕。( <a target="_blank" rel="noopener" href="https://code.visualstudio.com/remote/advancedcontainers/improve-performance">官方文件</a> )</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/4571">Hexo Server does not update the content after page refresh #4571</a><br>文中有提到一些解法，但我認為有些本末倒置，但也可以參考看看。</p>
+</blockquote>
 
     </div>
 
@@ -378,7 +388,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B5%90%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text">結果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5-devcontainer"><span class="nav-number">2.</span> <span class="nav-text">加入 .devcontainer</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B5%90%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text">結果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5-devcontainer"><span class="nav-number">2.</span> <span class="nav-text">加入 .devcontainer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C"><span class="nav-number">3.</span> <span class="nav-text">問題</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-hexo-s-%E6%8C%87%E4%BB%A4%E4%B8%8D%E6%9C%83%E5%8D%B3%E6%99%82%E6%9B%B4%E6%96%B0"><span class="nav-number">3.1.</span> <span class="nav-text">使用 hexo s 指令不會即時更新</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
