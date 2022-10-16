@@ -164,8 +164,8 @@
   </entry>
   <entry>
     <title>Hexo -- Docker -- vscode</title>
-    <url>/docker/hexo-docker-vscode/</url>
-    <content><![CDATA[<p>在 <a href="/docker/windows-docker-vscode/" title="windows -- Docker -- vscode">windows -- Docker -- vscode</a> 中有提到使用 docker &amp; vscode 的開發流程，因此本篇文章會將 hexo blog 也轉換成 container 的形式，方便本機的環境管理和專案的可攜帶性。</p>
+    <url>/Docker/hexo-docker-vscode/</url>
+    <content><![CDATA[<p>在 <a href="/Docker/windows-docker-vscode/" title="windows -- Docker -- vscode">windows -- Docker -- vscode</a> 中有提到使用 docker &amp; vscode 的開發流程，因此本篇文章會將 hexo blog 也轉換成 container 的形式，方便本機的環境管理和專案的可攜帶性。</p>
 <h2 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h2><ol>
 <li>專案從 github 拉下來: <code>git clone ....</code></li>
 <li>vscode 彈出可以開啟 container，點選 reopen in container</li>
@@ -197,13 +197,13 @@
 </blockquote>
 ]]></content>
       <categories>
-        <category>docker</category>
+        <category>Docker</category>
       </categories>
       <tags>
         <tag>Hexo</tag>
         <tag>開發流程</tag>
-        <tag>docker</tag>
-        <tag>vscode</tag>
+        <tag>Docker</tag>
+        <tag>Vscode</tag>
       </tags>
   </entry>
   <entry>
@@ -236,8 +236,8 @@
         <category>Hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
-        <tag>github action</tag>
+        <tag>Hexo</tag>
+        <tag>Github Action</tag>
       </tags>
   </entry>
   <entry>
@@ -437,13 +437,13 @@
       </categories>
       <tags>
         <tag>開發流程</tag>
-        <tag>vscode</tag>
+        <tag>Vscode</tag>
         <tag>Vim</tag>
       </tags>
   </entry>
   <entry>
     <title>windows -- Docker -- vscode</title>
-    <url>/docker/windows-docker-vscode/</url>
+    <url>/Docker/windows-docker-vscode/</url>
     <content><![CDATA[<p>目前使用 wsl2 的 docker 加上 vscode 的開發流程有一段時間了，因此寫下這篇紀錄環境的安裝，目前使用過的語言和框架:</p>
 <ul>
 <li>python、tensorflow-gpu</li>
@@ -519,13 +519,13 @@
 </ol>
 ]]></content>
       <categories>
-        <category>docker</category>
+        <category>Docker</category>
       </categories>
       <tags>
         <tag>新手上路</tag>
         <tag>開發流程</tag>
-        <tag>docker</tag>
-        <tag>vscode</tag>
+        <tag>Docker</tag>
+        <tag>Vscode</tag>
       </tags>
   </entry>
 </search>
