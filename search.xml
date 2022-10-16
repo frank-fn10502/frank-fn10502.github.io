@@ -207,6 +207,40 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo -- Github Action</title>
+    <url>/hexo/hexo-githubAction/</url>
+    <content><![CDATA[<a href="/Hexo/hexo-blog/" title="在我的第一篇 blog">在我的第一篇 blog</a> 中有說到每一次要佈署 blog 都需要在命令列下指令。
+<p>在寫了一段時間的 blog 之後想要簡化這一流程:</p>
+<ul>
+<li>目前: 寫完 blog –&gt; <code>hexo g -d</code> –&gt; git commit… –&gt; git push… (私有的 repo)</li>
+<li>目標: 寫完 blog –&gt; git commit… –&gt; git push… (私有的 repo) –&gt; CI&#x2F;CD 自動佈署</li>
+</ul>
+<p>要達成這一目的就不得不提到 <code>Github Action</code> ，一個 github 內建的 自動化工具。</p>
+<span id="more"></span>
+
+<h2 id="Github-Action-收費機制"><a href="#Github-Action-收費機制" class="headerlink" title=" Github Action 收費機制 "></a><a href="https://docs.github.com/cn/billing/managing-billing-for-github-actions/about-billing-for-github-actions"> Github Action 收費機制 </a></h2><p>簡單來說如下:</p>
+<ul>
+<li>public repo: free</li>
+<li>private repo(Github free): 500MB(storage), 2,000 min(per month)</li>
+</ul>
+<h2 id="Github-Action-設置"><a href="#Github-Action-設置" class="headerlink" title="Github Action 設置"></a>Github Action 設置</h2><p>設定完之後只運作了一星期左右，後續有更動會同步更新此 blog。</p>
+<h3 id="設定-secrets"><a href="#設定-secrets" class="headerlink" title="設定 secrets"></a>設定 secrets</h3><ul>
+<li><p>我是使用 github 的 Personal access tokens:<br>  點選右上角頭像 –&gt; settings –&gt; developer settings –&gt; Personal access tokens –&gt; Generate new token –&gt; 複製生成的一串文字(要注意刷新頁面就看不到了)</p>
+</li>
+<li><p>private repo 設定 secrets<br>  到放置 hexo 的 private repo –&gt; settings –&gt; sectets –&gt; Actions –&gt; New repository secret。<br>  如圖， HEXO_DEPLOY 這名稱可以隨意更改，但要記住這一名稱<br>  <img src="https://i.imgur.com/CLun30H.png"></p>
+</li>
+</ul>
+<h3 id="撰寫-yml-檔案"><a href="#撰寫-yml-檔案" class="headerlink" title="撰寫 ***.yml 檔案"></a>撰寫 ***.yml 檔案</h3><p>Github Action 的設定十分簡單，只要在專案中加入特定檔案即可:<br>如圖，新增 .github 資料夾 –&gt; 在裡面再新增 workflows 資料夾 –&gt; 最後新增 ***.yml 檔案並撰寫流程，推上 github 他就會依照檔案內容跑流程。<br><img src="https://i.imgur.com/adWAiOY.png"></p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>github action</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo Theme -- NexT 進階配置</title>
     <url>/Hexo/hexo-theme-NexT/</url>
     <content><![CDATA[<p>本文章使用的 Hexo Theme NexT 版本為 v7.8.0。</p>
