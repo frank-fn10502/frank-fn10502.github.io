@@ -208,7 +208,7 @@
   </entry>
   <entry>
     <title>Hexo -- Github Action</title>
-    <url>/hexo/hexo-githubAction/</url>
+    <url>/Hexo/hexo-githubAction/</url>
     <content><![CDATA[<a href="/Hexo/hexo-blog/" title="在我的第一篇 blog">在我的第一篇 blog</a> 中有說到每一次要佈署 blog 都需要在命令列下指令。
 <p>在寫了一段時間的 blog 之後想要簡化這一流程:</p>
 <ul>
@@ -233,7 +233,7 @@
 <h3 id="撰寫-yml-檔案"><a href="#撰寫-yml-檔案" class="headerlink" title="撰寫 ***.yml 檔案"></a>撰寫 ***.yml 檔案</h3><p>Github Action 的設定十分簡單，只要在專案中加入特定檔案即可:<br>如圖，新增 .github 資料夾 –&gt; 在裡面再新增 workflows 資料夾 –&gt; 最後新增 ***.yml 檔案並撰寫流程，推上 github 他就會依照檔案內容跑流程。<br><img src="https://i.imgur.com/adWAiOY.png"></p>
 ]]></content>
       <categories>
-        <category>hexo</category>
+        <category>Hexo</category>
       </categories>
       <tags>
         <tag>hexo</tag>
